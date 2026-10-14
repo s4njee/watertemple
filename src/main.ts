@@ -1,4 +1,5 @@
 import { createGpuSession } from './gpu/device.ts';
+import './gpu/shader-overlay.css';
 import { mountApp } from './shell/app.ts';
 
 if (import.meta.env.DEV) {

@@ -1,5 +1,4 @@
 import type { GpuFailureReason } from './device.ts';
-import './fallback.css';
 
 export interface FallbackOptions {
   reason: GpuFailureReason;

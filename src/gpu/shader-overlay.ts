@@ -1,4 +1,3 @@
-import './shader-overlay.css';
 import {
   diagnosticExcerpt,
   getDiagnostics,
