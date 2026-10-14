@@ -2,6 +2,8 @@ import type { EffectModule } from '../effects/types.ts';
 import type { GpuSession } from '../gpu/device.ts';
 import { createEffectHost, type EffectHost, type EffectHostOptions } from './host.ts';
 
+export { createGpuSession, type GpuSession, type GpuSessionOptions } from '../gpu/device.ts';
+
 export {
   createEffectHost,
   type EffectHost,

@@ -26,13 +26,18 @@ readable.
 
 ## Use one effect
 
+The package is published as `@mk7s/watertemple`:
+
+```sh
+npm install @mk7s/watertemple @mk7s/hologpu-temple-core
+```
+
 Every effect is a self-contained ES module with a declared contract: metadata, a
 parameter schema, presets, and a `create` that returns `{ resize, frame, destroy }`.
-The demo shell owns the `GPUDevice`, the command encoder and the target view, so
-an effect can be lifted into another project:
+Import it from its subpath and drive it from a `GPUDevice` you own:
 
 ```ts
-import calmLake from './src/effects/calm-lake/index.ts';
+import calmLake from '@mk7s/watertemple/effects/calm-lake';
 
 const effect = await calmLake.create({ device, format, canvas, params, profiler });
 effect.resize(width, height, dpr);
@@ -42,9 +47,18 @@ effect.frame({ time, delta }, encoder, target);
 effect.destroy();
 ```
 
-A public library entry point (`mountEffect`) is being added as part of the
-[holofx](https://github.com/s4njee/holofx) work (story 3.3); today the mounting
-code lives in `src/shell`. See the per-effect `notes.md` for the current shape and
+Or let the host own the loop; it creates no DOM and imports no gallery code:
+
+```ts
+import { createGpuSession, mount } from '@mk7s/watertemple';
+import calmLake from '@mk7s/watertemple/effects/calm-lake';
+
+const session = await createGpuSession();
+const host = mount(session, canvas, calmLake);
+// later: host.destroy();
+```
+
+Both entries ship with types. See the per-effect `notes.md` for the current shape and
 cost.
 
 ## Layout
