@@ -17,7 +17,9 @@
     "study:ui": "UI_STUDY=docs/ui-cost-study.json vitest run tests/ui-study.test.ts --maxWorkers=1",
     "study:ocean": "OCEAN_STUDY=docs/ocean-cost-study.json vitest run tests/ocean-study.test.ts --maxWorkers=1",
     "study:weather": "WEATHER_STUDY=docs/weather-cost-study.json vitest run tests/weather-study.test.ts --maxWorkers=1",
-    "report:weather": "node scripts/weather-report.mjs"
+    "report:weather": "node scripts/weather-report.mjs",
+    "prebuild": "npm run registry",
+    "registry": "node scripts/registry.mjs"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
