@@ -34,6 +34,7 @@
     "webgpu": "^0.6.2"
   },
   "dependencies": {
+    "@mk7s/hologpu-temple-core": "^0.1.1",
     "marked": "^18.1.0",
     "shiki": "^4.5.0",
     "tweakpane": "^4.0.5",
