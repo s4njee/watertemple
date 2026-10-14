@@ -12,7 +12,7 @@ import { createSpectralOcean } from './fft.ts';
 import { createBuoyancyReadback, BUOY_POINTS } from './buoyancy.ts';
 import { createRiverFlowMap } from './flow.ts';
 import { createWaterfallSpray } from './spray.ts';
-import code from './scene.wgsl?raw';
+import code from './scene.wgsl';
 const Params = defineUniformStruct('OceanParams', {
   vp: 'mat4x4f',
   inv_vp: 'mat4x4f',
@@ -201,7 +201,7 @@ export function oceanEffect(meta: EffectMeta, mode: OceanMode) {
       const uniforms = createUniformBuffer(device, Params, `${meta.id} scene`);
       const module = createShader(device, {
         label: 'ocean/scene.wgsl',
-        code,
+        code: code.code,
         chunks: { 'scene-params.wgsl': Params.wgsl },
       });
       const visibility = GPUShaderStage.VERTEX | GPUShaderStage.FRAGMENT;
@@ -245,7 +245,7 @@ export function oceanEffect(meta: EffectMeta, mode: OceanMode) {
           ? createFullscreenPipeline(device, {
               fragment: {
                 label: 'lake planar reflection',
-                code,
+                code: code.code,
                 chunks: { 'scene-params.wgsl': Params.wgsl },
               },
               entryPoint: 'reflection',
@@ -304,7 +304,7 @@ export function oceanEffect(meta: EffectMeta, mode: OceanMode) {
           ? createFullscreenPipeline(device, {
               fragment: {
                 label: 'waterline grading',
-                code,
+                code: code.code,
                 chunks: { 'scene-params.wgsl': Params.wgsl },
               },
               entryPoint: 'waterline',

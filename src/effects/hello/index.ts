@@ -1,7 +1,7 @@
 import { createFullscreenPipeline, renderFullscreen } from '../../gpu/fullscreen.ts';
 import { createUniformBuffer, defineUniformStruct } from '../../gpu/uniforms.ts';
 import { defineEffect } from '../types.ts';
-import shader from './hello.wgsl?raw';
+import shader from './hello.wgsl';
 import { meta } from './meta.ts';
 
 const Params = defineUniformStruct('Params', {
@@ -28,7 +28,11 @@ export const effect = defineEffect({
   async create({ device, format, params, profiler }) {
     const uniforms = createUniformBuffer(device, Params, 'hello params');
     const pipeline = createFullscreenPipeline(device, {
-      fragment: { label: 'hello/hello.wgsl', code: shader, chunks: { 'params.wgsl': Params.wgsl } },
+      fragment: {
+        label: 'hello/hello.wgsl',
+        code: shader.code,
+        chunks: { ...shader.chunks, 'params.wgsl': Params.wgsl },
+      },
       format,
     });
     const bindGroup = device.createBindGroup({

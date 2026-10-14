@@ -3,9 +3,9 @@ import { noProfiler, type PassProfiler } from '../profiler.ts';
 import { renderFullscreen } from '../fullscreen.ts';
 import { createShader } from '../shader.ts';
 import { createUniformBuffer, defineUniformStruct, uniformArray } from '../uniforms.ts';
-import computeSource from './heightfield-compute.wgsl?raw';
-import coreSource from './heightfield-core.wgsl?raw';
-import renderSource from './heightfield-render.wgsl?raw';
+import computeSource from './heightfield-compute.wgsl';
+import coreSource from './heightfield-core.wgsl';
+import renderSource from './heightfield-render.wgsl';
 import { createObstacleMask, type ObstacleMask } from './obstacles.ts';
 
 // The heightfield solver (story 5.1): a discrete 2D wave equation on a grid whose state lives in
@@ -212,10 +212,16 @@ function createPipelines(device: GPUDevice, kind: HeightfieldKind): Pipelines {
     label: `heightfield ${kind} pipeline layout`,
     bindGroupLayouts: [layout],
   });
+  const shader = kind === 'render' ? renderSource : computeSource;
   const module = createShader(device, {
     label: `sim/heightfield-${kind}.wgsl`,
-    code: kind === 'render' ? renderSource : computeSource,
-    chunks: { 'sim_params.wgsl': SimParams.wgsl, 'sim_core.wgsl': coreSource },
+    code: shader.code,
+    chunks: {
+      ...shader.chunks,
+      'sim_params.wgsl': SimParams.wgsl,
+      'sim_core.wgsl': coreSource.code,
+      ...coreSource.chunks,
+    },
   });
 
   const make = (name: 'splat' | 'step' | 'resolve'): Pipeline =>

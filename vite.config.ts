@@ -1,5 +1,6 @@
 import { readFileSync } from 'node:fs';
 import { defineConfig } from 'vitest/config';
+import { wgsl } from './vite-plugin-wgsl.ts';
 
 export default defineConfig({
   // Static hosts that serve from a sub-path (e.g. GitHub Pages) set BASE_PATH at build time.
@@ -27,6 +28,7 @@ export default defineConfig({
     },
   },
   plugins: [
+    wgsl(),
     {
       name: 'ui-research-artifacts',
       generateBundle() {

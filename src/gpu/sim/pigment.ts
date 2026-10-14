@@ -2,9 +2,9 @@ import { noProfiler, type PassProfiler } from '../profiler.ts';
 import { createShader } from '../shader.ts';
 import { createUniformBuffer, defineUniformStruct } from '../uniforms.ts';
 import type { Fluid } from './fluid.ts';
-import flowSource from './pigment-flow.wgsl?raw';
-import stepSource from './pigment-step.wgsl?raw';
-import waterSource from './pigment-water.wgsl?raw';
+import flowSource from './pigment-flow.wgsl';
+import stepSource from './pigment-step.wgsl';
+import waterSource from './pigment-water.wgsl';
 
 // The pigment layer (story 6.6): what ink does in water and on paper, as passes on the dye grid of the
 // stable-fluids solver (fluid.ts). The solver advects the pigment; this adds
@@ -364,11 +364,12 @@ function getModule(
   let module = modules.get(key);
   if (!module) {
     // The step shader is written for rgba16float; the 32-bit variant is the same text with the format swapped.
-    const code = { step: stepSource, water: waterSource, flow: flowSource }[source];
+    const shader = { step: stepSource, water: waterSource, flow: flowSource }[source];
     module = createShader(device, {
       label: `sim/pigment-${source}.wgsl${format === 'rgba16float' ? '' : ` (${format})`}`,
-      code: source === 'step' ? code.replaceAll('rgba16float', format) : code,
+      code: source === 'step' ? shader.code.replaceAll('rgba16float', format) : shader.code,
       chunks: {
+        ...shader.chunks,
         'pigment_uniforms.wgsl': PigmentUniforms.wgsl,
         'water_uniforms.wgsl': WaterUniforms.wgsl,
       },

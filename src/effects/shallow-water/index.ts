@@ -33,7 +33,7 @@ import {
   type ScenarioId,
   type ScenarioInfo,
 } from './scenarios.ts';
-import sceneShader from './shallow.wgsl?raw';
+import sceneShader from './shallow.wgsl';
 
 const SceneParams = defineUniformStruct('SceneParams', {
   sun: 'vec3f',
@@ -397,8 +397,8 @@ export const effect = defineEffect({
     });
     const module = createShader(device, {
       label: 'shallow-water/shallow.wgsl',
-      code: sceneShader,
-      chunks: { 'scene_params.wgsl': SceneParams.wgsl },
+      code: sceneShader.code,
+      chunks: { ...sceneShader.chunks, 'scene_params.wgsl': SceneParams.wgsl },
     });
     const pipelineLayout = device.createPipelineLayout({
       label: 'shallow water pipeline layout',

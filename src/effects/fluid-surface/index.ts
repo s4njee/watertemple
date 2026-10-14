@@ -25,7 +25,7 @@ import { createShader } from '../../gpu/shader.ts';
 import { createRenderTarget } from '../../gpu/targets.ts';
 import { defineEffect } from '../types.ts';
 import { meta } from './meta.ts';
-import sceneShader from './scene.wgsl?raw';
+import sceneShader from './scene.wgsl';
 import {
   createSources,
   naturalRadius,
@@ -33,7 +33,7 @@ import {
   thicknessGain,
   type SourceName,
 } from './sources.ts';
-import splitShader from './split.wgsl?raw';
+import splitShader from './split.wgsl';
 
 const COLOR_FORMAT: GPUTextureFormat = 'rgba16float';
 const DEPTH_FORMAT = 'depth32float';
@@ -324,7 +324,7 @@ export const effect = defineEffect({
     // The sky and the floor are drawn inside the forward pass, before the container.
     const sceneModule = createShader(device, {
       label: 'fluid-surface/scene.wgsl',
-      code: sceneShader,
+      code: sceneShader.code,
       chunks: SCENE_STRUCT_CHUNKS,
     });
     const layout = device.createPipelineLayout({ bindGroupLayouts: [renderer.viewLayout] });
@@ -348,7 +348,11 @@ export const effect = defineEffect({
     });
 
     const splitPipeline = createFullscreenPipeline(device, {
-      fragment: { label: 'fluid-surface/split.wgsl', code: splitShader },
+      fragment: {
+        label: 'fluid-surface/split.wgsl',
+        code: splitShader.code,
+        chunks: { ...splitShader.chunks },
+      },
       format: COLOR_FORMAT,
     });
     const splitTarget = createRenderTarget(device, {

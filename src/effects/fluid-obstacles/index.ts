@@ -18,8 +18,8 @@ import {
 import { createUniformBuffer, defineUniformStruct } from '../../gpu/uniforms.ts';
 import { createDemoElements, type DemoElements } from '../ripple-dom/demo.ts';
 import { defineEffect } from '../types.ts';
-import displayShader from './display.wgsl?raw';
-import inletShader from './inlet.wgsl?raw';
+import displayShader from './display.wgsl';
+import inletShader from './inlet.wgsl';
 import { meta } from './meta.ts';
 import { SCENES, sceneShapes, type Scene } from './scenes.ts';
 
@@ -283,16 +283,20 @@ export const effect = defineEffect({
     const displayPipeline = createFullscreenPipeline(device, {
       fragment: {
         label: 'fluid-obstacles/display.wgsl',
-        code: displayShader,
-        chunks: { ...OBSTACLE_CHUNKS, 'display_params.wgsl': DisplayParams.wgsl },
+        code: displayShader.code,
+        chunks: {
+          ...displayShader.chunks,
+          ...OBSTACLE_CHUNKS,
+          'display_params.wgsl': DisplayParams.wgsl,
+        },
       },
       format,
     });
     const inletPipeline = createFullscreenPipeline(device, {
       fragment: {
         label: 'fluid-obstacles/inlet.wgsl',
-        code: inletShader,
-        chunks: { 'inlet_params.wgsl': InletParams.wgsl },
+        code: inletShader.code,
+        chunks: { ...inletShader.chunks, 'inlet_params.wgsl': InletParams.wgsl },
       },
       format: 'rgba16float',
     });

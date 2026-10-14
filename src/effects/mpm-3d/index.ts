@@ -48,7 +48,7 @@ import { createRenderTarget } from '../../gpu/targets.ts';
 import { createUniformBuffer, defineUniformStruct } from '../../gpu/uniforms.ts';
 import { defineEffect } from '../types.ts';
 import { meta } from './meta.ts';
-import sceneShader from './scene.wgsl?raw';
+import sceneShader from './scene.wgsl';
 
 const COLOR_FORMAT: GPUTextureFormat = 'rgba16float';
 const DEPTH_FORMAT = 'depth32float';
@@ -495,8 +495,8 @@ export const effect = defineEffect({
     const roomBuffer = createUniformBuffer(device, RoomUniform, 'mpm room');
     const roomModule = createShader(device, {
       label: 'mpm-3d/scene.wgsl',
-      code: sceneShader,
-      chunks: { ...SCENE_STRUCT_CHUNKS, 'mpm_scene.wgsl': RoomUniform.wgsl },
+      code: sceneShader.code,
+      chunks: { ...sceneShader.chunks, ...SCENE_STRUCT_CHUNKS, 'mpm_scene.wgsl': RoomUniform.wgsl },
     });
     const roomLayout = device.createBindGroupLayout({
       label: 'mpm room layout',

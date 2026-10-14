@@ -2,7 +2,7 @@ import { createFullscreenPipeline, renderFullscreen } from '../../gpu/fullscreen
 import { createUniformBuffer, defineUniformStruct } from '../../gpu/uniforms.ts';
 import { defineEffect } from '../types.ts';
 import { meta } from './meta.ts';
-import shader from './sun-glint.wgsl?raw';
+import shader from './sun-glint.wgsl';
 
 const Params = defineUniformStruct('Params', {
   time: 'f32',
@@ -169,8 +169,8 @@ export const effect = defineEffect({
     const pipeline = createFullscreenPipeline(device, {
       fragment: {
         label: 'sun-glint/sun-glint.wgsl',
-        code: shader,
-        chunks: { 'params.wgsl': Params.wgsl },
+        code: shader.code,
+        chunks: { ...shader.chunks, 'params.wgsl': Params.wgsl },
       },
       format,
     });

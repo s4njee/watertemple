@@ -25,11 +25,11 @@ import { createOrbitControl, createOrbitState, orbitEye } from '../../gpu/scene/
 import { createShader } from '../../gpu/shader.ts';
 import { createUniformBuffer, defineUniformStruct } from '../../gpu/uniforms.ts';
 import { defineEffect } from '../types.ts';
-import fieldWgsl from './field.wgsl?raw';
+import fieldWgsl from './field.wgsl';
 import { LANTERN_CAMERA, LANTERN_EMITTER_Y } from './lantern-layout.ts';
 import { meta } from './meta.ts';
-import pickWgsl from './pick.wgsl?raw';
-import sceneWgsl from './scene.wgsl?raw';
+import pickWgsl from './pick.wgsl';
+import sceneWgsl from './scene.wgsl';
 
 // The particles demo: a spray of up to a million particles carried by a curl-noise flow, drawn as billboards,
 // with the neighbour grid of src/gpu/particles/ built every frame when a view asks for it. The point of the
@@ -268,8 +268,8 @@ export const effect = defineEffect({
     // --- Backdrop and box --------------------------------------------------------------------------
     const sceneModule = createShader(device, {
       label: 'particles/scene.wgsl',
-      code: sceneWgsl,
-      chunks: { 'scene_params.wgsl': SceneParams.wgsl },
+      code: sceneWgsl.code,
+      chunks: { ...sceneWgsl.chunks, 'scene_params.wgsl': SceneParams.wgsl },
     });
     const backdropPipeline = device.createRenderPipeline({
       label: 'particles backdrop',
@@ -301,7 +301,7 @@ export const effect = defineEffect({
     const pickChunks = { 'pick_params.wgsl': PickParams.wgsl };
     const pickDistance = createComputePass(device, {
       label: 'particles/pick.wgsl',
-      code: pickWgsl,
+      code: pickWgsl.code,
       chunks: pickChunks,
       entryPoint: 'pick_distance',
       profiler,
@@ -309,7 +309,7 @@ export const effect = defineEffect({
     });
     const pickIndex = createComputePass(device, {
       label: 'particles/pick.wgsl',
-      code: pickWgsl,
+      code: pickWgsl.code,
       chunks: pickChunks,
       entryPoint: 'pick_index',
       profiler,

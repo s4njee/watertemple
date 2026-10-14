@@ -2,7 +2,7 @@ import type { ParticleSet } from '../../gpu/particles/types.ts';
 import type { PassProfiler } from '../../gpu/profiler.ts';
 import { createShader } from '../../gpu/shader.ts';
 import { createUniformBuffer, defineUniformStruct } from '../../gpu/uniforms.ts';
-import sourcesShader from './sources.wgsl?raw';
+import sourcesShader from './sources.wgsl';
 
 export const SOURCES = ['ball', 'wave', 'stream'] as const;
 export type SourceName = (typeof SOURCES)[number];
@@ -55,8 +55,8 @@ export interface Sources {
 export function createSources(device: GPUDevice): Sources {
   const module = createShader(device, {
     label: 'fluid-surface/sources.wgsl',
-    code: sourcesShader,
-    chunks: { 'source-params.wgsl': SourceParams.wgsl },
+    code: sourcesShader.code,
+    chunks: { ...sourcesShader.chunks, 'source-params.wgsl': SourceParams.wgsl },
   });
   const pipeline = device.createComputePipeline({
     label: 'fluid-surface sources',

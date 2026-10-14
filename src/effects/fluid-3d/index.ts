@@ -19,11 +19,11 @@ import { createRenderTarget } from '../../gpu/targets.ts';
 import { createShader } from '../../gpu/shader.ts';
 import { createUniformBuffer, defineUniformStruct } from '../../gpu/uniforms.ts';
 import { defineEffect } from '../types.ts';
-import compositeShader from './composite.wgsl?raw';
-import inkShader from './ink.wgsl?raw';
-import marchShader from './march.wgsl?raw';
+import compositeShader from './composite.wgsl';
+import inkShader from './ink.wgsl';
+import marchShader from './march.wgsl';
 import { meta } from './meta.ts';
-import prepShader from './volume-prep.wgsl?raw';
+import prepShader from './volume-prep.wgsl';
 
 /** Everything the three shaders read about the scene, in one block (generated into march_params.wgsl). */
 const MarchParams = defineUniformStruct('MarchParams', {
@@ -431,18 +431,22 @@ export const effect = defineEffect({
     const toWorld = (p: Vec3): Vec3 => [p[0] - size()[0] / 2, p[1], p[2] - size()[2] / 2];
 
     // --- Pipelines ------------------------------------------------------------------------------------
-    const chunks = { 'march_params.wgsl': MarchParams.wgsl, 'ink.wgsl': inkShader };
+    const chunks = {
+      'march_params.wgsl': MarchParams.wgsl,
+      'ink.wgsl': inkShader.code,
+      ...inkShader.chunks,
+    };
     const marchPipeline = createFullscreenPipeline(device, {
-      fragment: { label: 'fluid-3d/march.wgsl', code: marchShader, chunks },
+      fragment: { label: 'fluid-3d/march.wgsl', code: marchShader.code, chunks },
       format: ['rgba16float', 'rgba16float'],
     });
     const compositePipeline = createFullscreenPipeline(device, {
-      fragment: { label: 'fluid-3d/composite.wgsl', code: compositeShader, chunks },
+      fragment: { label: 'fluid-3d/composite.wgsl', code: compositeShader.code, chunks },
       format,
     });
     const prepModule = createShader(device, {
       label: 'fluid-3d/volume-prep.wgsl',
-      code: prepShader,
+      code: prepShader.code,
       chunks,
     });
     const lightPipeline = device.createComputePipeline({

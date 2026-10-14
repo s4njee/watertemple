@@ -2,9 +2,9 @@ import { createCubemap } from '../../gpu/cubemap.ts';
 import { createFullscreenPipeline, renderFullscreen } from '../../gpu/fullscreen.ts';
 import { createUniformBuffer, defineUniformStruct } from '../../gpu/uniforms.ts';
 import { defineEffect } from '../types.ts';
-import shader from './fresnel-sky.wgsl?raw';
+import shader from './fresnel-sky.wgsl';
 import { meta } from './meta.ts';
-import skyCube from './sky-cube.wgsl?raw';
+import skyCube from './sky-cube.wgsl';
 
 const Params = defineUniformStruct('Params', {
   time: 'f32',
@@ -106,7 +106,11 @@ export const effect = defineEffect({
     const cube = createCubemap(device, {
       label: 'fresnel-sky sky cubemap',
       size: CUBE_SIZE,
-      source: { label: 'fresnel-sky/sky-cube.wgsl', code: skyCube },
+      source: {
+        label: 'fresnel-sky/sky-cube.wgsl',
+        code: skyCube.code,
+        chunks: { ...skyCube.chunks },
+      },
     });
     const sampler = device.createSampler({
       label: 'fresnel-sky cube sampler',
@@ -117,8 +121,8 @@ export const effect = defineEffect({
     const pipeline = createFullscreenPipeline(device, {
       fragment: {
         label: 'fresnel-sky/fresnel-sky.wgsl',
-        code: shader,
-        chunks: { 'params.wgsl': Params.wgsl },
+        code: shader.code,
+        chunks: { ...shader.chunks, 'params.wgsl': Params.wgsl },
       },
       format,
     });

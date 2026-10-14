@@ -1,8 +1,12 @@
 import { createGpuSession } from './gpu/device.ts';
-// Registers Water Temple's WGSL library with the extracted temple core (see src/gpu/shader.ts).
-import './gpu/shader.ts';
+import { setShaderLibrary } from '@mk7s/hologpu-temple-core/gpu/shader';
+import { getChunk } from './wgsl/index.ts';
 import './gpu/shader-overlay.css';
 import { mountApp } from './shell/app.ts';
+
+// Shaders assembled from TypeScript text still resolve `#include` at run time from the shared
+// library; effect shaders carry their own chunks (see vite-plugin-wgsl.ts).
+setShaderLibrary(getChunk);
 
 if (import.meta.env.DEV) {
   const { installShaderOverlay } = await import('./gpu/shader-overlay.ts');

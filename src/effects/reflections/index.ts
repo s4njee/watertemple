@@ -22,9 +22,9 @@ import { createRenderTarget } from '../../gpu/targets.ts';
 import { createUniformBuffer, defineUniformStruct } from '../../gpu/uniforms.ts';
 import { defineEffect } from '../types.ts';
 import { meta } from './meta.ts';
-import skyModel from './rf-sky.wgsl?raw';
-import skyPass from './sky-pass.wgsl?raw';
-import water from './water.wgsl?raw';
+import skyModel from './rf-sky.wgsl';
+import skyPass from './sky-pass.wgsl';
+import water from './water.wgsl';
 
 const COLOR_FORMAT: GPUTextureFormat = 'rgba16float';
 const DEPTH_FORMAT = 'depth32float';
@@ -285,8 +285,13 @@ export const effect = defineEffect({
     // and the mirrored camera.
     const skyModule = createShader(device, {
       label: 'reflections/sky-pass.wgsl',
-      code: skyPass,
-      chunks: { ...SCENE_STRUCT_CHUNKS, 'rf-sky.wgsl': skyModel },
+      code: skyPass.code,
+      chunks: {
+        ...skyPass.chunks,
+        ...SCENE_STRUCT_CHUNKS,
+        'rf-sky.wgsl': skyModel.code,
+        ...skyModel.chunks,
+      },
     });
     const skyPipeline = device.createRenderPipeline({
       label: 'reflections sky',
@@ -299,8 +304,14 @@ export const effect = defineEffect({
     const waterPipeline = createFullscreenPipeline(device, {
       fragment: {
         label: 'reflections/water.wgsl',
-        code: water,
-        chunks: { ...SCENE_STRUCT_CHUNKS, 'params.wgsl': Params.wgsl, 'rf-sky.wgsl': skyModel },
+        code: water.code,
+        chunks: {
+          ...water.chunks,
+          ...SCENE_STRUCT_CHUNKS,
+          'params.wgsl': Params.wgsl,
+          'rf-sky.wgsl': skyModel.code,
+          ...skyModel.chunks,
+        },
       },
       format,
     });

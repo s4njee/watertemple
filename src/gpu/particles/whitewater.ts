@@ -4,7 +4,7 @@ import { createComputePass } from './compute.ts';
 import { createNeighborGrid } from './neighbor-grid.ts';
 import { createParticleSystem } from './system.ts';
 import type { ParticleSet } from './types.ts';
-import shader from './whitewater.wgsl?raw';
+import shader from './whitewater.wgsl';
 
 const STRUCT = defineUniformStruct('WhitewaterParams', {
   gravity: 'vec3f',
@@ -55,8 +55,12 @@ export function createWhitewater(options: {
   const uniform = createUniformBuffer(device, STRUCT, 'whitewater params');
   const pass = createComputePass(device, {
     label: 'particles/whitewater.wgsl',
-    code: shader,
-    chunks: { ...grid.chunks({ binding: 5 }), 'whitewater_params.wgsl': STRUCT.wgsl },
+    code: shader.code,
+    chunks: {
+      ...shader.chunks,
+      ...grid.chunks({ binding: 5 }),
+      'whitewater_params.wgsl': STRUCT.wgsl,
+    },
     profiler,
     timestamp: 'whitewater update',
   });

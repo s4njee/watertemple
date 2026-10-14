@@ -1,6 +1,6 @@
 import { createOrbitEffect } from '../_shared/orbit/engine.ts';
 import { defineEffect } from '../types.ts';
-import displayShader from './display.wgsl?raw';
+import displayShader from './display.wgsl';
 import { meta } from './meta.ts';
 
 const orbit = createOrbitEffect({

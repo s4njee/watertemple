@@ -14,7 +14,7 @@ import {
 } from '../../gpu/sim/fluid-stir.ts';
 import { createUniformBuffer, defineUniformStruct } from '../../gpu/uniforms.ts';
 import { defineEffect } from '../types.ts';
-import displayShader from './display.wgsl?raw';
+import displayShader from './display.wgsl';
 import { meta } from './meta.ts';
 
 const DisplayParams = defineUniformStruct('DisplayParams', {
@@ -322,8 +322,8 @@ export const effect = defineEffect({
     const pipeline = createFullscreenPipeline(device, {
       fragment: {
         label: 'fluid-dye/display.wgsl',
-        code: displayShader,
-        chunks: { 'display_params.wgsl': DisplayParams.wgsl },
+        code: displayShader.code,
+        chunks: { ...displayShader.chunks, 'display_params.wgsl': DisplayParams.wgsl },
       },
       format,
       layout: [layout],

@@ -3,9 +3,9 @@ import { noProfiler, type PassProfiler } from '../profiler.ts';
 import { renderFullscreen } from '../fullscreen.ts';
 import { createShader } from '../shader.ts';
 import { createUniformBuffer, defineUniformStruct, uniformArray } from '../uniforms.ts';
-import computeSource from './shallow-water-compute.wgsl?raw';
-import coreSource from './shallow-water-core.wgsl?raw';
-import renderSource from './shallow-water-render.wgsl?raw';
+import computeSource from './shallow-water-compute.wgsl';
+import coreSource from './shallow-water-core.wgsl';
+import renderSource from './shallow-water-render.wgsl';
 
 // The shallow-water solver (story 6.7): water as a height field WITH velocity, over a terrain. Unlike
 // the wave-equation heightfield (heightfield.ts), where a bump only ripples in place, here water is
@@ -260,10 +260,16 @@ interface Pipelines {
 const pipelineCache = new WeakMap<GPUDevice, Partial<Record<ShallowWaterKind, Pipelines>>>();
 
 function createPipelines(device: GPUDevice, kind: ShallowWaterKind): Pipelines {
+  const shader = kind === 'render' ? renderSource : computeSource;
   const module = createShader(device, {
     label: `sim/shallow-water-${kind}.wgsl`,
-    code: kind === 'render' ? renderSource : computeSource,
-    chunks: { 'sw_params.wgsl': SimParams.wgsl, 'sw_core.wgsl': coreSource },
+    code: shader.code,
+    chunks: {
+      ...shader.chunks,
+      'sw_params.wgsl': SimParams.wgsl,
+      'sw_core.wgsl': coreSource.code,
+      ...coreSource.chunks,
+    },
   });
   const make = (name: 'upload' | 'step' | 'resolve'): Pipeline =>
     kind === 'render'

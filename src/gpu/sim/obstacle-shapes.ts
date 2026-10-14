@@ -2,9 +2,9 @@ import { createFullscreenPipeline, renderFullscreen } from '../fullscreen.ts';
 import { noProfiler, type PassProfiler } from '../profiler.ts';
 import { createUniformBuffer, defineUniformStruct, uniformArray } from '../uniforms.ts';
 import type { Fluid, FluidForceContext } from './fluid.ts';
-import driveSource from './obstacle-drive.wgsl?raw';
-import rasterSource from './obstacle-raster.wgsl?raw';
-import shapesSource from './obstacle-shapes.wgsl?raw';
+import driveSource from './obstacle-drive.wgsl';
+import rasterSource from './obstacle-raster.wgsl';
+import shapesSource from './obstacle-shapes.wgsl';
 import { OBSTACLE_FORMAT, type ObstacleRect } from './obstacles.ts';
 
 // Solid shapes for the stable-fluids solver (story 6.5): analytic shapes (a circle, a box, a rounded
@@ -95,7 +95,8 @@ export const OBSTACLE_TABLE_WGSL = ObstacleTable.wgsl;
 
 /** The chunks any shader including obstacle-shapes.wgsl or the table needs. */
 export const OBSTACLE_CHUNKS: Readonly<Record<string, string>> = {
-  'obstacle-shapes.wgsl': shapesSource,
+  'obstacle-shapes.wgsl': shapesSource.code,
+  ...shapesSource.chunks,
   'obstacle_table.wgsl': ObstacleTable.wgsl,
 };
 
@@ -358,14 +359,18 @@ export function createObstacleShapes(options: ObstacleShapesOptions): ObstacleSh
   const table = createUniformBuffer(device, ObstacleTable, `${label} shape table`);
   const driveUniforms = createUniformBuffer(device, DriveParams, `${label} drive params`);
   const rasterPipeline = createFullscreenPipeline(device, {
-    fragment: { label: 'sim/obstacle-raster.wgsl', code: rasterSource, chunks: OBSTACLE_CHUNKS },
+    fragment: {
+      label: 'sim/obstacle-raster.wgsl',
+      code: rasterSource.code,
+      chunks: OBSTACLE_CHUNKS,
+    },
     format: OBSTACLE_FORMAT,
   });
   const drivePipeline = createFullscreenPipeline(device, {
     fragment: {
       label: 'sim/obstacle-drive.wgsl',
-      code: driveSource,
-      chunks: { ...OBSTACLE_CHUNKS, 'drive_params.wgsl': DriveParams.wgsl },
+      code: driveSource.code,
+      chunks: { ...driveSource.chunks, ...OBSTACLE_CHUNKS, 'drive_params.wgsl': DriveParams.wgsl },
     },
     format: 'rgba16float',
   });

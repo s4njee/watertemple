@@ -3,7 +3,7 @@ import { noProfiler, type PassProfiler } from '../profiler.ts';
 import { createUniformBuffer, defineUniformStruct } from '../uniforms.ts';
 import { createComputePass, type ComputePass } from './compute.ts';
 import { EMITTER_SHAPE_CODE, resolveEmitter, type Emitter, type Vec3 } from './emitter.ts';
-import integratorSource from './integrator.wgsl?raw';
+import integratorSource from './integrator.wgsl';
 import type { ParticleSystem } from './system.ts';
 
 // The ready-made integrator for particles that do not interact: fountains, spray, snow, dust, mist, and the
@@ -111,7 +111,7 @@ type Vec4 = [number, number, number, number];
 export type ForceField =
   | {
       /** WGSL defining `fn force_field(p: vec3f, v: vec3f, time: f32, index: u32) -> vec3f`. */
-      wgsl: string;
+      wgsl: string | { code: string; chunks: Readonly<Record<string, string>> };
     }
   | {
       /** A filterable acceleration texture (rgba16float works everywhere). */
@@ -211,10 +211,14 @@ export function createIntegrator(options: IntegratorOptions): Integrator {
   const fieldWgsl = !field
     ? NO_FIELD
     : 'wgsl' in field
-      ? field.wgsl
+      ? typeof field.wgsl === 'string'
+        ? field.wgsl
+        : field.wgsl.code
       : field.dimension === '2d'
         ? TEXTURE_FIELD_2D
         : TEXTURE_FIELD_3D;
+  const fieldChunks =
+    field && 'wgsl' in field && typeof field.wgsl !== 'string' ? field.wgsl.chunks : {};
   let fieldView: GPUTextureView | undefined =
     field && 'texture' in field ? field.texture : undefined;
   const sampler = fieldView
@@ -227,8 +231,10 @@ export function createIntegrator(options: IntegratorOptions): Integrator {
 
   const pass: ComputePass = createComputePass(device, {
     label: 'particles/integrator.wgsl',
-    code: integratorSource,
+    code: integratorSource.code,
     chunks: {
+      ...integratorSource.chunks,
+      ...fieldChunks,
       'integrator_params.wgsl': IntegratorUniform.wgsl,
       'force_field.wgsl': fieldWgsl,
     },

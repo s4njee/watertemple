@@ -1,8 +1,8 @@
 import { createShader } from '../../gpu/shader.ts';
 import { defineUniformStruct, createUniformBuffer } from '../../gpu/uniforms.ts';
 import { createFullscreenPipeline, renderFullscreen } from '../../gpu/fullscreen.ts';
-import code from './life.wgsl?raw';
-import display from './display.wgsl?raw';
+import code from './life.wgsl';
+import display from './display.wgsl';
 const Params = defineUniformStruct('LifeParams', {
   grid: 'vec2u',
   plant: 'vec2f',
@@ -34,7 +34,7 @@ export function createLifeSimulation(
   );
   const module = createShader(device, {
     label: 'game-of-life/life.wgsl',
-    code,
+    code: code.code,
     chunks: { 'life_params.wgsl': Params.wgsl },
   });
   const pipelines = ['advance', 'plant', 'sprinkle'].map((entryPoint) =>
@@ -44,8 +44,8 @@ export function createLifeSimulation(
     format,
     fragment: {
       label: 'game-of-life/display.wgsl',
-      code: display,
-      chunks: { 'life_params.wgsl': Params.wgsl },
+      code: display.code,
+      chunks: { ...display.chunks, 'life_params.wgsl': Params.wgsl },
     },
   });
   const groups = pipelines.map((pipeline) =>

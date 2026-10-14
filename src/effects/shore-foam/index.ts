@@ -2,9 +2,9 @@ import { createFullscreenPipeline, renderFullscreen } from '../../gpu/fullscreen
 import { createRenderTarget, type RenderTarget } from '../../gpu/targets.ts';
 import { createUniformBuffer, defineUniformStruct } from '../../gpu/uniforms.ts';
 import { defineEffect } from '../types.ts';
-import groundShader from './ground.wgsl?raw';
+import groundShader from './ground.wgsl';
 import { meta } from './meta.ts';
-import surfShader from './surf.wgsl?raw';
+import surfShader from './surf.wgsl';
 
 const GroundParams = defineUniformStruct('GroundParams', {
   aspect: 'f32',
@@ -139,16 +139,16 @@ export const effect = defineEffect({
     const groundPipeline = createFullscreenPipeline(device, {
       fragment: {
         label: 'shore-foam/ground.wgsl',
-        code: groundShader,
-        chunks: { 'ground_params.wgsl': GroundParams.wgsl },
+        code: groundShader.code,
+        chunks: { ...groundShader.chunks, 'ground_params.wgsl': GroundParams.wgsl },
       },
       format: GROUND_FORMATS,
     });
     const surfPipeline = createFullscreenPipeline(device, {
       fragment: {
         label: 'shore-foam/surf.wgsl',
-        code: surfShader,
-        chunks: { 'surf_params.wgsl': SurfParams.wgsl },
+        code: surfShader.code,
+        chunks: { ...surfShader.chunks, 'surf_params.wgsl': SurfParams.wgsl },
       },
       format,
     });

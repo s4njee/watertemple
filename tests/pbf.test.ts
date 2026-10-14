@@ -31,7 +31,7 @@ import {
   type PbfStage,
   type Vec3,
 } from '../src/gpu/sim/pbf.ts';
-import kernelsSource from '../src/gpu/sim/pbf-kernels.wgsl?raw';
+import kernelsSource from '../src/gpu/sim/pbf-kernels.wgsl';
 import { expectValid, getTestDevice, readTexture } from './gpu.ts';
 import { gpuF32, rowsOf } from './wgsl-eval.ts';
 
@@ -351,7 +351,7 @@ describe.each(DIMS)('kernels in %iD', (dim) => {
     }
     const input = rowsOf(vectors);
     const out = await gpuF32(
-      `${kernelsSource}
+      `${kernelsSource.code}
        fn f(x: vec4f) -> vec4f {
          let g = pbf_spiky_grad(x.xyz, ${lit(h)}, ${lit(c3)});
          return vec4f(g, pbf_poly6(dot(x.xyz, x.xyz), ${lit(h * h)}, ${lit(c6)}));
@@ -384,7 +384,7 @@ describe.each(DIMS)('kernels in %iD', (dim) => {
     const pairs: number[][] = [];
     for (let i = 0; i < 400; i++) pairs.push([i, i + 1]);
     pairs.push([5, 7], [5, 7], [7, 5]);
-    const code = `${kernelsSource}
+    const code = `${kernelsSource.code}
       fn f(x: vec4f) -> vec4f { return vec4f(pbf_nudge(u32(x.x), u32(x.y), ${h.toExponential(9)}), 0.0); }`;
     const out = await gpuF32(code, rowsOf(pairs));
     const sum = [0, 0, 0];

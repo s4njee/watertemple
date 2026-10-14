@@ -2,8 +2,8 @@ import { createFullscreenPipeline, renderFullscreen } from '../../gpu/fullscreen
 import { createUniformBuffer, defineUniformStruct, uniformArray } from '../../gpu/uniforms.ts';
 import { defineEffect } from '../types.ts';
 import { meta } from './meta.ts';
-import bakeShader from './sdf-bake.wgsl?raw';
-import shader from './toon-water.wgsl?raw';
+import bakeShader from './sdf-bake.wgsl';
+import shader from './toon-water.wgsl';
 
 const Params = defineUniformStruct('ToonParams', {
   resolution: 'vec2f',
@@ -229,8 +229,8 @@ export const effect = defineEffect({
     const pipeline = createFullscreenPipeline(device, {
       fragment: {
         label: 'toon-water/toon-water.wgsl',
-        code: shader,
-        chunks: { 'toon_params.wgsl': Params.wgsl },
+        code: shader.code,
+        chunks: { ...shader.chunks, 'toon_params.wgsl': Params.wgsl },
       },
       format,
     });
@@ -240,8 +240,8 @@ export const effect = defineEffect({
     const bakePipeline = createFullscreenPipeline(device, {
       fragment: {
         label: 'toon-water/sdf-bake.wgsl',
-        code: bakeShader,
-        chunks: { 'toon_params.wgsl': Params.wgsl },
+        code: bakeShader.code,
+        chunks: { ...bakeShader.chunks, 'toon_params.wgsl': Params.wgsl },
       },
       format: bakeFormat,
     });

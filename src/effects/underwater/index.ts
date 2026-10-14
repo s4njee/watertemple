@@ -7,7 +7,7 @@ import { createFullscreenPipeline, renderFullscreen } from '../../gpu/fullscreen
 import { createUniformBuffer, defineUniformStruct } from '../../gpu/uniforms.ts';
 import { defineEffect } from '../types.ts';
 import { meta } from './meta.ts';
-import sceneShader from './scene.wgsl?raw';
+import sceneShader from './scene.wgsl';
 
 const SceneParams = defineUniformStruct('SceneParams', {
   deep: 'vec3f',
@@ -111,8 +111,8 @@ export const effect = defineEffect({
     const pipeline = createFullscreenPipeline(device, {
       fragment: {
         label: 'underwater/scene.wgsl',
-        code: sceneShader,
-        chunks: { 'scene_params.wgsl': SceneParams.wgsl },
+        code: sceneShader.code,
+        chunks: { ...sceneShader.chunks, 'scene_params.wgsl': SceneParams.wgsl },
       },
       format,
     });

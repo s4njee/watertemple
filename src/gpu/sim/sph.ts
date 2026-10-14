@@ -10,9 +10,9 @@ import {
   type ParticleSystem,
 } from '../particles/index.ts';
 import { createUniformBuffer, defineUniformStruct, uniformArray } from '../uniforms.ts';
-import coreSource from './sph-core.wgsl?raw';
-import densitySource from './sph-density.wgsl?raw';
-import forceSource from './sph-force.wgsl?raw';
+import coreSource from './sph-core.wgsl';
+import densitySource from './sph-density.wgsl';
+import forceSource from './sph-force.wgsl';
 
 // Weakly compressible SPH in 2D (story 7.3): smoothed-particle hydrodynamics after Muller, Charypar & Gross,
 // "Particle-Based Fluid Simulation for Interactive Applications" (2003), with the standard refinements of the
@@ -606,7 +606,8 @@ export function createSph(options: SphOptions): SphSolver {
 
   const chunks = {
     'sph_params.wgsl': SphUniform.wgsl,
-    'sph-core.wgsl': coreSource,
+    'sph-core.wgsl': coreSource.code,
+    ...coreSource.chunks,
     ...grid.chunks({ group: 0, binding: 3 }),
   };
   const forceChunks = {
@@ -615,14 +616,14 @@ export function createSph(options: SphOptions): SphSolver {
   };
   const densityPass: ComputePass = createComputePass(device, {
     label: 'sim/sph-density.wgsl',
-    code: densitySource,
+    code: densitySource.code,
     chunks,
     profiler: gate,
     timestamp: 'sph density',
   });
   const forcePass: ComputePass = createComputePass(device, {
     label: 'sim/sph-force.wgsl',
-    code: forceSource,
+    code: forceSource.code,
     chunks: forceChunks,
     profiler: gate,
     timestamp: 'sph forces',

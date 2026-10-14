@@ -2,10 +2,10 @@ import { createFixedStepper, type FixedStepper } from '../loop.ts';
 import { noProfiler, type PassProfiler } from '../profiler.ts';
 import { createShader } from '../shader.ts';
 import { createUniformBuffer, defineUniformStruct } from '../uniforms.ts';
-import advectSource from './fluid3d-advect.wgsl?raw';
-import coreSource from './fluid3d-core.wgsl?raw';
-import forcesSource from './fluid3d-forces.wgsl?raw';
-import projectSource from './fluid3d-project.wgsl?raw';
+import advectSource from './fluid3d-advect.wgsl';
+import coreSource from './fluid3d-core.wgsl';
+import forcesSource from './fluid3d-forces.wgsl';
+import projectSource from './fluid3d-project.wgsl';
 import { floatToHalf } from './fluid.ts';
 
 // The 3D stable-fluids solver (story 6.9): incompressible flow in a closed box on a grid, in compute
@@ -401,12 +401,15 @@ function getModule(
   let module = modules.get(key);
   if (!module) {
     const constants = `const WG_X: u32 = ${workgroup[0]}u;\nconst WG_Y: u32 = ${workgroup[1]}u;\nconst WG_Z: u32 = ${workgroup[2]}u;\n`;
+    const shader = SOURCES[source];
     module = createShader(device, {
       label: `sim/fluid3d-${source}.wgsl`,
-      code: SOURCES[source],
+      code: shader.code,
       chunks: {
+        ...shader.chunks,
         'fluid3d_uniforms.wgsl': Fluid3dUniforms.wgsl + constants,
-        'fluid3d-core.wgsl': coreSource,
+        'fluid3d-core.wgsl': coreSource.code,
+        ...coreSource.chunks,
       },
     });
     modules.set(key, module);

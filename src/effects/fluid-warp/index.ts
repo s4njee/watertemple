@@ -25,7 +25,7 @@ import { createUniformBuffer, defineUniformStruct } from '../../gpu/uniforms.ts'
 import { defineEffect } from '../types.ts';
 // Read-only reuse of the Epic 4 effect's helpers: the harbour still, the animated canvas behind the
 // live <video> (both DOM-only) and the shared test card that stands in for them without a DOM.
-import sceneShader from '../_shared/media-scene.wgsl?raw';
+import sceneShader from '../_shared/media-scene.wgsl';
 import { createLiveVideo, createStillCanvas, type LiveVideo } from '../media-distortion/sources.ts';
 import { HEADLINES, renderHeadline } from './headline.ts';
 import { meta } from './meta.ts';
@@ -297,7 +297,11 @@ export const effect = defineEffect({
       sceneUniforms.set({ aspect: w / h, aa: 1 / h });
       sceneUniforms.upload();
       const scenePipeline = createFullscreenPipeline(device, {
-        fragment: { label: 'media-distortion/scene.wgsl', code: sceneShader },
+        fragment: {
+          label: 'media-distortion/scene.wgsl',
+          code: sceneShader.code,
+          chunks: { ...sceneShader.chunks },
+        },
         format: 'rgba8unorm-srgb',
       });
       const group = device.createBindGroup({

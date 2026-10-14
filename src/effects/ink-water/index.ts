@@ -6,10 +6,10 @@ import { createPigmentLayer, type PigmentLayer } from '../../gpu/sim/pigment.ts'
 import { createRenderTarget } from '../../gpu/targets.ts';
 import { createUniformBuffer, defineUniformStruct } from '../../gpu/uniforms.ts';
 import { defineEffect } from '../types.ts';
-import compositeShader from './composite.wgsl?raw';
-import displayShader from './display.wgsl?raw';
+import compositeShader from './composite.wgsl';
+import displayShader from './display.wgsl';
 import { meta } from './meta.ts';
-import paperShader from './paper.wgsl?raw';
+import paperShader from './paper.wgsl';
 
 const DisplayParams = defineUniformStruct('DisplayParams', {
   paper: 'vec3f',
@@ -471,14 +471,23 @@ export const effect = defineEffect({
     const displayPipeline = createFullscreenPipeline(device, {
       fragment: {
         label: 'ink-water/display.wgsl',
-        code: displayShader,
-        chunks: { 'display_params.wgsl': DisplayParams.wgsl, 'composite.wgsl': compositeShader },
+        code: displayShader.code,
+        chunks: {
+          ...displayShader.chunks,
+          'display_params.wgsl': DisplayParams.wgsl,
+          'composite.wgsl': compositeShader.code,
+          ...compositeShader.chunks,
+        },
       },
       format,
       layout: [layout],
     });
     const paperPipeline = createFullscreenPipeline(device, {
-      fragment: { label: 'ink-water/paper.wgsl', code: paperShader },
+      fragment: {
+        label: 'ink-water/paper.wgsl',
+        code: paperShader.code,
+        chunks: { ...paperShader.chunks },
+      },
       format: 'rgba8unorm',
     });
     const paper = createRenderTarget(device, {

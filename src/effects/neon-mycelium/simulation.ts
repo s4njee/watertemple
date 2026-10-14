@@ -6,8 +6,8 @@ import {
   type UniformValues,
 } from '../../gpu/uniforms.ts';
 import { createFullscreenPipeline, renderFullscreen } from '../../gpu/fullscreen.ts';
-import physicsCode from './physarum.wgsl?raw';
-import displayCode from './display.wgsl?raw';
+import physicsCode from './physarum.wgsl';
+import displayCode from './display.wgsl';
 
 export const MAX_ROOTS = 24;
 const fields = {
@@ -88,8 +88,8 @@ export function createMyceliumSimulation(
   });
   const module = createShader(device, {
     label: 'neon-mycelium/physarum.wgsl',
-    code: physicsCode,
-    chunks: { 'mycelium_params.wgsl': Params.wgsl },
+    code: physicsCode.code,
+    chunks: { ...physicsCode.chunks, 'mycelium_params.wgsl': Params.wgsl },
   });
   const pipeline = (entryPoint: string) =>
     device.createComputePipeline({
@@ -134,8 +134,8 @@ export function createMyceliumSimulation(
   const display = createFullscreenPipeline(device, {
     fragment: {
       label: 'neon-mycelium/display.wgsl',
-      code: displayCode,
-      chunks: { 'mycelium_params.wgsl': Params.wgsl },
+      code: displayCode.code,
+      chunks: { ...displayCode.chunks, 'mycelium_params.wgsl': Params.wgsl },
     },
     format,
   });

@@ -2,11 +2,11 @@ import { createFixedStepper, type FixedStepper } from '../loop.ts';
 import { noProfiler, type PassProfiler } from '../profiler.ts';
 import { createShader } from '../shader.ts';
 import { createUniformBuffer, defineUniformStruct, type UniformBuffer } from '../uniforms.ts';
-import advectSource from './fluid-advect.wgsl?raw';
-import coreSource from './fluid-core.wgsl?raw';
-import forcesSource from './fluid-forces.wgsl?raw';
-import multigridSource from './fluid-multigrid.wgsl?raw';
-import projectSource from './fluid-project.wgsl?raw';
+import advectSource from './fluid-advect.wgsl';
+import coreSource from './fluid-core.wgsl';
+import forcesSource from './fluid-forces.wgsl';
+import multigridSource from './fluid-multigrid.wgsl';
+import projectSource from './fluid-project.wgsl';
 import { createObstacleMask, type ObstacleMask } from './obstacles.ts';
 
 // The stable-fluids solver (story 6.1): incompressible 2D flow on a grid, in compute shaders, after Jos
@@ -562,10 +562,16 @@ function getModule(device: GPUDevice, source: PassSpec['source']): GPUShaderModu
   if (!modules) moduleCache.set(device, (modules = new Map()));
   let module = modules.get(source);
   if (!module) {
+    const shader = SOURCES[source];
     module = createShader(device, {
       label: `sim/fluid-${source}.wgsl`,
-      code: SOURCES[source],
-      chunks: { 'fluid_uniforms.wgsl': FluidUniforms.wgsl, 'fluid-core.wgsl': coreSource },
+      code: shader.code,
+      chunks: {
+        ...shader.chunks,
+        'fluid_uniforms.wgsl': FluidUniforms.wgsl,
+        'fluid-core.wgsl': coreSource.code,
+        ...coreSource.chunks,
+      },
     });
     modules.set(source, module);
   }
@@ -730,7 +736,8 @@ export function pressureSolveWork(
 /** The shader chunks every fluid kernel is built from, for tests and consumers that write their own kernels against the grid. */
 export const fluidShaderChunks: Readonly<Record<string, string>> = Object.freeze({
   'fluid_uniforms.wgsl': FluidUniforms.wgsl,
-  'fluid-core.wgsl': coreSource,
+  'fluid-core.wgsl': coreSource.code,
+  ...coreSource.chunks,
 });
 
 interface Tex {

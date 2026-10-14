@@ -16,10 +16,10 @@ import {
   MAX_WEATHER_DROPS,
   type WeatherDrop,
 } from './dynamics.ts';
-import background from './backdrop.wgsl?raw';
-import scene from './scene.wgsl?raw';
-import display from './display.wgsl?raw';
-import particles from './particles.wgsl?raw';
+import background from './backdrop.wgsl';
+import scene from './scene.wgsl';
+import display from './display.wgsl';
+import particles from './particles.wgsl';
 export type WeatherMode = 0 | 1 | 2 | 3 | 4 | 5;
 const number = (value: number, min: number, max: number, label: string, step = 0.01) => ({
   type: 'number' as const,
@@ -111,10 +111,14 @@ export function weatherEffect(meta: EffectMeta, mode: WeatherMode) {
         minFilter: 'linear',
         mipmapFilter: 'linear',
       });
-      const chunks = { 'weather_params.wgsl': WeatherParams.wgsl, 'weather_scene.wgsl': scene };
+      const chunks = {
+        'weather_params.wgsl': WeatherParams.wgsl,
+        'weather_scene.wgsl': scene.code,
+        ...scene.chunks,
+      };
       const backgroundPipeline = createFullscreenPipeline(device, {
         format: 'rgba16float',
-        fragment: { label: 'weather/backdrop.wgsl', code: background, chunks },
+        fragment: { label: 'weather/backdrop.wgsl', code: background.code, chunks },
       });
       const backgroundGroup = device.createBindGroup({
         layout: backgroundPipeline.getBindGroupLayout(0),
@@ -122,11 +126,11 @@ export function weatherEffect(meta: EffectMeta, mode: WeatherMode) {
       });
       const pipeline = createFullscreenPipeline(device, {
         format,
-        fragment: { label: 'weather/display.wgsl', code: display, chunks },
+        fragment: { label: 'weather/display.wgsl', code: display.code, chunks },
       });
       const module = createShader(device, {
         label: 'weather/particles.wgsl',
-        code: particles,
+        code: particles.code,
         chunks,
       });
       const dropPipeline = device.createRenderPipeline({

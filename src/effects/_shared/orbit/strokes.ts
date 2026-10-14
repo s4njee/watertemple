@@ -1,5 +1,5 @@
 import { createShader } from '../../../gpu/shader.ts';
-import code from './strokes.wgsl?raw';
+import code from './strokes.wgsl';
 
 interface Stroke {
   from: readonly [number, number];
@@ -27,7 +27,7 @@ export function createStrokeLayer(
   });
   const module = createShader(device, {
     label: 'neon strokes',
-    code,
+    code: code.code,
     chunks: { 'display_params.wgsl': wgsl },
   });
   const pipeline = device.createRenderPipeline({

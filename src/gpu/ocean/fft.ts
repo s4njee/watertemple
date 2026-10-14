@@ -2,7 +2,7 @@ import { createShader } from '../shader.ts';
 import { createUniformBuffer, defineUniformStruct } from '../uniforms.ts';
 import { noProfiler, type PassProfiler } from '../profiler.ts';
 import { oceanSpectrum, OCEAN_LENGTHS } from './spectrum.ts';
-import code from './fft.wgsl?raw';
+import code from './fft.wgsl';
 const Params = defineUniformStruct('FftParams', {
   size: 'u32',
   bits: 'u32',
@@ -67,7 +67,7 @@ export function createSpectralOcean(
   const views = derivatives.map((t) => t.createView({ dimension: '2d-array' }));
   const module = createShader(device, {
     label: 'ocean/fft.wgsl',
-    code,
+    code: code.code,
     chunks: { 'fft-params.wgsl': Params.wgsl, 'fft-step.wgsl': Step.wgsl },
   });
   const pipeline = (entryPoint: string) =>

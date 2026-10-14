@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it } from 'vitest';
-import helloWgsl from '../src/effects/hello/hello.wgsl?raw';
+import helloWgsl from '../src/effects/hello/hello.wgsl';
 import { listEffects, loadEffect, effectPoster } from '../src/effects/registry.ts';
 import {
   clearCompiledShaders,
@@ -72,7 +72,10 @@ describe('extractIncludes', () => {
   });
 
   it('finds what the real hello shader pulls in from the shared library', () => {
-    const includes = extractIncludes(helloWgsl, getChunk);
+    const includes = extractIncludes(
+      helloWgsl.code,
+      (name) => helloWgsl.chunks[name] ?? getChunk(name),
+    );
     expect(includes.slice(0, 2)).toEqual(['fullscreen.wgsl', 'fbm.wgsl']);
     expect(includes).toContain('noise.wgsl');
     expect(includes).toContain('params.wgsl');

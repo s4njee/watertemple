@@ -3,9 +3,9 @@ import { renderFullscreen } from '../fullscreen.ts';
 import { noProfiler, type PassProfiler } from '../profiler.ts';
 import { createShader } from '../shader.ts';
 import { createUniformBuffer, defineUniformStruct, type UniformBuffer } from '../uniforms.ts';
-import causticsCore from './caustics-core.wgsl?raw';
-import causticsJacobian from './caustics-jacobian.wgsl?raw';
-import causticsMesh from './caustics-mesh.wgsl?raw';
+import causticsCore from './caustics-core.wgsl';
+import causticsJacobian from './caustics-jacobian.wgsl';
+import causticsMesh from './caustics-mesh.wgsl';
 import { computeGridSize, type Heightfield } from './heightfield.ts';
 
 // Caustics from the live heightfield (story 5.4): the bright network on a pool floor is where the wavy
@@ -253,15 +253,19 @@ function getPipelines(device: GPUDevice): Pipelines {
     label: 'caustics pipeline layout',
     bindGroupLayouts: [layout],
   });
-  const chunks = { 'caustics_params.wgsl': Params.wgsl, 'caustics_core.wgsl': causticsCore };
+  const chunks = {
+    'caustics_params.wgsl': Params.wgsl,
+    'caustics_core.wgsl': causticsCore.code,
+    ...causticsCore.chunks,
+  };
   const meshModule = createShader(device, {
     label: 'sim/caustics-mesh.wgsl',
-    code: causticsMesh,
+    code: causticsMesh.code,
     chunks,
   });
   const jacobianModule = createShader(device, {
     label: 'sim/caustics-jacobian.wgsl',
-    code: causticsJacobian,
+    code: causticsJacobian.code,
     chunks,
   });
   const add: GPUBlendComponent = { srcFactor: 'one', dstFactor: 'one', operation: 'add' };

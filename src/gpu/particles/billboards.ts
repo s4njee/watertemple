@@ -4,7 +4,7 @@ import { CameraUniform, setCameraUniform, type CameraMatrices } from '../scene/c
 import type { RenderTarget } from '../targets.ts';
 import { createUniformBuffer, defineUniformStruct, uniformArray } from '../uniforms.ts';
 import { cachedShaderModule } from './compute.ts';
-import billboardSource from './billboards.wgsl?raw';
+import billboardSource from './billboards.wgsl';
 import type { ParticleSet } from './types.ts';
 
 // The instanced billboard renderer: the cheap, honest way to draw a ParticleSet, and the baseline the
@@ -174,8 +174,8 @@ export function createBillboardRenderer(options: BillboardOptions): BillboardRen
     if (!entry) {
       const module = cachedShaderModule(device, {
         label: 'particles/billboards.wgsl',
-        code: billboardSource,
-        chunks: { 'billboard_params.wgsl': BILLBOARD_UNIFORM.wgsl },
+        code: billboardSource.code,
+        chunks: { ...billboardSource.chunks, 'billboard_params.wgsl': BILLBOARD_UNIFORM.wgsl },
       });
       const opaque = mode === 'opaque';
       const pipeline = device.createRenderPipeline({

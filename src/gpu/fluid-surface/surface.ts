@@ -8,7 +8,7 @@ import { noProfiler, type PassProfiler } from '../profiler.ts';
 import { createShader } from '../shader.ts';
 import { createRenderTarget, type RenderTarget } from '../targets.ts';
 import { createUniformBuffer } from '../uniforms.ts';
-import compositeSource from './composite.wgsl?raw';
+import compositeSource from './composite.wgsl';
 import {
   clampQuality,
   DEBUG_VIEWS,
@@ -24,11 +24,11 @@ import {
   type FluidSurfaceParams,
   type FluidSurfaceQuality,
 } from './frame.ts';
-import normalsSource from './normals.wgsl?raw';
-import smoothSource from './smooth.wgsl?raw';
-import sphereDepthSource from './sphere-depth.wgsl?raw';
-import thicknessBlurSource from './thickness-blur.wgsl?raw';
-import thicknessSource from './thickness.wgsl?raw';
+import normalsSource from './normals.wgsl';
+import smoothSource from './smooth.wgsl';
+import sphereDepthSource from './sphere-depth.wgsl';
+import thicknessBlurSource from './thickness-blur.wgsl';
+import thicknessSource from './thickness.wgsl';
 
 /** Formats of the chain. See `createFluidSurface` for why each was chosen. */
 export const FLUID_FORMATS = {
@@ -147,12 +147,12 @@ const pipelinesFor = perDevice((device): Pipelines => {
   const chunks = FLUID_STRUCT_CHUNKS;
   const sphereModule = createShader(device, {
     label: 'fluid-surface/sphere-depth.wgsl',
-    code: sphereDepthSource,
+    code: sphereDepthSource.code,
     chunks,
   });
   const thicknessModule = createShader(device, {
     label: 'fluid-surface/thickness.wgsl',
-    code: thicknessSource,
+    code: thicknessSource.code,
     chunks,
   });
   const particleLayout = device.createBindGroupLayout({
@@ -176,10 +176,18 @@ const pipelinesFor = perDevice((device): Pipelines => {
     bindGroupLayouts: [particleLayout],
   });
   const thicknessPipelines = new Map<number, GPURenderPipeline>();
-  const fullscreen = (label: string, code: string, format: GPUTextureFormat) =>
+  const fullscreen = (
+    label: string,
+    source: { code: string; chunks: Readonly<Record<string, string>> },
+    format: GPUTextureFormat,
+  ) =>
     createFullscreenPipeline(device, {
       label: `fluid ${label}`,
-      fragment: { label: `fluid-surface/${label}.wgsl`, code, chunks },
+      fragment: {
+        label: `fluid-surface/${label}.wgsl`,
+        code: source.code,
+        chunks: { ...source.chunks, ...chunks },
+      },
       format,
     });
   return {
@@ -237,7 +245,7 @@ function compositePipeline(device: GPUDevice, format: GPUTextureFormat): GPURend
       label: `fluid composite ${format}`,
       fragment: {
         label: 'fluid-surface/composite.wgsl',
-        code: compositeSource,
+        code: compositeSource.code,
         chunks: FLUID_STRUCT_CHUNKS,
       },
       format,

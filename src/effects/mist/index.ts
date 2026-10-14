@@ -3,8 +3,8 @@ import { trackScroll } from '../../gpu/scroll.ts';
 import { createRenderTarget, type RenderTarget } from '../../gpu/targets.ts';
 import { createUniformBuffer, defineUniformStruct } from '../../gpu/uniforms.ts';
 import { defineEffect } from '../types.ts';
-import composeShader from './compose.wgsl?raw';
-import layersShader from './layers.wgsl?raw';
+import composeShader from './compose.wgsl';
+import layersShader from './layers.wgsl';
 import { meta } from './meta.ts';
 
 const LayerParams = defineUniformStruct('LayerParams', {
@@ -170,16 +170,16 @@ export const effect = defineEffect({
     const layerPipeline = createFullscreenPipeline(device, {
       fragment: {
         label: 'mist/layers.wgsl',
-        code: layersShader,
-        chunks: { 'layers_params.wgsl': LayerParams.wgsl },
+        code: layersShader.code,
+        chunks: { ...layersShader.chunks, 'layers_params.wgsl': LayerParams.wgsl },
       },
       format: 'rgba16float',
     });
     const composePipeline = createFullscreenPipeline(device, {
       fragment: {
         label: 'mist/compose.wgsl',
-        code: composeShader,
-        chunks: { 'compose_params.wgsl': ComposeParams.wgsl },
+        code: composeShader.code,
+        chunks: { ...composeShader.chunks, 'compose_params.wgsl': ComposeParams.wgsl },
       },
       format,
     });

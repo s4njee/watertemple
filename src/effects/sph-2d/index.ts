@@ -16,9 +16,9 @@ import {
 import { createRenderTarget, type RenderTarget } from '../../gpu/targets.ts';
 import { createUniformBuffer, defineUniformStruct, uniformArray } from '../../gpu/uniforms.ts';
 import { defineEffect } from '../types.ts';
-import backdropWgsl from './backdrop.wgsl?raw';
+import backdropWgsl from './backdrop.wgsl';
 import { meta } from './meta.ts';
-import overlayWgsl from './overlay.wgsl?raw';
+import overlayWgsl from './overlay.wgsl';
 
 // The 2D SPH demo: a tank of water simulated by src/gpu/sim/sph.ts and drawn by src/gpu/liquid-2d/ over a tiled wall.
 // The solver steps on a fixed clock (several sub-steps per frame, see the notes); the renderer splats the particles
@@ -289,8 +289,8 @@ export const effect = defineEffect({
       label: 'sph-2d backdrop',
       fragment: {
         label: 'sph-2d/backdrop.wgsl',
-        code: backdropWgsl,
-        chunks: { 'backdrop_params.wgsl': BackdropParams.wgsl },
+        code: backdropWgsl.code,
+        chunks: { ...backdropWgsl.chunks, 'backdrop_params.wgsl': BackdropParams.wgsl },
       },
       format: 'rgba16float',
     });
@@ -298,8 +298,8 @@ export const effect = defineEffect({
       label: 'sph-2d overlay',
       fragment: {
         label: 'sph-2d/overlay.wgsl',
-        code: overlayWgsl,
-        chunks: { 'overlay_params.wgsl': OverlayParams.wgsl },
+        code: overlayWgsl.code,
+        chunks: { ...overlayWgsl.chunks, 'overlay_params.wgsl': OverlayParams.wgsl },
       },
       format,
       blend: {

@@ -1,6 +1,6 @@
 import { noProfiler, type PassProfiler } from '../profiler.ts';
 import { createComputePass } from './compute.ts';
-import scanSource from './scan.wgsl?raw';
+import scanSource from './scan.wgsl';
 
 // A parallel exclusive prefix sum over u32 in a storage buffer, in place, exact for any length up to
 // MAX_SCAN_ELEMENTS. It is a "reduce, scan the sums, add back" scan (Harris, Sengupta and Owens, GPU Gems 3
@@ -65,7 +65,7 @@ export function createScan(options: ScanOptions): Scan {
   }
   const scanBlocks = createComputePass(device, {
     label: 'particles/scan.wgsl',
-    code: scanSource,
+    code: scanSource.code,
     entryPoint: 'scan_blocks',
     workgroupSize: 256,
     profiler,
@@ -73,7 +73,7 @@ export function createScan(options: ScanOptions): Scan {
   });
   const addOffsets = createComputePass(device, {
     label: 'particles/scan.wgsl',
-    code: scanSource,
+    code: scanSource.code,
     entryPoint: 'add_offsets',
     workgroupSize: 256,
     profiler,

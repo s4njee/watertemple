@@ -9,9 +9,9 @@ import { generateMipmaps, mipLevelCount } from '../../gpu/mipmap.ts';
 import { trackPointer } from '../../gpu/pointer.ts';
 import { createUniformBuffer, defineUniformStruct } from '../../gpu/uniforms.ts';
 import { defineEffect } from '../types.ts';
-import floorShader from './floor.wgsl?raw';
+import floorShader from './floor.wgsl';
 import { meta } from './meta.ts';
-import poolShader from './pool.wgsl?raw';
+import poolShader from './pool.wgsl';
 
 const FloorParams = defineUniformStruct('FloorParams', {
   aspect: 'f32',
@@ -133,16 +133,16 @@ export const effect = defineEffect({
     const floorPipeline = createFullscreenPipeline(device, {
       fragment: {
         label: 'pool-floor/floor.wgsl',
-        code: floorShader,
-        chunks: { 'floor_params.wgsl': FloorParams.wgsl },
+        code: floorShader.code,
+        chunks: { ...floorShader.chunks, 'floor_params.wgsl': FloorParams.wgsl },
       },
       format: FLOOR_FORMAT,
     });
     const poolPipeline = createFullscreenPipeline(device, {
       fragment: {
         label: 'pool-floor/pool.wgsl',
-        code: poolShader,
-        chunks: { 'pool_params.wgsl': PoolParams.wgsl },
+        code: poolShader.code,
+        chunks: { ...poolShader.chunks, 'pool_params.wgsl': PoolParams.wgsl },
       },
       format,
     });

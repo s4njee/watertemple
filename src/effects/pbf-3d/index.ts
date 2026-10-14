@@ -43,8 +43,8 @@ import { createWhitewater } from '../../gpu/particles/whitewater.ts';
 import { createContainerController } from '../../gpu/particles/container.ts';
 import { defineEffect } from '../types.ts';
 import { meta } from './meta.ts';
-import sceneShader from './scene.wgsl?raw';
-import speedShader from './speed.wgsl?raw';
+import sceneShader from './scene.wgsl';
+import speedShader from './speed.wgsl';
 
 // The 3D position-based-fluid tank: the PBF solver (src/gpu/sim/pbf.ts) feeding the screen-space fluid surface
 // (src/gpu/fluid-surface/), in a small scene drawn with the forward renderer (sky, tiled floor, the tank's frame,
@@ -436,7 +436,7 @@ export const effect = defineEffect({
     // The sky and the floor are drawn inside the forward pass, before the objects.
     const sceneModule = createShader(device, {
       label: 'pbf-3d/scene.wgsl',
-      code: sceneShader,
+      code: sceneShader.code,
       chunks: SCENE_STRUCT_CHUNKS,
     });
     const layout = device.createPipelineLayout({ bindGroupLayouts: [renderer.viewLayout] });
@@ -497,7 +497,7 @@ export const effect = defineEffect({
     const container = createContainerController(canvas);
     const speedPass = createComputePass(device, {
       label: 'pbf-3d/speed.wgsl',
-      code: speedShader,
+      code: speedShader.code,
       profiler,
       timestamp: 'speed',
     });

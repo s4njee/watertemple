@@ -15,10 +15,10 @@ import {
   transitionProgress,
   type Spring,
 } from './dynamics.ts';
-import shader from './display.wgsl?raw';
-import trailShader from './trail.wgsl?raw';
-import backdropShader from './backdrop.wgsl?raw';
-import textShader from './text.wgsl?raw';
+import shader from './display.wgsl';
+import trailShader from './trail.wgsl';
+import backdropShader from './backdrop.wgsl';
+import textShader from './text.wgsl';
 
 const Params = defineUniformStruct('UIParams', {
   image_fit: 'vec2f',
@@ -181,8 +181,12 @@ export function uiEffect(meta: EffectMeta, mode: UIMode) {
         layout: [layout],
         fragment: {
           label: 'ui/display.wgsl',
-          code: `diagnostic(off, derivative_uniformity);\nconst MODE: u32 = ${mode}u;\n${shader}`,
-          chunks: { 'params.wgsl': Params.wgsl, 'text.wgsl': textShader },
+          code: `diagnostic(off, derivative_uniformity);\nconst MODE: u32 = ${mode}u;\n${shader.code}`,
+          chunks: {
+            'params.wgsl': Params.wgsl,
+            'text.wgsl': textShader.code,
+            ...textShader.chunks,
+          },
         },
       });
       let image = createTextureFromData(device, {
@@ -199,8 +203,13 @@ export function uiEffect(meta: EffectMeta, mode: UIMode) {
         format: 'rgba16float',
         fragment: {
           label: 'ui/backdrop.wgsl',
-          code: backdropShader,
-          chunks: { 'params.wgsl': Backdrop.wgsl, 'text.wgsl': textShader },
+          code: backdropShader.code,
+          chunks: {
+            ...backdropShader.chunks,
+            'params.wgsl': Backdrop.wgsl,
+            'text.wgsl': textShader.code,
+            ...textShader.chunks,
+          },
         },
       });
       const bakeEncoder = device.createCommandEncoder({ label: 'Bake two UI sections' });
@@ -242,8 +251,8 @@ export function uiEffect(meta: EffectMeta, mode: UIMode) {
               format: 'r16float',
               fragment: {
                 label: 'ui/trail.wgsl',
-                code: trailShader,
-                chunks: { 'params.wgsl': Params.wgsl },
+                code: trailShader.code,
+                chunks: { ...trailShader.chunks, 'params.wgsl': Params.wgsl },
               },
             })
           : undefined;

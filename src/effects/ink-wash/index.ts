@@ -2,10 +2,10 @@ import { createFullscreenPipeline, renderFullscreen } from '../../gpu/fullscreen
 import { createRenderTarget, type RenderTarget } from '../../gpu/targets.ts';
 import { createUniformBuffer, defineUniformStruct } from '../../gpu/uniforms.ts';
 import { defineEffect } from '../types.ts';
-import composeShader from './compose.wgsl?raw';
-import fieldShader from './field.wgsl?raw';
+import composeShader from './compose.wgsl';
+import fieldShader from './field.wgsl';
 import { meta } from './meta.ts';
-import paperShader from './paper.wgsl?raw';
+import paperShader from './paper.wgsl';
 
 const FieldParams = defineUniformStruct('FieldParams', {
   origin: 'vec2f',
@@ -188,20 +188,24 @@ export const effect = defineEffect({
     const fieldPipeline = createFullscreenPipeline(device, {
       fragment: {
         label: 'ink-wash/field.wgsl',
-        code: fieldShader,
-        chunks: { 'field_params.wgsl': FieldParams.wgsl },
+        code: fieldShader.code,
+        chunks: { ...fieldShader.chunks, 'field_params.wgsl': FieldParams.wgsl },
       },
       format: 'rgba16float',
     });
     const paperPipeline = createFullscreenPipeline(device, {
-      fragment: { label: 'ink-wash/paper.wgsl', code: paperShader },
+      fragment: {
+        label: 'ink-wash/paper.wgsl',
+        code: paperShader.code,
+        chunks: { ...paperShader.chunks },
+      },
       format: 'rgba8unorm',
     });
     const composePipeline = createFullscreenPipeline(device, {
       fragment: {
         label: 'ink-wash/compose.wgsl',
-        code: composeShader,
-        chunks: { 'compose_params.wgsl': ComposeParams.wgsl },
+        code: composeShader.code,
+        chunks: { ...composeShader.chunks, 'compose_params.wgsl': ComposeParams.wgsl },
       },
       format,
     });

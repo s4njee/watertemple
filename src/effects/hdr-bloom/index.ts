@@ -9,7 +9,7 @@ import {
 import { createUniformBuffer, defineUniformStruct } from '../../gpu/uniforms.ts';
 import { defineEffect } from '../types.ts';
 import { meta } from './meta.ts';
-import sceneShader from './scene.wgsl?raw';
+import sceneShader from './scene.wgsl';
 
 const SceneParams = defineUniformStruct('SceneParams', {
   time: 'f32',
@@ -103,8 +103,8 @@ export const effect = defineEffect({
     const pipeline = createFullscreenPipeline(device, {
       fragment: {
         label: 'hdr-bloom/scene.wgsl',
-        code: sceneShader,
-        chunks: { 'scene-params.wgsl': SceneParams.wgsl },
+        code: sceneShader.code,
+        chunks: { ...sceneShader.chunks, 'scene-params.wgsl': SceneParams.wgsl },
       },
       format: 'rgba16float',
     });

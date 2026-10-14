@@ -2,9 +2,9 @@ import { createFullscreenPipeline, renderFullscreen } from '../../gpu/fullscreen
 import { createRenderTarget, type RenderTarget } from '../../gpu/targets.ts';
 import { createUniformBuffer, defineUniformStruct } from '../../gpu/uniforms.ts';
 import { defineEffect } from '../types.ts';
-import bedShader from './bed.wgsl?raw';
+import bedShader from './bed.wgsl';
 import { meta } from './meta.ts';
-import waterShader from './water.wgsl?raw';
+import waterShader from './water.wgsl';
 
 const BedParams = defineUniformStruct('BedParams', {
   aspect: 'f32',
@@ -106,16 +106,16 @@ export const effect = defineEffect({
     const bedPipeline = createFullscreenPipeline(device, {
       fragment: {
         label: 'depth-absorption/bed.wgsl',
-        code: bedShader,
-        chunks: { 'bed_params.wgsl': BedParams.wgsl },
+        code: bedShader.code,
+        chunks: { ...bedShader.chunks, 'bed_params.wgsl': BedParams.wgsl },
       },
       format: BED_FORMAT,
     });
     const waterPipeline = createFullscreenPipeline(device, {
       fragment: {
         label: 'depth-absorption/water.wgsl',
-        code: waterShader,
-        chunks: { 'view_params.wgsl': ViewParams.wgsl },
+        code: waterShader.code,
+        chunks: { ...waterShader.chunks, 'view_params.wgsl': ViewParams.wgsl },
       },
       format,
     });

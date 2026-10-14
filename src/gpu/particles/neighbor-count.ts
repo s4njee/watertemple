@@ -1,6 +1,6 @@
 import { noProfiler, type PassProfiler } from '../profiler.ts';
 import { createComputePass, type ComputePass } from './compute.ts';
-import countSource from './neighbor-count.wgsl?raw';
+import countSource from './neighbor-count.wgsl';
 import type { NeighborGrid, NeighborMode, PositionSource } from './neighbor-grid.ts';
 import type { ParticleSystem } from './system.ts';
 
@@ -54,7 +54,7 @@ export function createNeighborCounter(options: NeighborCounterOptions): Neighbor
     if (!pass) {
       pass = createComputePass(device, {
         label: 'particles/neighbor-count.wgsl',
-        code: countSource,
+        code: countSource.code,
         chunks: grid.chunks({ group: 0, binding: 2 }),
         entryPoint: entry,
         workgroupSize: entry === 'mark_neighbors' ? 1 : 64,

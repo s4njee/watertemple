@@ -2,7 +2,7 @@ import { createFullscreenPipeline, renderFullscreen } from '../../gpu/fullscreen
 import { trackScroll } from '../../gpu/scroll.ts';
 import { createUniformBuffer, defineUniformStruct } from '../../gpu/uniforms.ts';
 import { defineEffect } from '../types.ts';
-import shader from './divider.wgsl?raw';
+import shader from './divider.wgsl';
 import { meta } from './meta.ts';
 
 const DividerParams = defineUniformStruct('DividerParams', {
@@ -220,8 +220,8 @@ export const effect = defineEffect({
     const pipeline = createFullscreenPipeline(device, {
       fragment: {
         label: 'wave-divider/divider.wgsl',
-        code: shader,
-        chunks: { 'divider_params.wgsl': DividerParams.wgsl },
+        code: shader.code,
+        chunks: { ...shader.chunks, 'divider_params.wgsl': DividerParams.wgsl },
       },
       format,
     });

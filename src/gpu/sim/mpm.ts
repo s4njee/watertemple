@@ -6,15 +6,15 @@ import { createParticleSystem, type ParticleSystem } from '../particles/system.t
 import type { ParticleSet } from '../particles/types.ts';
 import { noProfiler, type PassProfiler } from '../profiler.ts';
 import { defineUniformStruct, uniformArray } from '../uniforms.ts';
-import clearSource from './mpm-clear.wgsl?raw';
-import coreSource from './mpm-core.wgsl?raw';
-import g2pSource from './mpm-g2p.wgsl?raw';
-import gridSource from './mpm-grid.wgsl?raw';
-import densitySource from './mpm-density.wgsl?raw';
-import p2g1Source from './mpm-p2g1.wgsl?raw';
-import p2g1sSource from './mpm-p2g1s.wgsl?raw';
-import p2g2Source from './mpm-p2g2.wgsl?raw';
-import p2g2sSource from './mpm-p2g2s.wgsl?raw';
+import clearSource from './mpm-clear.wgsl';
+import coreSource from './mpm-core.wgsl';
+import g2pSource from './mpm-g2p.wgsl';
+import gridSource from './mpm-grid.wgsl';
+import densitySource from './mpm-density.wgsl';
+import p2g1Source from './mpm-p2g1.wgsl';
+import p2g1sSource from './mpm-p2g1s.wgsl';
+import p2g2Source from './mpm-p2g2.wgsl';
+import p2g2sSource from './mpm-p2g2s.wgsl';
 
 // The MLS-MPM solver (story 7.5): a weakly compressible fluid as particles carried over a background grid, in compute
 // shaders. The method is Hu et al., "A Moving Least Squares Material Point Method with Displacement Discontinuity and
@@ -683,55 +683,59 @@ export function createMpm(options: MpmOptions): MpmSolver {
     { code: string; file: string; workgroup: number; label: string }
   > = {
     clear: {
-      code: clearSource,
+      code: clearSource.code,
       file: 'sim/mpm-clear.wgsl',
       workgroup: gridWorkgroup,
       label: PASS_LABELS.clear,
     },
     p2g1: {
-      code: p2g1Source,
+      code: p2g1Source.code,
       file: 'sim/mpm-p2g1.wgsl',
       workgroup: particleWorkgroup,
       label: PASS_LABELS.p2g1,
     },
     p2g1s: {
-      code: p2g1sSource,
+      code: p2g1sSource.code,
       file: 'sim/mpm-p2g1s.wgsl',
       workgroup: gridWorkgroup,
       label: PASS_LABELS.p2g1,
     },
     p2g2: {
-      code: p2g2Source,
+      code: p2g2Source.code,
       file: 'sim/mpm-p2g2.wgsl',
       workgroup: particleWorkgroup,
       label: PASS_LABELS.p2g2,
     },
     density: {
-      code: densitySource,
+      code: densitySource.code,
       file: 'sim/mpm-density.wgsl',
       workgroup: particleWorkgroup,
       label: PASS_LABELS.p2g2,
     },
     p2g2s: {
-      code: p2g2sSource,
+      code: p2g2sSource.code,
       file: 'sim/mpm-p2g2s.wgsl',
       workgroup: gridWorkgroup,
       label: PASS_LABELS.p2g2,
     },
     grid: {
-      code: gridSource,
+      code: gridSource.code,
       file: 'sim/mpm-grid.wgsl',
       workgroup: gridWorkgroup,
       label: PASS_LABELS.grid,
     },
     g2p: {
-      code: g2pSource,
+      code: g2pSource.code,
       file: 'sim/mpm-g2p.wgsl',
       workgroup: particleWorkgroup,
       label: PASS_LABELS.g2p,
     },
   };
-  const chunks = { 'mpm-params.wgsl': MpmUniform.wgsl, 'mpm-core.wgsl': coreSource };
+  const chunks = {
+    'mpm-params.wgsl': MpmUniform.wgsl,
+    'mpm-core.wgsl': coreSource.code,
+    ...coreSource.chunks,
+  };
 
   function pass(name: MpmShaderName): ComputePass {
     let found = handles.get(name);

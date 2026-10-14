@@ -2,8 +2,8 @@ import { noProfiler, type PassProfiler } from '../profiler.ts';
 import { createUniformBuffer, defineUniformStruct, type UniformBuffer } from '../uniforms.ts';
 import { createComputePass } from './compute.ts';
 import type { Vec3 } from './emitter.ts';
-import cellsSource from './neighbor-grid.wgsl?raw';
-import scatterSource from './neighbor-scatter.wgsl?raw';
+import cellsSource from './neighbor-grid.wgsl';
+import scatterSource from './neighbor-scatter.wgsl';
 import { createScan, MAX_SCAN_ELEMENTS } from './scan.ts';
 import type { ParticleSystem } from './system.ts';
 
@@ -221,14 +221,14 @@ export function createNeighborGrid(options: NeighborGridOptions): NeighborGrid {
   const scan = createScan({ device, maxElements: maxCells + 1, profiler, label: `${label} scan` });
   const cellsPass = createComputePass(device, {
     label: 'particles/neighbor-grid.wgsl',
-    code: cellsSource,
+    code: cellsSource.code,
     entryPoint: 'cells',
     profiler,
     timestamp: `${label} cells`,
   });
   const scatterPass = createComputePass(device, {
     label: 'particles/neighbor-scatter.wgsl',
-    code: scatterSource,
+    code: scatterSource.code,
     entryPoint: 'scatter',
     profiler,
     timestamp: `${label} scatter`,

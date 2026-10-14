@@ -3,7 +3,7 @@ import { createFullscreenPipeline, renderFullscreen } from '../../gpu/fullscreen
 import { createUniformBuffer, defineUniformStruct } from '../../gpu/uniforms.ts';
 import { defineEffect } from '../types.ts';
 import { meta } from './meta.ts';
-import overlayShader from './overlay.wgsl?raw';
+import overlayShader from './overlay.wgsl';
 
 const CausticsParams = defineUniformStruct('CausticsParams', {
   tint: 'vec3f',
@@ -158,8 +158,8 @@ export const effect = defineEffect({
     const pipeline = createFullscreenPipeline(device, {
       fragment: {
         label: 'caustics/overlay.wgsl',
-        code: overlayShader,
-        chunks: { 'caustics_params.wgsl': CausticsParams.wgsl },
+        code: overlayShader.code,
+        chunks: { ...overlayShader.chunks, 'caustics_params.wgsl': CausticsParams.wgsl },
       },
       format,
     });

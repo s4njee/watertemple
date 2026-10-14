@@ -4,8 +4,8 @@ import { trackPointer } from '../../gpu/pointer.ts';
 import { createUniformBuffer, defineUniformStruct } from '../../gpu/uniforms.ts';
 import { defineEffect } from '../types.ts';
 import { meta } from './meta.ts';
-import sceneShader from './scene.wgsl?raw';
-import waterShader from './water.wgsl?raw';
+import sceneShader from './scene.wgsl';
+import waterShader from './water.wgsl';
 
 const SceneParams = defineUniformStruct('SceneParams', {
   aspect: 'f32',
@@ -143,16 +143,16 @@ export const effect = defineEffect({
     const scenePipeline = createFullscreenPipeline(device, {
       fragment: {
         label: 'refraction/scene.wgsl',
-        code: sceneShader,
-        chunks: { 'scene_params.wgsl': SceneParams.wgsl },
+        code: sceneShader.code,
+        chunks: { ...sceneShader.chunks, 'scene_params.wgsl': SceneParams.wgsl },
       },
       format: BACKDROP_FORMAT,
     });
     const waterPipeline = createFullscreenPipeline(device, {
       fragment: {
         label: 'refraction/water.wgsl',
-        code: waterShader,
-        chunks: { 'water_params.wgsl': WaterParams.wgsl },
+        code: waterShader.code,
+        chunks: { ...waterShader.chunks, 'water_params.wgsl': WaterParams.wgsl },
       },
       format,
     });

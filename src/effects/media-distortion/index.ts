@@ -14,8 +14,8 @@ import { trackPointer } from '../../gpu/pointer.ts';
 import { createUniformBuffer, defineUniformStruct, uniformArray } from '../../gpu/uniforms.ts';
 import { defineEffect } from '../types.ts';
 import { meta } from './meta.ts';
-import shader from './media-distortion.wgsl?raw';
-import sceneShader from '../_shared/media-scene.wgsl?raw';
+import shader from './media-distortion.wgsl';
+import sceneShader from '../_shared/media-scene.wgsl';
 import { createLiveVideo, createStillCanvas, type LiveVideo } from './sources.ts';
 
 const Params = defineUniformStruct('DistortionParams', {
@@ -153,8 +153,8 @@ export const effect = defineEffect({
     const pipeline = createFullscreenPipeline(device, {
       fragment: {
         label: 'media-distortion/media-distortion.wgsl',
-        code: shader,
-        chunks: { 'distortion_params.wgsl': Params.wgsl },
+        code: shader.code,
+        chunks: { ...shader.chunks, 'distortion_params.wgsl': Params.wgsl },
       },
       format,
     });
@@ -207,7 +207,11 @@ export const effect = defineEffect({
       sceneUniforms.set({ aspect: width / height, aa: 1 / height });
       sceneUniforms.upload();
       const scenePipeline = createFullscreenPipeline(device, {
-        fragment: { label: 'media-distortion/scene.wgsl', code: sceneShader },
+        fragment: {
+          label: 'media-distortion/scene.wgsl',
+          code: sceneShader.code,
+          chunks: { ...sceneShader.chunks },
+        },
         format: 'rgba8unorm-srgb',
       });
       const group = device.createBindGroup({

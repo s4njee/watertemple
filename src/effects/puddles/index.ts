@@ -2,9 +2,9 @@ import { createFullscreenPipeline, renderFullscreen } from '../../gpu/fullscreen
 import { generateMipmaps, mipLevelCount } from '../../gpu/mipmap.ts';
 import { createUniformBuffer, defineUniformStruct } from '../../gpu/uniforms.ts';
 import { defineEffect } from '../types.ts';
-import groundShader from './ground.wgsl?raw';
+import groundShader from './ground.wgsl';
 import { meta } from './meta.ts';
-import puddleShader from './puddle.wgsl?raw';
+import puddleShader from './puddle.wgsl';
 
 const GroundParams = defineUniformStruct('GroundParams', {
   surface: 'i32',
@@ -171,16 +171,16 @@ export const effect = defineEffect({
     const groundPipeline = createFullscreenPipeline(device, {
       fragment: {
         label: 'puddles/ground.wgsl',
-        code: groundShader,
-        chunks: { 'ground_params.wgsl': GroundParams.wgsl },
+        code: groundShader.code,
+        chunks: { ...groundShader.chunks, 'ground_params.wgsl': GroundParams.wgsl },
       },
       format: ['rgba16float', 'rg16float'],
     });
     const puddlePipeline = createFullscreenPipeline(device, {
       fragment: {
         label: 'puddles/puddle.wgsl',
-        code: puddleShader,
-        chunks: { 'puddle_params.wgsl': PuddleParams.wgsl },
+        code: puddleShader.code,
+        chunks: { ...puddleShader.chunks, 'puddle_params.wgsl': PuddleParams.wgsl },
       },
       format,
     });

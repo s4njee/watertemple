@@ -1,7 +1,7 @@
 import { createOrbitEffect } from './engine.ts';
 import { defineEffect, type EffectMeta, type ParamValue } from '../../types.ts';
 import { linearColour, ORBIT_VARIATIONS, type OrbitVariationId } from './catalog.ts';
-import displayShader from '../../orbit-variants/display.wgsl?raw';
+import displayShader from '../../orbit-variants/display.wgsl';
 
 export function createMaterialVariation(meta: EffectMeta, id: OrbitVariationId) {
   const variation = ORBIT_VARIATIONS[id];

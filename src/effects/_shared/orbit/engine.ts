@@ -17,7 +17,7 @@ import { createStrokeLayer } from './strokes.ts';
 import { MATERIAL_PALETTES } from './catalog.ts';
 import { biolumePulse, stepSpark, type EmberSpark } from './dynamics.ts';
 import { createHead, stepHead, type Head, type HeadBox, type HeadField } from './heads.ts';
-import orbitShader from './orbit.wgsl?raw';
+import orbitShader from './orbit.wgsl';
 
 /** Elements the current pass knows about. Further ones still steer the heads and are still solid. */
 const MAX_LANES = 24;
@@ -229,7 +229,7 @@ function createRandom(seed: number): () => number {
 /** Share the simulation while allowing a variation to supply its own lighting pass. */
 export function createOrbitEffect(options: {
   meta: EffectMeta;
-  displayShader: string;
+  displayShader: { code: string; chunks: Readonly<Record<string, string>> };
   darkGround?: Vec3;
   /** 1 neon, 2 glass, 3 bioluminescence, 4 chrome, 5 embers, 6 eclipse. */
   style?: number;
@@ -500,8 +500,8 @@ export function createOrbitEffect(options: {
       const displayPipeline = createFullscreenPipeline(device, {
         fragment: {
           label: 'ink-orbit/display.wgsl',
-          code: options.displayShader,
-          chunks: { 'display_params.wgsl': DisplayParams.wgsl },
+          code: options.displayShader.code,
+          chunks: { ...options.displayShader.chunks, 'display_params.wgsl': DisplayParams.wgsl },
         },
         format,
       });
@@ -527,8 +527,8 @@ export function createOrbitEffect(options: {
         compute: {
           module: createShader(device, {
             label: 'ink-orbit/orbit.wgsl',
-            code: orbitShader,
-            chunks: { 'orbit_params.wgsl': OrbitParams.wgsl },
+            code: orbitShader.code,
+            chunks: { ...orbitShader.chunks, 'orbit_params.wgsl': OrbitParams.wgsl },
           }),
           entryPoint: 'cs_orbit',
         },

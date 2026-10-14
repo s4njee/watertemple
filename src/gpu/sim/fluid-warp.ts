@@ -2,9 +2,9 @@ import { createFullscreenPipeline, renderFullscreen } from '../fullscreen.ts';
 import { fitScale, type MediaFit } from '../media.ts';
 import { noProfiler, type PassProfiler } from '../profiler.ts';
 import { createUniformBuffer, defineUniformStruct } from '../uniforms.ts';
-import advectSource from './fluid-warp-advect.wgsl?raw';
-import applySource from './fluid-warp-apply.wgsl?raw';
-import coreSource from './fluid-warp-core.wgsl?raw';
+import advectSource from './fluid-warp-advect.wgsl';
+import applySource from './fluid-warp-apply.wgsl';
+import coreSource from './fluid-warp-core.wgsl';
 import type { Fluid, FluidTexture } from './fluid.ts';
 
 // Fluid as page distortion (story 6.4): the velocity field of the stable-fluids solver pushes CONTENT
@@ -183,8 +183,8 @@ export function createFluidWarp(options: FluidWarpOptions): FluidWarp {
   const pipeline = createFullscreenPipeline(device, {
     fragment: {
       label: 'sim/fluid-warp-advect.wgsl',
-      code: advectSource,
-      chunks: { 'warp_params.wgsl': WarpParams.wgsl },
+      code: advectSource.code,
+      chunks: { ...advectSource.chunks, 'warp_params.wgsl': WarpParams.wgsl },
     },
     format: WARP_FORMAT,
   });
@@ -407,10 +407,12 @@ export function createFluidWarpPresenter(options: FluidWarpPresenterOptions): Fl
   const pipeline = createFullscreenPipeline(device, {
     fragment: {
       label: 'sim/fluid-warp-apply.wgsl',
-      code: applySource,
+      code: applySource.code,
       chunks: {
+        ...applySource.chunks,
         'warp_apply_params.wgsl': WarpApplyParams.wgsl,
-        'fluid-warp-core.wgsl': coreSource,
+        'fluid-warp-core.wgsl': coreSource.code,
+        ...coreSource.chunks,
       },
     },
     format,

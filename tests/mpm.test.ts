@@ -17,15 +17,15 @@ import {
   type MpmScene,
   type MpmSolver,
 } from '../src/gpu/sim/mpm.ts';
-import clearSource from '../src/gpu/sim/mpm-clear.wgsl?raw';
-import coreSource from '../src/gpu/sim/mpm-core.wgsl?raw';
-import densitySource from '../src/gpu/sim/mpm-density.wgsl?raw';
-import g2pSource from '../src/gpu/sim/mpm-g2p.wgsl?raw';
-import gridSource from '../src/gpu/sim/mpm-grid.wgsl?raw';
-import p2g1Source from '../src/gpu/sim/mpm-p2g1.wgsl?raw';
-import p2g1sSource from '../src/gpu/sim/mpm-p2g1s.wgsl?raw';
-import p2g2Source from '../src/gpu/sim/mpm-p2g2.wgsl?raw';
-import p2g2sSource from '../src/gpu/sim/mpm-p2g2s.wgsl?raw';
+import clearSource from '../src/gpu/sim/mpm-clear.wgsl';
+import coreSource from '../src/gpu/sim/mpm-core.wgsl';
+import densitySource from '../src/gpu/sim/mpm-density.wgsl';
+import g2pSource from '../src/gpu/sim/mpm-g2p.wgsl';
+import gridSource from '../src/gpu/sim/mpm-grid.wgsl';
+import p2g1Source from '../src/gpu/sim/mpm-p2g1.wgsl';
+import p2g1sSource from '../src/gpu/sim/mpm-p2g1s.wgsl';
+import p2g2Source from '../src/gpu/sim/mpm-p2g2.wgsl';
+import p2g2sSource from '../src/gpu/sim/mpm-p2g2s.wgsl';
 import { expectValid, getTestDevice, readTexture } from './gpu.ts';
 import { gpuF32, lane, rowsOf, scalars } from './wgsl-eval.ts';
 
@@ -156,7 +156,7 @@ describe('mpm-core.wgsl', () => {
     const fxs: number[] = [];
     for (let i = 0; i < 64; i++) fxs.push(0.5 + (i / 63) * 0.999);
     const out = await gpuF32(
-      `${coreSource}
+      `${coreSource.code}
        fn f(x: vec4f) -> vec4f {
          let W = mpm_weight_matrix(vec3f(x.x, x.x, x.x));
          let w = vec3f(W[0].x, W[1].x, W[2].x);
@@ -186,7 +186,7 @@ describe('mpm-core.wgsl', () => {
     const ts: number[] = [];
     for (let i = -17; i <= 17; i++) ts.push(i / 10);
     const values = await scalars(
-      coreSource,
+      coreSource.code,
       ts.map((t) => `mpm_kernel_above(${t.toFixed(3)})`),
     );
     expect(values[ts.indexOf(-1.7)]).toBe(1);
@@ -196,7 +196,7 @@ describe('mpm-core.wgsl', () => {
       expect(values[i]!).toBeLessThanOrEqual(values[i - 1]! + 1e-6);
     // Its derivative is the weight function itself: at t = 0 the weight is 0.75.
     const eps = 1e-3;
-    const [lo, hi] = await scalars(coreSource, [
+    const [lo, hi] = await scalars(coreSource.code, [
       `mpm_kernel_above(${-eps})`,
       `mpm_kernel_above(${eps})`,
     ]);
@@ -204,7 +204,7 @@ describe('mpm-core.wgsl', () => {
   });
 
   it('fixed point rounds to nearest, round-trips, saturates and keeps a lone slow particle', async () => {
-    const [half, roundTrip, slow, saturated, negative] = await scalars(coreSource, [
+    const [half, roundTrip, slow, saturated, negative] = await scalars(coreSource.code, [
       'f32(mpm_to_fixed(0.5 / 1048576.0 * 0.999))',
       'mpm_from_fixed(mpm_to_fixed(123.456789)) - 123.456789',
       // a particle at 1e-3 m/s deposits 0.4219 of its momentum on its central node: momentum 4.2e-4
@@ -221,7 +221,7 @@ describe('mpm-core.wgsl', () => {
   });
 
   it('signed distance of the collider shapes', async () => {
-    const [sphere, sphereInside, box, boxInside, plane, nx] = await scalars(coreSource, [
+    const [sphere, sphereInside, box, boxInside, plane, nx] = await scalars(coreSource.code, [
       'mpm_collider_sdf(vec4f(1.0, 2.0, 3.0, 1.0), vec4f(0.5, 0.0, 0.0, 0.0), vec3f(1.0, 2.0, 4.0)).w',
       'mpm_collider_sdf(vec4f(1.0, 2.0, 3.0, 1.0), vec4f(0.5, 0.0, 0.0, 0.0), vec3f(1.0, 2.1, 3.0)).w',
       'mpm_collider_sdf(vec4f(0.0, 0.0, 0.0, 2.0), vec4f(1.0, 1.0, 1.0, 0.0), vec3f(3.0, 0.0, 0.0)).w',
@@ -287,14 +287,14 @@ describe('stability rule', () => {
 
 describe('bindings', () => {
   const sources: Record<string, string> = {
-    clear: clearSource,
-    p2g1: p2g1Source,
-    p2g1s: p2g1sSource,
-    p2g2: p2g2Source,
-    density: densitySource,
-    p2g2s: p2g2sSource,
-    grid: gridSource,
-    g2p: g2pSource,
+    clear: clearSource.code,
+    p2g1: p2g1Source.code,
+    p2g1s: p2g1sSource.code,
+    p2g2: p2g2Source.code,
+    density: densitySource.code,
+    p2g2s: p2g2sSource.code,
+    grid: gridSource.code,
+    g2p: g2pSource.code,
   };
 
   it('every shader stays inside 8 storage buffers, as the table says', async () => {

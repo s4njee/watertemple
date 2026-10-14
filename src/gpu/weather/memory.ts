@@ -2,7 +2,7 @@ import { createFullscreenPipeline, renderFullscreen } from '../fullscreen.ts';
 import { createPingPongTarget } from '../targets.ts';
 import { createUniformBuffer } from '../uniforms.ts';
 import { WeatherParams } from './params.ts';
-import code from './memory.wgsl?raw';
+import code from './memory.wgsl';
 export function createWeatherMemory(device: GPUDevice, width: number, height: number) {
   const pair = createPingPongTarget(device, {
     label: 'weather glass memory',
@@ -24,7 +24,7 @@ export function createWeatherMemory(device: GPUDevice, width: number, height: nu
     format: 'rgba16float',
     fragment: {
       label: 'weather/memory.wgsl',
-      code,
+      code: code.code,
       chunks: { 'weather_params.wgsl': WeatherParams.wgsl },
     },
   });

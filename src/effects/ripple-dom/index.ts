@@ -11,8 +11,8 @@ import { createUniformBuffer, defineUniformStruct, uniformArray } from '../../gp
 import { defineEffect } from '../types.ts';
 import { createDemoElements, type DemoElements } from './demo.ts';
 import { meta } from './meta.ts';
-import sceneShader from './scene.wgsl?raw';
-import waterShader from './water.wgsl?raw';
+import sceneShader from './scene.wgsl';
+import waterShader from './water.wgsl';
 
 /** Page elements the shading pass cuts out exactly; further ones still act on the water. */
 const MAX_RECTS = 24;
@@ -254,16 +254,16 @@ export const effect = defineEffect({
     const scenePipeline = createFullscreenPipeline(device, {
       fragment: {
         label: 'ripple-dom/scene.wgsl',
-        code: sceneShader,
-        chunks: { 'scene_params.wgsl': SceneParams.wgsl },
+        code: sceneShader.code,
+        chunks: { ...sceneShader.chunks, 'scene_params.wgsl': SceneParams.wgsl },
       },
       format: BACKDROP_FORMAT,
     });
     const waterPipeline = createFullscreenPipeline(device, {
       fragment: {
         label: 'ripple-dom/water.wgsl',
-        code: waterShader,
-        chunks: { 'water_params.wgsl': WaterParams.wgsl },
+        code: waterShader.code,
+        chunks: { ...waterShader.chunks, 'water_params.wgsl': WaterParams.wgsl },
       },
       format,
     });

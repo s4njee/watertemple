@@ -7,7 +7,7 @@ import {
 import { createFullscreenPipeline, renderFullscreen } from '../../gpu/fullscreen.ts';
 import { createUniformBuffer, defineUniformStruct } from '../../gpu/uniforms.ts';
 import { defineEffect } from '../types.ts';
-import shader from './flow-map.wgsl?raw';
+import shader from './flow-map.wgsl';
 import { meta } from './meta.ts';
 
 const Params = defineUniformStruct('Params', {
@@ -94,8 +94,8 @@ export const effect = defineEffect({
     const pipeline = createFullscreenPipeline(device, {
       fragment: {
         label: 'flow-map/flow-map.wgsl',
-        code: shader,
-        chunks: { 'params.wgsl': Params.wgsl },
+        code: shader.code,
+        chunks: { ...shader.chunks, 'params.wgsl': Params.wgsl },
       },
       format,
     });

@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import { effect as washEffect } from '../src/effects/ink-wash/index.ts';
 import { effect, INK_COLOURS, absorbance, linear, PAPERS } from '../src/effects/ink-water/index.ts';
-import compositeWgsl from '../src/effects/ink-water/composite.wgsl?raw';
+import compositeWgsl from '../src/effects/ink-water/composite.wgsl';
 import { defaultParams } from '../src/effects/types.ts';
 import { noProfiler } from '../src/gpu/profiler.ts';
 import { createFluid, floatToHalf, halfToFloat } from '../src/gpu/sim/fluid.ts';
@@ -1020,7 +1020,7 @@ describe('parameter extremes', () => {
 // --- Colour -----------------------------------------------------------------------------------------------------------------
 
 describe('subtractive colour', () => {
-  const wgsl = `${compositeWgsl}
+  const wgsl = `${compositeWgsl.code}
 fn f(x: vec4f) -> vec4f {
   // x.xyz: optical density; the paper is a warm white; x.w selects light (0) or dark (1) paper.
   let base = select(vec3f(0.9, 0.85, 0.7), vec3f(0.02, 0.025, 0.04), x.w > 0.5);

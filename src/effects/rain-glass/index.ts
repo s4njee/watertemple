@@ -5,9 +5,9 @@ import { downsample } from '../../gpu/passes/downsample.ts';
 import { createRenderTarget, type RenderTarget } from '../../gpu/targets.ts';
 import { createUniformBuffer, defineUniformStruct } from '../../gpu/uniforms.ts';
 import { defineEffect } from '../types.ts';
-import glassShader from './glass.wgsl?raw';
+import glassShader from './glass.wgsl';
 import { meta } from './meta.ts';
-import sceneShader from './scene.wgsl?raw';
+import sceneShader from './scene.wgsl';
 
 const SceneParams = defineUniformStruct('SceneParams', {
   aspect: 'f32',
@@ -112,16 +112,16 @@ export const effect = defineEffect({
     const scenePipeline = createFullscreenPipeline(device, {
       fragment: {
         label: 'rain-glass/scene.wgsl',
-        code: sceneShader,
-        chunks: { 'scene_params.wgsl': SceneParams.wgsl },
+        code: sceneShader.code,
+        chunks: { ...sceneShader.chunks, 'scene_params.wgsl': SceneParams.wgsl },
       },
       format: SCENE_FORMAT,
     });
     const glassPipeline = createFullscreenPipeline(device, {
       fragment: {
         label: 'rain-glass/glass.wgsl',
-        code: glassShader,
-        chunks: { 'glass_params.wgsl': GlassParams.wgsl },
+        code: glassShader.code,
+        chunks: { ...glassShader.chunks, 'glass_params.wgsl': GlassParams.wgsl },
       },
       format,
     });

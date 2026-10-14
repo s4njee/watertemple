@@ -54,8 +54,8 @@ import {
   type Vec3,
 } from './maths.ts';
 import { meta } from './meta.ts';
-import poolShader from './pool.wgsl?raw';
-import poolRays from './pool-rays.wgsl?raw';
+import poolShader from './pool.wgsl';
+import poolRays from './pool-rays.wgsl';
 
 const PoolParams = defineUniformStruct('PoolParams', {
   sun: 'vec3f',
@@ -380,8 +380,13 @@ export const effect = defineEffect({
     });
     const module = createShader(device, {
       label: 'pool-3d/pool.wgsl',
-      code: poolShader,
-      chunks: { 'pool_params.wgsl': PoolParams.wgsl, 'pool_rays.wgsl': poolRays },
+      code: poolShader.code,
+      chunks: {
+        ...poolShader.chunks,
+        'pool_params.wgsl': PoolParams.wgsl,
+        'pool_rays.wgsl': poolRays.code,
+        ...poolRays.chunks,
+      },
     });
     const pipelineLayout = device.createPipelineLayout({
       label: 'pool pipeline layout',

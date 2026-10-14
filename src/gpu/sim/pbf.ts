@@ -15,13 +15,13 @@ import {
   type UniformFields,
   type UniformStruct,
 } from '../uniforms.ts';
-import coreSource from './pbf-core.wgsl?raw';
-import correctSource from './pbf-correct.wgsl?raw';
-import densitySource from './pbf-density.wgsl?raw';
-import kernelsSource from './pbf-kernels.wgsl?raw';
-import predictSource from './pbf-predict.wgsl?raw';
-import viscositySource from './pbf-viscosity.wgsl?raw';
-import vorticitySource from './pbf-vorticity.wgsl?raw';
+import coreSource from './pbf-core.wgsl';
+import correctSource from './pbf-correct.wgsl';
+import densitySource from './pbf-density.wgsl';
+import kernelsSource from './pbf-kernels.wgsl';
+import predictSource from './pbf-predict.wgsl';
+import viscositySource from './pbf-viscosity.wgsl';
+import vorticitySource from './pbf-vorticity.wgsl';
 
 // Position-based fluids (story 7.4): Macklin and Mueller, "Position Based Fluids" (2013), on the GPU, in 2D or 3D from
 // the same code. The method treats incompressibility as a constraint on particle positions instead of a force:
@@ -690,15 +690,21 @@ export function createPbf(options: PbfOptions): Pbf {
   // --- Passes -----------------------------------------------------------------------------------------------------
   const chunks = {
     'pbf_params.wgsl': PBF_PARAMS.wgsl + PBF_STEP.wgsl,
-    'pbf-core.wgsl': coreSource,
-    'pbf-kernels.wgsl': kernelsSource,
+    'pbf-core.wgsl': coreSource.code,
+    ...coreSource.chunks,
+    'pbf-kernels.wgsl': kernelsSource.code,
+    ...kernelsSource.chunks,
     ...grid.chunks({ group: 0, binding: 8 }),
   };
-  const makePass = (file: string, code: string, stamp: string): ComputePass =>
+  const makePass = (
+    file: string,
+    source: { code: string; chunks: Readonly<Record<string, string>> },
+    stamp: string,
+  ): ComputePass =>
     createComputePass(device, {
       label: `sim/${file}`,
-      code,
-      chunks,
+      code: source.code,
+      chunks: { ...source.chunks, ...chunks },
       profiler,
       timestamp: `${label} ${stamp}`,
     });

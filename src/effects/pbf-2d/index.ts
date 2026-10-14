@@ -13,9 +13,9 @@ import type { CameraMatrices } from '../../gpu/scene/camera.ts';
 import { createPbf, type Pbf, type PbfScene, type Vec3 } from '../../gpu/sim/pbf.ts';
 import { createUniformBuffer, defineUniformStruct, uniformArray } from '../../gpu/uniforms.ts';
 import { defineEffect } from '../types.ts';
-import backdropWgsl from './backdrop.wgsl?raw';
+import backdropWgsl from './backdrop.wgsl';
 import { meta } from './meta.ts';
-import scalarsWgsl from './scalars.wgsl?raw';
+import scalarsWgsl from './scalars.wgsl';
 
 // The 2D position-based-fluids demo: a tank of water solved by src/gpu/sim/pbf.ts (read its header for the method) and
 // drawn as discs. This file is the scenes, the pointer, the scene "director" (the wave-maker's wall, the drops, the
@@ -484,8 +484,8 @@ export const effect = defineEffect({
     };
     const backdropSource = {
       label: 'pbf-2d/backdrop.wgsl',
-      code: backdropWgsl,
-      chunks: { 'backdrop_params.wgsl': BackdropParams.wgsl },
+      code: backdropWgsl.code,
+      chunks: { ...backdropWgsl.chunks, 'backdrop_params.wgsl': BackdropParams.wgsl },
     };
     const backdropPipeline = createFullscreenPipeline(device, {
       label: 'pbf-2d backdrop',
@@ -511,14 +511,14 @@ export const effect = defineEffect({
     const scalarPasses = {
       speed: createComputePass(device, {
         label: 'pbf-2d/scalars.wgsl',
-        code: scalarsWgsl,
+        code: scalarsWgsl.code,
         entryPoint: 'speed',
         profiler,
         timestamp: 'speed',
       }),
       density: createComputePass(device, {
         label: 'pbf-2d/scalars.wgsl',
-        code: scalarsWgsl,
+        code: scalarsWgsl.code,
         entryPoint: 'density_error',
         profiler,
         timestamp: 'density error',

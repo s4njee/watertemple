@@ -24,7 +24,7 @@ import {
   type BallBody,
   type Vec3,
 } from '../src/effects/pool-3d/maths.ts';
-import poolRays from '../src/effects/pool-3d/pool-rays.wgsl?raw';
+import poolRays from '../src/effects/pool-3d/pool-rays.wgsl';
 import { defaultParams } from '../src/effects/types.ts';
 import { noProfiler } from '../src/gpu/profiler.ts';
 import {
@@ -311,7 +311,7 @@ describe('the WGSL ray helpers match the TypeScript ones', () => {
         return `PlCase(vec3f(${o.join(',')}), vec3f(${u.join(',')}), vec3f(${c.join(',')}), ${r})`;
       })
       .join(',\n');
-    const code = `${poolRays}
+    const code = `${poolRays.code}
 struct PlCase { o: vec3f, d: vec3f, c: vec3f, r: f32 }
 const CASES = array<PlCase, ${cases.length}>(${table});
 fn f(x: vec4f) -> vec4f {
@@ -345,7 +345,7 @@ fn f(x: vec4f) -> vec4f {
       .map(({ o, d }) => `PlCase(vec3f(${o.join(',')}), vec3f(${d.join(',')}))`)
       .join(',\n');
     const ys = cases.map(({ yLo, yHi }) => `vec2f(${yLo}, ${yHi})`).join(',');
-    const code = `${poolRays}
+    const code = `${poolRays.code}
 struct PlCase { o: vec3f, d: vec3f }
 const CASES = array<PlCase, ${cases.length}>(${table});
 const YS = array<vec2f, ${cases.length}>(${ys});

@@ -13,9 +13,9 @@ import { createCameraMatrices } from '../scene/camera.ts';
 import { createShader } from '../shader.ts';
 import { createRenderTarget, type RenderTarget } from '../targets.ts';
 import { createUniformBuffer, defineUniformStruct } from '../uniforms.ts';
-import compositeSource from './composite.wgsl?raw';
-import splatSource from './splat.wgsl?raw';
-import wideSource from './wide.wgsl?raw';
+import compositeSource from './composite.wgsl';
+import splatSource from './splat.wgsl';
+import wideSource from './wide.wgsl';
 
 // The 2D liquid-surface renderer: screen-space fluid rendering for a particle fluid seen from the side.
 //
@@ -244,7 +244,11 @@ const ADDITIVE: GPUBlendState = {
 
 const stateFor = perDevice((device): DeviceState => {
   const chunks = { 'liquid2d_params.wgsl': LIQUID2D_UNIFORM.wgsl };
-  const module = createShader(device, { label: 'liquid-2d/splat.wgsl', code: splatSource, chunks });
+  const module = createShader(device, {
+    label: 'liquid-2d/splat.wgsl',
+    code: splatSource.code,
+    chunks,
+  });
   return {
     layout: device.createBindGroupLayout({
       label: 'liquid-2d composite layout',
@@ -279,7 +283,7 @@ const stateFor = perDevice((device): DeviceState => {
     }),
     wide: createFullscreenPipeline(device, {
       label: 'liquid-2d wide',
-      fragment: { label: 'liquid-2d/wide.wgsl', code: wideSource, chunks },
+      fragment: { label: 'liquid-2d/wide.wgsl', code: wideSource.code, chunks },
       format: FIELD_FORMAT,
     }),
     composite: new Map(),
@@ -298,8 +302,8 @@ function compositePipelines(
         label: `liquid-2d ${entryPoint} ${format}`,
         fragment: {
           label: 'liquid-2d/composite.wgsl',
-          code: compositeSource,
-          chunks: { 'liquid2d_params.wgsl': LIQUID2D_UNIFORM.wgsl },
+          code: compositeSource.code,
+          chunks: { ...compositeSource.chunks, 'liquid2d_params.wgsl': LIQUID2D_UNIFORM.wgsl },
         },
         entryPoint,
         format,

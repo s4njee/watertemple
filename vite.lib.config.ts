@@ -3,6 +3,7 @@
 import { existsSync, readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'vite';
+import { wgsl } from './vite-plugin-wgsl.ts';
 
 const src = fileURLToPath(new URL('./src', import.meta.url));
 
@@ -23,6 +24,7 @@ function entries(dir: string, prefix = ''): Record<string, string> {
 }
 
 export default defineConfig({
+  plugins: [wgsl()],
   build: {
     outDir: 'lib',
     emptyOutDir: true,
