@@ -5,7 +5,6 @@
 //   node scripts/publish-site-mk7s.mjs --deploy    ...then build mk7s and deploy it with Wrangler
 //
 // Options: --mk7s <path> (default ../../mk7s), --branch <name> (default main, the production branch).
-/* global console */
 import { spawnSync } from 'node:child_process';
 import {
   cpSync,

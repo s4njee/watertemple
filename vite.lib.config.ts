@@ -1,6 +1,6 @@
 // Library build (M3 story 3.4): emit plain ESM with WGSL inlined as strings, so an effect can
 // be consumed without Vite. Run with `npm run build:lib`.
-import { existsSync, readdirSync } from 'node:fs';
+import { readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'vite';
 import { wgsl } from './vite-plugin-wgsl.ts';
