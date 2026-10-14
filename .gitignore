@@ -1,5 +1,6 @@
 node_modules
 dist
+/lib/
 *.local
 .DS_Store
 output/
