@@ -202,7 +202,7 @@ export function oceanEffect(meta: EffectMeta, mode: OceanMode) {
       const module = createShader(device, {
         label: 'ocean/scene.wgsl',
         code: code.code,
-        chunks: { 'scene-params.wgsl': Params.wgsl },
+        chunks: { ...code.chunks, 'scene-params.wgsl': Params.wgsl },
       });
       const visibility = GPUShaderStage.VERTEX | GPUShaderStage.FRAGMENT;
       const layout = device.createBindGroupLayout({
@@ -246,7 +246,7 @@ export function oceanEffect(meta: EffectMeta, mode: OceanMode) {
               fragment: {
                 label: 'lake planar reflection',
                 code: code.code,
-                chunks: { 'scene-params.wgsl': Params.wgsl },
+                chunks: { ...code.chunks, 'scene-params.wgsl': Params.wgsl },
               },
               entryPoint: 'reflection',
               format: 'rgba16float',
@@ -305,7 +305,7 @@ export function oceanEffect(meta: EffectMeta, mode: OceanMode) {
               fragment: {
                 label: 'waterline grading',
                 code: code.code,
-                chunks: { 'scene-params.wgsl': Params.wgsl },
+                chunks: { ...code.chunks, 'scene-params.wgsl': Params.wgsl },
               },
               entryPoint: 'waterline',
               format,
