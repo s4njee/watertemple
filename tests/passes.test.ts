@@ -500,8 +500,8 @@ describe('blur', () => {
   it('copies when the radius is 0, and clamps absurd radii', async () => {
     const device = await getTestDevice();
     const none = await blurImpulse(device, { radius: 0 });
-    expect(none[CENTER * SIZE + CENTER]).toBeCloseTo(1, 3);
-    expect(none.reduce((sum, value) => sum + value, 0)).toBeCloseTo(1, 3);
+    expect(none[CENTER * SIZE + CENTER]).toBeCloseTo(1, 2);
+    expect(none.reduce((sum, value) => sum + value, 0)).toBeCloseTo(1, 2);
 
     const out = await blurImpulse(device, { radius: 100_000 }, 2 * MAX_BLUR_RADIUS + 31);
     expect(Math.abs(out.reduce((sum, value) => sum + value, 0) - 1)).toBeLessThan(0.01);

@@ -13,7 +13,7 @@ import { halfToFloat } from '../src/gpu/sim/fluid.ts';
 import { expectValid, getTestDevice, readTexture } from './gpu.ts';
 import { scalars } from './wgsl-eval.ts';
 
-vi.setConfig({ testTimeout: 120_000 });
+vi.setConfig({ testTimeout: 300_000 });
 
 // --- Helpers -------------------------------------------------------------------------------------
 

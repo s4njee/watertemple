@@ -33,7 +33,7 @@ import { gpuF32, lane, rowsOf, scalars } from './wgsl-eval.ts';
 // JavaScript or with a conservation law. Grids and counts are small so the suite stays fast; the cost study at the
 // end is skipped unless MPM_STUDY names a file.
 
-vi.setConfig({ testTimeout: 120_000 });
+vi.setConfig({ testTimeout: 300_000 });
 
 // --- Helpers ---------------------------------------------------------------------------------------------------------
 

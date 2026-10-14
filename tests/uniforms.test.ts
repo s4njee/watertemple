@@ -541,5 +541,5 @@ describe('layout against Dawn', () => {
       const struct = defineUniformStruct(`Fuzz${n}`, fields);
       await roundTrip(device, struct, rng);
     }
-  });
+  }, 120_000);
 });

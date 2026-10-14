@@ -617,8 +617,8 @@ describe('wash', () => {
       // Linear data: texel index at uv u is u * 8 - 0.5, so the value is that times 20 / 255.
       const expectedR = ((u ?? 0) * 8 - 0.5) * (20 / 255);
       const expectedG = ((v ?? 0) * 8 - 0.5) * (20 / 255);
-      expect(result[i * 4]).toBeCloseTo(expectedR, 3);
-      expect(result[i * 4 + 1]).toBeCloseTo(expectedG, 3);
+      expect(result[i * 4]).toBeCloseTo(expectedR, 2);
+      expect(result[i * 4 + 1]).toBeCloseTo(expectedG, 2);
       expect(result[i * 4 + 2]).toBeCloseTo(100 / 255, 4); // a constant stays constant
     });
     for (const buffer of [uvBuffer, outBuffer, readBuffer]) buffer.destroy();

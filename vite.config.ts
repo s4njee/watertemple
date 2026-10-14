@@ -53,5 +53,8 @@ export default defineConfig({
     environment: 'node',
     include: ['tests/**/*.test.ts'],
     setupFiles: ['tests/setup.ts'],
+    // CI runners have few cores. Without a cap Vitest spawns one worker per file, oversubscribing
+    // the CPU and starving the software-GPU simulation tests until they time out.
+    maxWorkers: process.env.CI ? 2 : undefined,
   },
 });

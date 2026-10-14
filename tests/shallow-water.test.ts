@@ -1059,7 +1059,8 @@ describe('shallow-water.wgsl decode helpers', () => {
     // A rise of 0.2 over two metres east: slope 0.1.
     expect(nx).toBeCloseTo(-0.1 / Math.hypot(0.1, 1), 5);
     expect(ny).toBeCloseTo(1 / Math.hypot(0.1, 1), 5);
-    expect(nz).toBe(0);
+    // The bed lies flat east-west, so nz is zero either way; software GPUs may return -0.
+    expect(nz).toBeCloseTo(0, 5);
     expect(len).toBeCloseTo(1, 5);
   });
 });
