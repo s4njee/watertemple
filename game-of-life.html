@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en" data-theme="dark" data-demo="game-of-life">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#05070f" />
+    <title>Game of Life · Water Temple</title>
+  </head>
+  <body data-state="loading">
+    <div id="stage" aria-hidden="true"></div>
+    <header class="site-header">
+      <a class="wordmark solid" href="./">WATER TEMPLE <span>FIELD STUDIES</span></a>
+      <nav class="solid" aria-label="Demo navigation">
+        <a href="./neon-calligraphy.html">Neon script ↗</a><a href="#how-it-works">The rules ↓</a>
+      </nav>
+    </header>
+    <main>
+      <section id="experiment" class="experiment" aria-labelledby="title">
+        <div class="intro">
+          <p class="eyebrow solid">EXPERIMENT 08 / EMERGENCE</p>
+          <h1 id="title"><span class="solid">Life,</span><span class="solid">in motion.</span></h1>
+          <p class="description solid">
+            Three simple rules. An endless conversation.<br />Little worlds flicker, travel and find
+            their rhythm<br />in the spaces between these words.
+          </p>
+          <a class="scroll-link solid" href="#how-it-works">Watch a world unfold <span>↓</span></a>
+        </div>
+        <aside id="floating-card" class="floating-card solid" aria-label="Movable card">
+          <button
+            id="drag-handle"
+            class="drag-handle"
+            type="button"
+            aria-label="Move the card: drag or use arrow keys"
+          >
+            <span>⠿</span> A WINDOW INTO LIFE <span>↗</span>
+          </button>
+          <div class="card-content">
+            <div class="glider-symbol" aria-hidden="true">
+              <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+            </div>
+            <h2>A small pattern.<br />A long journey.</h2>
+            <p>
+              Click the open background to plant a glider.<br />It travels one cell every four
+              generations.
+            </p>
+            <span class="card-footnote">DRAG THIS CARD TO REVEAL THE WORLD BELOW</span>
+          </div>
+        </aside>
+        <div class="experiment-caption">
+          <span>BIRTH / SURVIVAL / CHANGE</span><span>CONWAY’S GAME OF LIFE — B3 / S23</span>
+        </div>
+      </section>
+      <section id="how-it-works" class="explanation" aria-labelledby="explanation-title">
+        <div class="section-heading">
+          <p class="eyebrow solid">ORDER, FROM ALMOST NOTHING</p>
+          <h2 id="explanation-title" class="solid">Local rules.<br />Unexpected worlds.</h2>
+        </div>
+        <div class="notes">
+          <article class="note solid">
+            <span class="note-number">01 / BIRTH</span>
+            <h3>Three make a beginning.</h3>
+            <p>
+              An empty cell with exactly three live neighbours comes alive in the next generation.
+              Every cell changes at the same time.
+            </p>
+          </article>
+          <article class="note solid">
+            <span class="note-number">02 / SURVIVAL</span>
+            <h3>Keep good company.</h3>
+            <p>
+              A living cell survives with two or three neighbours. With fewer it fades; with more it
+              dies from overcrowding.
+            </p>
+          </article>
+          <article class="note solid">
+            <span class="note-number">03 / DISCOVERY</span>
+            <h3>Let the patterns speak.</h3>
+            <p>
+              Glider guns keep sending travellers into the dark. Try a random world or a field of
+              oscillators. Fresh random seeds arrive every 18 seconds to start new encounters. Pause
+              and step through their decisions.
+            </p>
+          </article>
+        </div>
+        <footer>
+          <a class="solid" href="./?effect=game-of-life">Explore every control ↗</a
+          ><span class="solid">Water Temple / Cellular automata / 2026</span>
+        </footer>
+      </section>
+    </main>
+    <aside class="toolbar solid" aria-label="Game of Life controls">
+      <div class="live-status">
+        <i aria-hidden="true"></i>
+        <div>
+          <span id="status" role="status">Starting Life…</span
+          ><span id="detail">Conway · B3/S23</span>
+        </div>
+      </div>
+      <div class="speed-controls">
+        <label for="speed">Speed</label
+        ><input id="speed" type="range" min="1" max="30" step="1" value="12" /><output
+          id="speed-value"
+          for="speed"
+          >12/s</output
+        >
+      </div>
+      <div class="light-controls">
+        <label for="brightness">Light</label
+        ><input
+          id="brightness"
+          type="range"
+          min="1"
+          max="5"
+          step="0.05"
+          value="2"
+          disabled
+        /><output id="brightness-value" for="brightness">2×</output>
+        <select id="output-mode" aria-label="Output">
+          <option value="auto">Auto HDR</option>
+          <option value="sdr">SDR</option>
+        </select>
+      </div>
+      <div class="toolbar-controls">
+        <button id="pause" type="button" disabled>Pause</button
+        ><button id="step" type="button" disabled>Step</button
+        ><button id="reset" type="button" disabled>Reseed</button>
+        <label class="select-control" for="pattern"
+          >Seed<select id="pattern">
+            <option value="soup" selected>Random world</option>
+            <option value="garden">Glider garden</option>
+            <option value="oscillators">Oscillators</option>
+          </select></label
+        >
+        <label class="select-control" for="cell-size"
+          >Cells<select id="cell-size">
+            <option value="5">Fine</option>
+            <option value="7" selected>Medium</option>
+            <option value="11">Large</option>
+          </select></label
+        >
+      </div>
+    </aside>
+    <script type="module" src="/src/demos/game-of-life/main.ts"></script>
+  </body>
+</html>

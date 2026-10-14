@@ -1,0 +1,90 @@
+/* Keep this page’s overrides ahead of the shared demo styles, regardless of chunk load order. */
+:root[data-demo='game-of-life'] {
+  --paper: #05070f;
+  --accent: #ff4500;
+  --text: #eaf5ef;
+  --muted: #a4bcb2;
+  --faint: #758c84;
+  --hairline: #ff450029;
+}
+html[data-demo='game-of-life'] body[data-output='hdr'] .solid:not(.toolbar, .floating-card) {
+  background: var(--paper);
+}
+html[data-demo='game-of-life'] .light-controls input[type='range'] {
+  accent-color: var(--accent);
+}
+html[data-demo='game-of-life'] h1 {
+  font-size: clamp(72px, 10vw, 156px);
+  font-weight: 400;
+  letter-spacing: -0.07em;
+}
+html[data-demo='game-of-life'] h1 span:first-child {
+  margin-bottom: 6px;
+}
+html[data-demo='game-of-life'] h1 span:nth-child(2) {
+  margin-left: 4vw;
+  color: #ff4500;
+}
+html[data-demo='game-of-life'] .floating-card {
+  border-color: #ff450033;
+  box-shadow: 0 24px 80px #0006;
+}
+html[data-demo='game-of-life'] .glider-symbol {
+  display: grid;
+  grid-template-columns: repeat(3, 12px);
+  gap: 4px;
+  margin: 10px 0 26px;
+}
+html[data-demo='game-of-life'] .glider-symbol i {
+  width: 12px;
+  height: 12px;
+  background: #ff450014;
+  border-radius: 2px;
+}
+html[data-demo='game-of-life'] .glider-symbol i:nth-child(2),
+html[data-demo='game-of-life'] .glider-symbol i:nth-child(6),
+html[data-demo='game-of-life'] .glider-symbol i:nth-child(n + 7) {
+  background: #ff4500;
+  box-shadow: 0 0 12px #ff450044;
+}
+html[data-demo='game-of-life'] .speed-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 11px;
+}
+html[data-demo='game-of-life'] .speed-controls input {
+  width: 70px;
+  accent-color: #ff4500;
+}
+html[data-demo='game-of-life'] .speed-controls output {
+  min-width: 4ch;
+  font:
+    10px ui-monospace,
+    monospace;
+}
+html[data-demo='game-of-life'] .live-status i {
+  background: #ff4500;
+  box-shadow: 0 0 10px #ff450055;
+}
+html[data-demo='game-of-life'] body[data-state='live'] .live-status i {
+  animation: none;
+}
+html[data-demo='game-of-life'] body[data-state='fallback'] {
+  background:
+    repeating-linear-gradient(0deg, transparent 0 10px, #ff45000c 10px 11px),
+    repeating-linear-gradient(90deg, transparent 0 10px, #ff45000c 10px 11px), var(--paper);
+}
+@media (max-width: 700px) {
+  html[data-demo='game-of-life'] h1 {
+    font-size: clamp(55px, 15vw, 100px);
+  }
+  html[data-demo='game-of-life'] .toolbar {
+    gap: 10px;
+  }
+  html[data-demo='game-of-life'] .experiment-caption {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+}

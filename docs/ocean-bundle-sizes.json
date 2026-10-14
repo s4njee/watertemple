@@ -1,0 +1,212 @@
+[
+  {
+    "id": "gerstner-ocean",
+    "entryGzipKb": 0.11,
+    "effectCodeGzipKb": 13.3,
+    "effectCodeFiles": [
+      "assets/gerstner-ocean-CypqIGFM.js",
+      "assets/effect-CafxUnaC.js",
+      "assets/fft-DN4BJUSK.js",
+      "assets/scene-bJTn4WNc.js",
+      "assets/meta-CkM9gExE.js"
+    ],
+    "withSharedGzipKb": 120.18,
+    "sharedOceanGzipKb": 7.08,
+    "files": [
+      "assets/gerstner-ocean-CypqIGFM.js",
+      "assets/meta-CkM9gExE.js",
+      "assets/effect-CafxUnaC.js",
+      "assets/types-ci2WwWg0.js",
+      "assets/profiler-Bi27xYp-.js",
+      "assets/targets-HR_2n_v9.js",
+      "assets/depth-D-dyuzJK.js",
+      "assets/camera-CdHhHxNF.js",
+      "assets/fullscreen-CyfS3iJt.js",
+      "assets/shader-Cd_FDUy8.js",
+      "assets/wgsl-DN8lSEnS.js",
+      "assets/billboards-Bb4mp0-q.js",
+      "assets/fft-DN4BJUSK.js",
+      "assets/scene-bJTn4WNc.js"
+    ]
+  },
+  {
+    "id": "fft-ocean",
+    "entryGzipKb": 0.11,
+    "effectCodeGzipKb": 13.29,
+    "effectCodeFiles": [
+      "assets/fft-ocean-CJAZp4AX.js",
+      "assets/effect-CafxUnaC.js",
+      "assets/fft-DN4BJUSK.js",
+      "assets/scene-bJTn4WNc.js",
+      "assets/meta-BwPdodUb.js"
+    ],
+    "withSharedGzipKb": 120.17,
+    "sharedOceanGzipKb": 7.08,
+    "files": [
+      "assets/fft-ocean-CJAZp4AX.js",
+      "assets/meta-BwPdodUb.js",
+      "assets/effect-CafxUnaC.js",
+      "assets/types-ci2WwWg0.js",
+      "assets/profiler-Bi27xYp-.js",
+      "assets/targets-HR_2n_v9.js",
+      "assets/depth-D-dyuzJK.js",
+      "assets/camera-CdHhHxNF.js",
+      "assets/fullscreen-CyfS3iJt.js",
+      "assets/shader-Cd_FDUy8.js",
+      "assets/wgsl-DN8lSEnS.js",
+      "assets/billboards-Bb4mp0-q.js",
+      "assets/fft-DN4BJUSK.js",
+      "assets/scene-bJTn4WNc.js"
+    ]
+  },
+  {
+    "id": "shoreline",
+    "entryGzipKb": 0.11,
+    "effectCodeGzipKb": 13.29,
+    "effectCodeFiles": [
+      "assets/shoreline-BTkQrnyp.js",
+      "assets/effect-CafxUnaC.js",
+      "assets/fft-DN4BJUSK.js",
+      "assets/scene-bJTn4WNc.js",
+      "assets/meta-D4ouOt_V.js"
+    ],
+    "withSharedGzipKb": 120.17,
+    "sharedOceanGzipKb": 7.08,
+    "files": [
+      "assets/shoreline-BTkQrnyp.js",
+      "assets/meta-D4ouOt_V.js",
+      "assets/effect-CafxUnaC.js",
+      "assets/types-ci2WwWg0.js",
+      "assets/profiler-Bi27xYp-.js",
+      "assets/targets-HR_2n_v9.js",
+      "assets/depth-D-dyuzJK.js",
+      "assets/camera-CdHhHxNF.js",
+      "assets/fullscreen-CyfS3iJt.js",
+      "assets/shader-Cd_FDUy8.js",
+      "assets/wgsl-DN8lSEnS.js",
+      "assets/billboards-Bb4mp0-q.js",
+      "assets/fft-DN4BJUSK.js",
+      "assets/scene-bJTn4WNc.js"
+    ]
+  },
+  {
+    "id": "river",
+    "entryGzipKb": 0.11,
+    "effectCodeGzipKb": 13.29,
+    "effectCodeFiles": [
+      "assets/river-CbvnC_6P.js",
+      "assets/effect-CafxUnaC.js",
+      "assets/fft-DN4BJUSK.js",
+      "assets/scene-bJTn4WNc.js",
+      "assets/meta-BdwU4NAk.js"
+    ],
+    "withSharedGzipKb": 120.17,
+    "sharedOceanGzipKb": 7.08,
+    "files": [
+      "assets/river-CbvnC_6P.js",
+      "assets/meta-BdwU4NAk.js",
+      "assets/effect-CafxUnaC.js",
+      "assets/types-ci2WwWg0.js",
+      "assets/profiler-Bi27xYp-.js",
+      "assets/targets-HR_2n_v9.js",
+      "assets/depth-D-dyuzJK.js",
+      "assets/camera-CdHhHxNF.js",
+      "assets/fullscreen-CyfS3iJt.js",
+      "assets/shader-Cd_FDUy8.js",
+      "assets/wgsl-DN8lSEnS.js",
+      "assets/billboards-Bb4mp0-q.js",
+      "assets/fft-DN4BJUSK.js",
+      "assets/scene-bJTn4WNc.js"
+    ]
+  },
+  {
+    "id": "waterfall",
+    "entryGzipKb": 0.11,
+    "effectCodeGzipKb": 13.28,
+    "effectCodeFiles": [
+      "assets/waterfall-xFnYRBjX.js",
+      "assets/effect-CafxUnaC.js",
+      "assets/fft-DN4BJUSK.js",
+      "assets/scene-bJTn4WNc.js",
+      "assets/meta-I5zCp2dl.js"
+    ],
+    "withSharedGzipKb": 120.16,
+    "sharedOceanGzipKb": 7.08,
+    "files": [
+      "assets/waterfall-xFnYRBjX.js",
+      "assets/meta-I5zCp2dl.js",
+      "assets/effect-CafxUnaC.js",
+      "assets/types-ci2WwWg0.js",
+      "assets/profiler-Bi27xYp-.js",
+      "assets/targets-HR_2n_v9.js",
+      "assets/depth-D-dyuzJK.js",
+      "assets/camera-CdHhHxNF.js",
+      "assets/fullscreen-CyfS3iJt.js",
+      "assets/shader-Cd_FDUy8.js",
+      "assets/wgsl-DN8lSEnS.js",
+      "assets/billboards-Bb4mp0-q.js",
+      "assets/fft-DN4BJUSK.js",
+      "assets/scene-bJTn4WNc.js"
+    ]
+  },
+  {
+    "id": "waterline",
+    "entryGzipKb": 0.11,
+    "effectCodeGzipKb": 13.28,
+    "effectCodeFiles": [
+      "assets/waterline-Dyc8vcML.js",
+      "assets/effect-CafxUnaC.js",
+      "assets/fft-DN4BJUSK.js",
+      "assets/scene-bJTn4WNc.js",
+      "assets/meta-BFtkH1KR.js"
+    ],
+    "withSharedGzipKb": 120.16,
+    "sharedOceanGzipKb": 7.08,
+    "files": [
+      "assets/waterline-Dyc8vcML.js",
+      "assets/meta-BFtkH1KR.js",
+      "assets/effect-CafxUnaC.js",
+      "assets/types-ci2WwWg0.js",
+      "assets/profiler-Bi27xYp-.js",
+      "assets/targets-HR_2n_v9.js",
+      "assets/depth-D-dyuzJK.js",
+      "assets/camera-CdHhHxNF.js",
+      "assets/fullscreen-CyfS3iJt.js",
+      "assets/shader-Cd_FDUy8.js",
+      "assets/wgsl-DN8lSEnS.js",
+      "assets/billboards-Bb4mp0-q.js",
+      "assets/fft-DN4BJUSK.js",
+      "assets/scene-bJTn4WNc.js"
+    ]
+  },
+  {
+    "id": "calm-lake",
+    "entryGzipKb": 0.11,
+    "effectCodeGzipKb": 13.28,
+    "effectCodeFiles": [
+      "assets/calm-lake-CvRUq7ut.js",
+      "assets/effect-CafxUnaC.js",
+      "assets/fft-DN4BJUSK.js",
+      "assets/scene-bJTn4WNc.js",
+      "assets/meta-C0zzCqJ-.js"
+    ],
+    "withSharedGzipKb": 120.16,
+    "sharedOceanGzipKb": 7.08,
+    "files": [
+      "assets/calm-lake-CvRUq7ut.js",
+      "assets/meta-C0zzCqJ-.js",
+      "assets/effect-CafxUnaC.js",
+      "assets/types-ci2WwWg0.js",
+      "assets/profiler-Bi27xYp-.js",
+      "assets/targets-HR_2n_v9.js",
+      "assets/depth-D-dyuzJK.js",
+      "assets/camera-CdHhHxNF.js",
+      "assets/fullscreen-CyfS3iJt.js",
+      "assets/shader-Cd_FDUy8.js",
+      "assets/wgsl-DN8lSEnS.js",
+      "assets/billboards-Bb4mp0-q.js",
+      "assets/fft-DN4BJUSK.js",
+      "assets/scene-bJTn4WNc.js"
+    ]
+  }
+]

@@ -1,0 +1,236 @@
+/*
+ * Design tokens and the few primitives every shell component shares.
+ * The effects carry the page: chrome stays quiet, flat, and low-contrast against them.
+ * Components use these tokens only; no new colours, radii, or font sizes elsewhere.
+ */
+
+:root {
+  color-scheme: light dark;
+
+  --wt-font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --wt-font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  --wt-text-xs: 0.75rem;
+  --wt-text-s: 0.8125rem;
+  --wt-text-m: 0.9375rem;
+  --wt-text-l: 1.25rem;
+  --wt-text-xl: 1.75rem;
+
+  --wt-space-1: 4px;
+  --wt-space-2: 8px;
+  --wt-space-3: 12px;
+  --wt-space-4: 16px;
+  --wt-space-5: 24px;
+  --wt-space-6: 40px;
+
+  --wt-radius-s: 4px;
+  --wt-radius-m: 8px;
+  --wt-radius-l: 14px;
+
+  --wt-bg: light-dark(#f3f6f7, #06121c);
+  --wt-surface: light-dark(#ffffff, #0b1c29);
+  --wt-surface-2: light-dark(#e8eef0, #122838);
+  --wt-border: light-dark(#d3dde1, #1d384a);
+  --wt-text: light-dark(#0d1b22, #d8eef7);
+  --wt-text-muted: light-dark(#51656f, #86a7b6);
+  --wt-accent: light-dark(#0a6c7e, #5fd4e2);
+  --wt-on-accent: light-dark(#ffffff, #04212a);
+  --wt-focus: light-dark(#0a6c7e, #9be7f0);
+
+  /* Practicality tiers: A drop-in, B feature, C showpiece. */
+  --wt-tier-a: light-dark(#1f7a4d, #6fd6a0);
+  --wt-tier-b: light-dark(#8a6100, #e7c15a);
+  --wt-tier-c: light-dark(#a8432f, #f0907a);
+
+  --wt-header-height: 52px;
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--wt-bg);
+  color: var(--wt-text);
+  font: var(--wt-text-m) / 1.5 var(--wt-font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+a {
+  color: var(--wt-accent);
+  text-underline-offset: 0.15em;
+}
+
+:focus-visible {
+  outline: 2px solid var(--wt-focus);
+  outline-offset: 2px;
+}
+
+/* Numbers and code: tabular so readouts do not jitter as they update. */
+.wt-data {
+  font-family: var(--wt-font-mono);
+  font-size: var(--wt-text-s);
+  font-variant-numeric: tabular-nums;
+}
+
+.wt-muted {
+  color: var(--wt-text-muted);
+}
+
+.wt-label {
+  color: var(--wt-text-muted);
+  font-size: var(--wt-text-xs);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.wt-button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--wt-space-2);
+  min-height: 32px;
+  padding: 0 var(--wt-space-3);
+  border: 1px solid var(--wt-border);
+  border-radius: var(--wt-radius-m);
+  background: var(--wt-surface);
+  color: var(--wt-text);
+  font: inherit;
+  font-size: var(--wt-text-s);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.wt-button:hover {
+  background: var(--wt-surface-2);
+}
+
+.wt-button[aria-pressed='true'],
+.wt-button--primary {
+  border-color: var(--wt-accent);
+  background: var(--wt-accent);
+  color: var(--wt-on-accent);
+}
+
+.wt-button--quiet {
+  border-color: transparent;
+  background: transparent;
+}
+
+.wt-chip {
+  display: inline-flex;
+  align-items: center;
+  height: 22px;
+  padding: 0 var(--wt-space-2);
+  border: 1px solid var(--wt-border);
+  border-radius: 999px;
+  color: var(--wt-text-muted);
+  font-size: var(--wt-text-xs);
+  white-space: nowrap;
+}
+
+/* Tier chips: add data-tier="A" | "B" | "C". */
+.wt-chip[data-tier] {
+  border-color: currentColor;
+  font-weight: 600;
+}
+
+.wt-chip[data-tier='A'] {
+  color: var(--wt-tier-a);
+}
+
+.wt-chip[data-tier='B'] {
+  color: var(--wt-tier-b);
+}
+
+.wt-chip[data-tier='C'] {
+  color: var(--wt-tier-c);
+}
+
+.wt-panel {
+  border: 1px solid var(--wt-border);
+  border-radius: var(--wt-radius-l);
+  background: var(--wt-surface);
+}
+
+.wt-tabs {
+  display: flex;
+  gap: var(--wt-space-4);
+  border-bottom: 1px solid var(--wt-border);
+}
+
+.wt-tab {
+  margin-bottom: -1px;
+  padding: var(--wt-space-2) 0;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: none;
+  color: var(--wt-text-muted);
+  font: inherit;
+  font-size: var(--wt-text-s);
+  cursor: pointer;
+}
+
+.wt-tab[aria-selected='true'] {
+  border-bottom-color: var(--wt-accent);
+  color: var(--wt-text);
+}
+
+/* Long-form text: write-ups and notes. */
+.wt-prose {
+  max-width: 68ch;
+  line-height: 1.65;
+}
+
+.wt-prose > * + * {
+  margin-top: var(--wt-space-4);
+}
+
+.wt-prose h2 {
+  margin-top: var(--wt-space-5);
+  font-size: var(--wt-text-l);
+}
+
+.wt-prose h3 {
+  font-size: var(--wt-text-m);
+}
+
+.wt-prose code {
+  padding: 0.1em 0.3em;
+  border-radius: var(--wt-radius-s);
+  background: var(--wt-surface-2);
+  font-family: var(--wt-font-mono);
+  font-size: 0.9em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

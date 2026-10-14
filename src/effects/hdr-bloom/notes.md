@@ -1,0 +1,74 @@
+## How it works
+
+The scene shader (`scene.wgsl`) draws dark water lit so its radiance spans three orders of magnitude: a base of 0.005 to 0.05, caustic creases up to about 2.5, four lantern reflections peaking at 12 to 30, and sun glints peaking near 60. It writes **linear** values into an `rgba16float` target and does no tonemapping or sRGB encoding. Everything after that is the reusable post chain in `src/gpu/post/`:
+
+1. **`bloom-down`.** The first pass reads the full-size scene once and writes a half-size level. It is the shared 13-tap filter from `passes/downsample.wgsl` (included as a chunk, so the tap pattern is not copied), plus a soft-knee threshold on each of the five 4-tap boxes and a Karis average (each box weighted by `1 / (1 + luma)`) so a single hot pixel cannot dominate. Intensity is multiplied in here. The remaining levels (default 5, at most 8, clamped so the smallest keeps at least 4 texels) are plain 13-tap halvings.
+2. **`bloom-up`.** Back up the chain, each pass draws a 3x3 tent filter of the coarser level over the finer one with a constant blend factor: `level[i] = mix(down[i], tent(level[i+1]), radius)`. The blend runs in the ROP, so the finer level is updated in place and no extra textures exist. Because every step is a convex mix, `radius` only moves energy between scales; it never adds any. Total glow energy equals the energy that passed the threshold, times intensity.
+3. **`output`.** One pass: `(scene + bloom) * exposure` → tonemap (ACES fit, Reinhard or none, from `color.wgsl`) → sRGB encode → triangular dither → canvas. The bloom is added before exposure, so the threshold is in scene units and does not move when exposure does.
+
+`createPostChain` owns the HDR scene target and wires the three stages with the pass labels `bloom-down`, `bloom-up` and `output`; `createBloom` and `createOutputPass` work alone (an effect that only wants tonemapping calls the output pass with no bloom). With bloom intensity 0 the bloom stage records nothing at all.
+
+The dither is interleaved gradient noise (Jimenez 2014), two evaluations at unrelated offsets summed into triangular noise of +-1 step, added after the sRGB encode and before the canvas rounds to 8 bits, with the pattern shifted every frame. The **debug view** select shows the scene alone, the bloom alone, or the final result; the first two still get exposure and tonemapping so they are comparable.
+
+### HDR canvas
+
+With `hdr output` on and a capable display, the effect asks the host for an HDR canvas (`hdr: true` on the effect module). The host calls `configureCanvasHdr` (`src/gpu/canvas.ts`): if `matchMedia('(dynamic-range: high)')` matches, it configures `rgba16float` with `toneMapping: { mode: 'extended' }` and premultiplied alpha, reads `getConfiguration()` back to confirm the browser applied it, and otherwise reconfigures the normal SDR canvas. The effect then sees `ctx.hdr` and `ctx.format`. In HDR mode the output pass keeps the SDR curve exactly up to scene white and rolls off smoothly towards a headroom you choose, instead of clipping at 1. If this display or browser cannot do it, the toggle's label says "unavailable on this display or browser" and the picture is the SDR one.
+
+What the sources say (checked 2026-10-08):
+
+- API: `GPUCanvasConfiguration.toneMapping.mode` is `"standard"` (default; values are clamped to [0, 1] in the screen's colour space) or `"extended"` (matches standard on [0, 1]; values beyond are projected to the screen's extended range). Chrome shipped it in 129 on ChromeOS, macOS and Windows [1][2]. The supported canvas formats are `bgra8unorm`, `rgba8unorm` and `rgba16float`; only `rgba16float` can hold values above 1 [2][3].
+- Values: the spec's examples write numbers such as `(2.5, -0.15, -0.15)` to an `srgb` canvas, so 1.0 is SDR white and the canvas is extended-range sRGB, i.e. **gamma-encoded**, not linear. We therefore still run `linear_to_srgb`, whose power branch continues above 1. Chrome 155 and later also accept `colorSpace: 'srgb-linear'` and `'display-p3-linear'` for linear float output [4]; this machine's Chrome 152 throws a `TypeError` for them, so the chain does not use them yet.
+- Detection: the spec asks implementations that lack `toneMapping` to leave it out of `getConfiguration()`, so feature detection is "configure, read back, require mode `extended`" [2]. `(dynamic-range: high)` reports capability, not whether HDR is switched on, and thresholds are browser-defined [5]; WebKit has an open report of it matching on an M1 MacBook Pro where Safari could not present HDR [6]. There is no shipped API to read the display's headroom; it is a proposal for `ScreenDetailed` [7], so `headroom` is a creative choice, not a measurement.
+- SDR displays and other browsers: nothing in the sources promises a fallback inside extended mode, so we do not rely on one. Firefox does not expose the member [8]; Safari's status in 2026 is unverified [8].
+- What this machine reported (Apple M1 Max, built-in Liquid Retina XDR, Chrome 152 inside the Claude desktop app, DPR 2): `(dynamic-range: high)` true, `(video-dynamic-range: high)` false, `(color-gamut: p3)` true; `configure({ format: 'rgba16float', toneMapping: { mode: 'extended' } })` succeeded and `getConfiguration()` returned `extended`; `srgb-linear` rejected. Forcing `matchMedia` to report SDR took the fallback path: `bgra8unorm`, `standard`, premultiplied, same picture, label changed.
+- What could not be confirmed: screenshots are SDR, so they show that values above 1 were presented (more of the frame saturates to white than with the toggle off) but not how bright they were. We measured no luminance and no headroom, and did not test Safari or Firefox. Treat the HDR look as unverified until someone looks at it on a real HDR display.
+
+## Cost
+
+Indicative only. Two readings, because they disagree:
+
+| Stage                        | Headless (Dawn on Apple M1 Max, 1920x1080, median of ~200 frames) | Browser HUD (same machine, 968x976 canvas at DPR 2, GPU shared with other tabs) |
+| ---------------------------- | ----------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| scene (this demo's shader)   | not measured                                                      | about 1.9 ms                                                                    |
+| `bloom-down` (5 levels)      | about 0.5 ms                                                      | about 9.5 ms                                                                    |
+| `bloom-up` (4 passes)        | about 0.2 ms                                                      | about 7 ms                                                                      |
+| `output`                     | about 0.13 ms                                                     | about 1.7 ms                                                                    |
+| back to back, bloom + output | about 0.85 ms per frame                                           | the page held 115 fps                                                           |
+
+The HUD pass times add up to about 20 ms in a page that renders at 115 fps, which cannot be wall-clock work. The cause is now known: on this GPU the intervals of consecutive passes overlap, so adding them counts the same time several times over (eight passes that each draw a 16 x 16 target read 13.6 ms summed and 2.2 ms from first start to last end). The HUD has since been changed to report that first-to-last span as the frame's GPU time. Measured that way, with nothing else using the GPU: **about 4.2 ms per frame** for scene, bloom and output together at 1502 x 636 (0.96 Mpx), at a steady 120 fps. That is inside the Tier B budget on this machine. The headless column remains the better guide to how the stages compare. Eight levels instead of five cost about 0.5 ms more headless. Output alone at 1080p was about 0.2 ms. Per-reference-device numbers belong to the Epic 13 benchmark run and are not on the Scorecard.
+
+**The HDR canvas is the expensive part, not the bloom.** With the extended-range `rgba16float` canvas switched on, the whole page fell from 120 fps to between 35 and 50 fps on this machine (M1 Max, XDR display, Chromium 152 inside a desktop app), even with bloom off. The effect's own GPU time did not change; the cost is in how the browser composites a float canvas. For that reason the HDR canvas is off unless the visitor turns it on with the "HDR canvas" button (`&hdr=1`), and gallery thumbnails never use it. Whether a regular Chrome window pays the same price was not tested.
+
+Texture memory at 1080p: the HDR scene target is 16.6 MB (`rgba16float`, 8 bytes a pixel) and the five-level bloom chain about 5.5 MB; the HUD showed about 9.6 MB at 968x976. Starting the chain at half resolution is what keeps this small: the first pass is the only one that reads full-size pixels. Everything scales with pixel count; the number of levels barely matters because each is a quarter of the one before. Bundle size: not measured yet.
+
+Defaults: half-resolution start, 5 levels, intensity 0.6, threshold 1 (scene white), knee 0.5, radius 0.7, firefly filter on, dither 1 step, exposure 1, ACES. In the demo HDR headroom defaults to 2.5 (the output pass itself defaults to 3).
+
+## Pitfalls
+
+- **Energy gain.** Bloom adds light, so a low threshold with a high intensity turns the whole frame into a white veil: threshold 0, intensity 3, radius 1 and 8 levels (outside today's slider range for intensity) gives a washed-out sheet in the browser. The design keeps each level a convex mix so that radius never adds energy, but intensity and a low threshold still do. Keep the threshold at scene white or above.
+- **Fireflies.** One very bright pixel (a glint) averaged into a 4-tap box dominates it and flickers as it moves between boxes. The Karis average fixes it at the price of energy: a lone neutral-white pixel of 100 keeps under half its glow with the filter on (the test pins this), and 1000 keeps about 38%. With the filter off the isolated pixel keeps about 99% of its energy. The glints in this demo are exactly that case. The shimmer itself is a motion artefact and does not show in a screenshot; the numbers do.
+- **Half-resolution phase.** The 13-tap filter is built for an exact 2:1 reduction: its taps then land on texel corners and each source texel contributes the same weight, so energy is independent of where a point sits (an impulse moved across eight consecutive source positions kept the same energy and peak). At odd sizes the phase drifts, and an impulse that lands on a texel centre gets about twice the weight of one that does not: a 65x65 test image with one hot pixel came back with about twice the expected glow energy (148 against 75 in the test's units). Real canvases are rarely odd, but a resolution scale can make one, and the glow of a single sparkle then breathes slightly as it moves. The tests therefore use even sizes for the energy checks.
+- **Banding.** A smooth dark gradient quantised to 8 bits shows steps one level wide, and dark water is nearly all dark gradient. A flat linear 0.3 encodes to 148.87 in 8 bits and renders as 149 everywhere without dither; with the triangular dither the average over 4096 pixels is within 0.1 of 148.87 and no pixel is more than 2 steps off. The demo's dither control goes to 0 for comparison; a one-step difference is invisible in a screenshot, so the test measures it instead. Dither strength is a quarter of a step on an HDR canvas, which is presented at 10 bits at best.
+- **Timing readings.** Pass timers on a shared laptop GPU were off by an order of magnitude from a headless run (see Cost). Do not set budgets from one HUD reading.
+- **HDR clipping in captures.** Screenshots and screen recordings of an HDR canvas are tonemapped or clipped to SDR; the look on a real HDR display can only be judged there. Keep the headroom modest: very bright large areas on a full-brightness HDR display are uncomfortable, and a page that shows HDR content next to SDR UI looks wrong if the highlights are far above the page's white.
+- **Reserved words.** `patch` is a reserved keyword in WGSL, so a variable of that name fails to compile with a message that does not suggest why.
+
+## When to use it
+
+Use the post chain whenever a scene has highlights above white that should glow instead of clip: sun glints on water, lanterns, lava, neon, caustics at full strength. Tier B: a scene pass plus about ten small passes at the default settings, fine for a hero section on desktop, and what stays small is the half-resolution start. Skip bloom (`intensity` 0, which costs nothing) on pages where the water is a quiet background. The tonemapped final pass alone is worth keeping for any effect that renders in HDR, since it is about 0.2 ms at 1080p and does the dither.
+
+Turn on HDR output only as an extra over an SDR page that already looks right, and only after checking it on a real HDR display: it needs Chrome 129 or later on a display that reports `dynamic-range: high`, and the headroom cannot be queried. For plain SDR content with no bright highlights, the single-pass tonemap in `color.wgsl` is enough and none of this is needed.
+
+## References
+
+- [1] [What's new in WebGPU (Chrome 129): HDR support with canvas tone mapping mode](https://developer.chrome.com/blog/new-in-webgpu-129)
+- [2] [WebGPU specification, section 21.4 GPUCanvasConfiguration and 21.5 GPUCanvasToneMappingMode](https://gpuweb.github.io/gpuweb/#canvas-configuration)
+- [3] [MDN: GPUCanvasContext.configure()](https://developer.mozilla.org/en-US/docs/Web/API/GPUCanvasContext/configure)
+- [4] [What's new in WebGPU (Chrome 155-156): srgb-linear and display-p3-linear](https://developer.chrome.com/blog/new-in-webgpu-155-156)
+- [5] [MDN: dynamic-range media feature](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/dynamic-range)
+- [6] [WebKit bug 254489: dynamic-range query returns true when HDR cannot be rendered](https://bugs.webkit.org/show_bug.cgi?id=254489)
+- [7] [Proposal: HDR headroom on ScreenDetailed (W3C colorweb list, June 2025)](https://lists.w3.org/Archives/Public/public-colorweb/2025Jun/0000.html)
+- [8] This repository's `docs/support-matrix.md`, section 5.3, for Safari and Firefox status
+- Jorge Jimenez, [Next Generation Post Processing in Call of Duty: Advanced Warfare](https://advances.realtimerendering.com/s2014/index.html) (SIGGRAPH 2014): the 13-tap downsample, the tent upsample and interleaved gradient noise
+- Brian Karis, [Tone mapping](http://graphicrants.blogspot.com/2013/12/tone-mapping.html) (2013): the weighted average used to tame fireflies
+- Krzysztof Narkowicz, [ACES filmic tone mapping curve](https://knarkowicz.wordpress.com/2016/01/06/aces-filmic-tone-mapping-curve/): the fit in `color.wgsl`

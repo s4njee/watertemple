@@ -1,0 +1,27 @@
+export {
+  createFluidSurface,
+  FLUID_FORMATS,
+  type FluidRenderOptions,
+  type FluidSurface,
+  type FluidSurfaceOptions,
+  type FluidSurfaceTextures,
+} from './surface.ts';
+export {
+  clampQuality,
+  DEBUG_VIEWS,
+  DEFAULT_PARAMS,
+  DEFAULT_QUALITY,
+  FILTERS,
+  FLUID_STRUCT_CHUNKS,
+  FluidFrame,
+  FluidPass,
+  resolveParams,
+  STAGES,
+  SURFACES,
+  type FluidDebugView,
+  type FluidFilter,
+  type FluidStage,
+  type FluidSurfaceMode,
+  type FluidSurfaceParams,
+  type FluidSurfaceQuality,
+} from './frame.ts';

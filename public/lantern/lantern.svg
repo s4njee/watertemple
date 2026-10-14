@@ -1,0 +1,63 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 1000 1000"
+  width="1000"
+  height="1000"
+  aria-hidden="true"
+>
+  <defs>
+    <linearGradient id="lt-metal" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f4e0bb" />
+      <stop offset="0.28" stop-color="#d3ad72" />
+      <stop offset="0.55" stop-color="#9a7443" />
+      <stop offset="0.8" stop-color="#5f4423" />
+      <stop offset="1" stop-color="#33240f" />
+    </linearGradient>
+    <linearGradient id="lt-post" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#2a1c0f" />
+      <stop offset="0.28" stop-color="#7c5b34" />
+      <stop offset="0.5" stop-color="#c19a5e" />
+      <stop offset="0.72" stop-color="#6f4d2a" />
+      <stop offset="1" stop-color="#221607" />
+    </linearGradient>
+    <radialGradient id="lt-glow" cx="0.5" cy="0.3" r="0.55">
+      <stop offset="0" stop-color="#ffe0ac" stop-opacity="0.95" />
+      <stop offset="0.5" stop-color="#c98a3c" stop-opacity="0.4" />
+      <stop offset="1" stop-color="#8a5a20" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <!-- Lantern bowl: a flared head that narrows to the nozzle. The page's CSS
+       clip-path crops this to the torch silhouette. -->
+  <path
+    d="M250 226 
+       C 320 208, 480 200, 508 200 
+       C 620 200, 740 212, 765 226 
+       C 762 244, 730 254, 700 274 
+       C 672 300, 648 342, 620 372 
+       C 604 388, 588 396, 570 400 
+       L 570 404 
+       C 585 412, 590 500, 570 520 
+       L 448 520 
+       C 430 500, 435 412, 448 404 
+       L 448 400 
+       C 420 396, 400 386, 382 372 
+       C 352 342, 328 300, 300 274 
+       C 272 254, 254 244, 250 226 Z"
+    fill="url(#lt-metal)"
+  />
+  <ellipse cx="508" cy="284" rx="204" ry="52" fill="#160c03" />
+  <ellipse cx="508" cy="288" rx="204" ry="52" fill="url(#lt-glow)" />
+  <path
+    d="M250 226 C 320 208, 480 200, 508 200 C 620 200, 740 212, 765 226"
+    fill="none"
+    stroke="#f6e6c4"
+    stroke-width="6"
+    stroke-linecap="round"
+    opacity="0.75"
+  />
+
+  <!-- Post -->
+  <rect x="437" y="392" width="146" height="620" rx="8" fill="url(#lt-post)" />
+  <rect x="437" y="392" width="18" height="620" fill="#e9d4ac" opacity="0.25" />
+</svg>

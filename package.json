@@ -1,0 +1,49 @@
+{
+  "name": "watertemple",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "npm run typecheck && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p tsconfig.node.json",
+    "lint": "eslint .",
+    "format": "prettier --write --ignore-unknown \"src/**\" \"tests/**\" \"*.{ts,js,json,html}\"",
+    "format:check": "prettier --check --ignore-unknown \"src/**\" \"tests/**\" \"*.{ts,js,json,html}\"",
+    "test": "vitest run",
+    "publish:mk7s": "node scripts/publish-site-mk7s.mjs",
+    "study:particles": "PARTICLE_STUDY=docs/particle-scale-study.json vitest run tests/particle-study.test.ts --maxWorkers=1",
+    "study:ui": "UI_STUDY=docs/ui-cost-study.json vitest run tests/ui-study.test.ts --maxWorkers=1",
+    "study:ocean": "OCEAN_STUDY=docs/ocean-cost-study.json vitest run tests/ocean-study.test.ts --maxWorkers=1",
+    "study:weather": "WEATHER_STUDY=docs/weather-cost-study.json vitest run tests/weather-study.test.ts --maxWorkers=1",
+    "report:weather": "node scripts/weather-report.mjs"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@tweakpane/core": "^2.0.5",
+    "@types/node": "^26.6.4",
+    "@webgpu/types": "^0.1.74",
+    "eslint": "^10.12.0",
+    "eslint-config-prettier": "^10.1.8",
+    "prettier": "^3.9.9",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.71.1",
+    "vite": "^8.3.3",
+    "vitest": "^5.0.3",
+    "webgpu": "^0.6.2"
+  },
+  "dependencies": {
+    "marked": "^18.1.0",
+    "shiki": "^4.5.0",
+    "tweakpane": "^4.0.5",
+    "wgpu-matrix": "^3.4.2"
+  },
+  "description": "A research gallery of liquid-looking WebGPU effects with live demos, readable source, notes and practicality scorecards.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/s4njee/watertemple.git"
+  },
+  "homepage": "https://github.com/s4njee/watertemple"
+}

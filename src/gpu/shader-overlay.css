@@ -1,0 +1,139 @@
+/* A self-contained dark panel: it ignores the site's theme so it reads on any background. */
+.wt-shader-overlay {
+  all: initial;
+  /* Dark scrollbars to match the panel, whatever the page's own scheme is. */
+  color-scheme: dark;
+  position: fixed;
+  z-index: 2147483000;
+  right: 16px;
+  bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: min(640px, calc(100vw - 32px));
+  max-height: min(60vh, 480px);
+  overflow: hidden;
+  border: 1px solid rgb(255 255 255 / 0.22);
+  border-radius: 8px;
+  background: #15171c;
+  box-shadow: 0 12px 40px rgb(0 0 0 / 0.55);
+  color: #e6e8ee;
+  font:
+    13px/1.45 ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    Consolas,
+    monospace;
+  text-align: left;
+}
+
+.wt-shader-overlay *,
+.wt-shader-overlay *::before,
+.wt-shader-overlay *::after {
+  box-sizing: border-box;
+}
+
+.wt-shader-overlay__header {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 8px 8px 14px;
+  border-bottom: 1px solid rgb(255 255 255 / 0.12);
+  background: #1d2027;
+}
+
+.wt-shader-overlay__title {
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.wt-shader-overlay__close {
+  all: unset;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  color: #aab0bd;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.wt-shader-overlay__close:hover {
+  background: rgb(255 255 255 / 0.1);
+  color: #fff;
+}
+
+.wt-shader-overlay__close:focus-visible {
+  outline: 2px solid #7aa2f7;
+  outline-offset: 1px;
+}
+
+.wt-shader-overlay__body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+  padding: 6px 14px 12px;
+}
+
+.wt-shader-overlay__filename {
+  margin: 12px 0 6px;
+  font: inherit;
+  font-weight: 600;
+  color: #fff;
+  overflow-wrap: anywhere;
+}
+
+.wt-shader-overlay__item {
+  margin: 0 0 10px;
+  padding-left: 10px;
+  border-left: 3px solid var(--wt-shader-overlay-accent, #ff6b6b);
+}
+
+.wt-shader-overlay__item--warning {
+  --wt-shader-overlay-accent: #f5b84b;
+}
+
+.wt-shader-overlay__item--info {
+  --wt-shader-overlay-accent: #7aa2f7;
+}
+
+.wt-shader-overlay__message {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 8px;
+}
+
+.wt-shader-overlay__loc {
+  color: #aab0bd;
+}
+
+.wt-shader-overlay__severity {
+  color: var(--wt-shader-overlay-accent, #ff6b6b);
+  font-weight: 600;
+}
+
+.wt-shader-overlay__text {
+  flex: 1 1 16ch;
+  overflow-wrap: anywhere;
+}
+
+.wt-shader-overlay__via {
+  color: #aab0bd;
+  font-size: 12px;
+}
+
+.wt-shader-overlay__source {
+  margin: 4px 0 0;
+  padding: 6px 8px;
+  overflow-x: auto;
+  border-radius: 4px;
+  background: #0d0f12;
+  color: #cfd3dc;
+  font: inherit;
+  white-space: pre;
+  tab-size: 4;
+}

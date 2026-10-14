@@ -1,0 +1,888 @@
+{
+  "measuredAt": "2026-10-11T07:12:00.039Z",
+  "adapter": {
+    "vendor": "apple",
+    "architecture": "metal-3",
+    "device": "apple-m1-max",
+    "description": "Metal driver on macOS Version 26.6.2 (Build 25G83)"
+  },
+  "deviceLabel": "Apple M1 Max (Metal)",
+  "deviceClass": "Apple Silicon / 32-core GPU",
+  "metric": "GPU timestamp span and workload slope",
+  "resolution": [
+    1920,
+    1080
+  ],
+  "rounds": 9,
+  "repeats": [
+    1,
+    4
+  ],
+  "warmup": 8,
+  "note": "Only this adapter was measured. Device classes and phone thermal behavior must be tested on those devices. A negative workload slope means the timing floor/noise dominates, not negative cost.",
+  "rows": [
+    {
+      "kind": "complete frame",
+      "id": "liquid-glass",
+      "params": {
+        "strength": 1,
+        "dispersion": 0.009,
+        "tint": [
+          0.55,
+          0.9,
+          0.82
+        ],
+        "blur": 6,
+        "radius": 0.07
+      },
+      "inputSegments": 0,
+      "spanMedianMs": 0.32768,
+      "slopeMedianMs": 0.3058346666666667,
+      "slopeMinMs": 0.24029866666666666,
+      "samples": {
+        "one": [
+          0.262144,
+          0.458752,
+          0.262144,
+          0.32768,
+          0.393216,
+          0.32768,
+          0.32768,
+          0.262144,
+          0.393216
+        ],
+        "four": [
+          1.31072,
+          1.441792,
+          1.507328,
+          2.162688,
+          1.31072,
+          1.048576,
+          1.114112,
+          1.114112,
+          1.179648
+        ]
+      },
+      "passesPerUnit": 1
+    },
+    {
+      "kind": "complete frame",
+      "id": "gooey-metaballs",
+      "params": {
+        "strength": 1,
+        "speed": 0.7,
+        "tint": [
+          0.55,
+          0.9,
+          0.82
+        ],
+        "merge": 0.12,
+        "radius": 0.09
+      },
+      "inputSegments": 0,
+      "spanMedianMs": 0.196608,
+      "slopeMedianMs": 0.17476266666666665,
+      "slopeMinMs": -0.196608,
+      "samples": {
+        "one": [
+          1.245184,
+          0.196608,
+          0.131072,
+          0.196608,
+          0.196608,
+          0.196608,
+          0.131072,
+          0.196608,
+          0.131072
+        ],
+        "four": [
+          0.65536,
+          0.720896,
+          0.589824,
+          0.589824,
+          1.31072,
+          1.31072,
+          0.917504,
+          0.589824,
+          0.65536
+        ]
+      },
+      "passesPerUnit": 1
+    },
+    {
+      "kind": "complete frame",
+      "id": "liquid-buttons",
+      "params": {
+        "strength": 1,
+        "speed": 0.7,
+        "tint": [
+          0.55,
+          0.9,
+          0.82
+        ],
+        "frequency": 3.5,
+        "damping": 0.25
+      },
+      "inputSegments": 0,
+      "spanMedianMs": 0.196608,
+      "slopeMedianMs": 0.15291733333333335,
+      "slopeMinMs": 0.065536,
+      "samples": {
+        "one": [
+          0.524288,
+          0.32768,
+          0.196608,
+          0.196608,
+          0.196608,
+          0.393216,
+          0.32768,
+          0.196608,
+          0.196608
+        ],
+        "four": [
+          0.786432,
+          1.507328,
+          0.65536,
+          0.65536,
+          0.720896,
+          0.589824,
+          0.786432,
+          0.589824,
+          1.507328
+        ]
+      },
+      "passesPerUnit": 1
+    },
+    {
+      "kind": "complete frame",
+      "id": "liquid-transitions",
+      "params": {
+        "strength": 1,
+        "speed": 0.7,
+        "style": "drip",
+        "automatic": true,
+        "progress": 0.4
+      },
+      "inputSegments": 0,
+      "spanMedianMs": 0.131072,
+      "slopeMedianMs": 0.10922666666666665,
+      "slopeMinMs": 0,
+      "samples": {
+        "one": [
+          0.131072,
+          0.131072,
+          0.065536,
+          0.131072,
+          0.131072,
+          0.131072,
+          0.131072,
+          0.196608,
+          0.262144
+        ],
+        "four": [
+          0.524288,
+          0.393216,
+          0.32768,
+          0.393216,
+          0.458752,
+          1.376256,
+          0.589824,
+          0.589824,
+          0.262144
+        ]
+      },
+      "passesPerUnit": 1
+    },
+    {
+      "kind": "complete frame",
+      "id": "liquid-image-hover",
+      "params": {
+        "strength": 1,
+        "speed": 0.7,
+        "dispersion": 0.009
+      },
+      "inputSegments": 0,
+      "spanMedianMs": 0.262144,
+      "slopeMedianMs": 0.17476266666666665,
+      "slopeMinMs": -0.2184533333333333,
+      "samples": {
+        "one": [
+          0.262144,
+          1.376256,
+          0.131072,
+          0.196608,
+          0.262144,
+          0.196608,
+          0.65536,
+          0.262144,
+          0.196608
+        ],
+        "four": [
+          0.786432,
+          0.720896,
+          0.786432,
+          0.720896,
+          0.720896,
+          0.589824,
+          0.786432,
+          0.917504,
+          0.851968
+        ]
+      },
+      "passesPerUnit": 1
+    },
+    {
+      "kind": "complete frame",
+      "id": "liquid-typography",
+      "params": {
+        "strength": 1,
+        "speed": 0.7,
+        "style": "ripple",
+        "level": 0.5
+      },
+      "inputSegments": 0,
+      "spanMedianMs": 0.262144,
+      "slopeMedianMs": 0.262144,
+      "slopeMinMs": 0.08738133333333331,
+      "samples": {
+        "one": [
+          0.196608,
+          0.65536,
+          0.262144,
+          0.524288,
+          0.32768,
+          0.196608,
+          0.32768,
+          0.262144,
+          0.196608
+        ],
+        "four": [
+          0.98304,
+          0.917504,
+          0.917504,
+          0.851968,
+          0.851968,
+          1.114112,
+          1.572864,
+          1.048576,
+          0.98304
+        ]
+      },
+      "passesPerUnit": 1
+    },
+    {
+      "kind": "complete frame",
+      "id": "fill-level",
+      "params": {
+        "strength": 1,
+        "speed": 0.7,
+        "tint": [
+          0.55,
+          0.9,
+          0.82
+        ],
+        "style": "tank",
+        "level": 0.64
+      },
+      "inputSegments": 0,
+      "spanMedianMs": 0.262144,
+      "slopeMedianMs": 0.1747626666666667,
+      "slopeMinMs": 0,
+      "samples": {
+        "one": [
+          0.393216,
+          1.31072,
+          0.262144,
+          0.262144,
+          0.851968,
+          0.262144,
+          0.262144,
+          0.196608,
+          0.196608
+        ],
+        "four": [
+          1.114112,
+          1.376256,
+          0.720896,
+          0.851968,
+          0.851968,
+          0.786432,
+          0.786432,
+          0.98304,
+          0.720896
+        ]
+      },
+      "passesPerUnit": 1
+    },
+    {
+      "kind": "complete frame",
+      "id": "liquid-blob",
+      "params": {
+        "strength": 1,
+        "speed": 0.7,
+        "merge": 0.35
+      },
+      "inputSegments": 0,
+      "spanMedianMs": 0.524288,
+      "slopeMedianMs": 0.4369066666666666,
+      "slopeMinMs": 0.19660799999999998,
+      "samples": {
+        "one": [
+          0.458752,
+          0.458752,
+          0.98304,
+          0.524288,
+          0.524288,
+          0.524288,
+          1.31072,
+          0.458752,
+          0.524288
+        ],
+        "four": [
+          1.769472,
+          1.769472,
+          2.162688,
+          1.769472,
+          1.835008,
+          1.835008,
+          1.900544,
+          1.769472,
+          1.835008
+        ]
+      },
+      "passesPerUnit": 1
+    },
+    {
+      "kind": "complete frame",
+      "id": "water-cursor",
+      "params": {
+        "strength": 1,
+        "dispersion": 0.009,
+        "radius": 0.027,
+        "spread": 1,
+        "dry": 0.55
+      },
+      "inputSegments": 0,
+      "spanMedianMs": 0.262144,
+      "slopeMedianMs": 0.1747626666666667,
+      "slopeMinMs": 0.131072,
+      "samples": {
+        "one": [
+          0.524288,
+          0.458752,
+          0.262144,
+          0.196608,
+          0.65536,
+          0.262144,
+          0.262144,
+          0.262144,
+          0.196608
+        ],
+        "four": [
+          1.900544,
+          0.851968,
+          0.786432,
+          0.786432,
+          1.31072,
+          0.786432,
+          0.786432,
+          0.720896,
+          0.786432
+        ]
+      },
+      "passesPerUnit": 2
+    },
+    {
+      "kind": "complete frame",
+      "id": "scroll-water",
+      "params": {
+        "strength": 1,
+        "speed": 0.7,
+        "scrollRange": 640,
+        "preview": false,
+        "level": 0.45
+      },
+      "inputSegments": 0,
+      "spanMedianMs": 0.196608,
+      "slopeMedianMs": 0.15291733333333335,
+      "slopeMinMs": 0.15291733333333332,
+      "samples": {
+        "one": [
+          0.196608,
+          0.196608,
+          0.196608,
+          0.196608,
+          0.196608,
+          0.196608,
+          0.196608,
+          0.196608,
+          0.32768
+        ],
+        "four": [
+          0.65536,
+          0.65536,
+          0.65536,
+          0.917504,
+          2.686976,
+          0.65536,
+          0.65536,
+          0.786432,
+          0.786432
+        ]
+      },
+      "passesPerUnit": 1
+    },
+    {
+      "kind": "complete frame",
+      "id": "ui-droplets",
+      "params": {
+        "strength": 1,
+        "speed": 0.7,
+        "dispersion": 0.009,
+        "gravity": 0.45,
+        "condensation": 3
+      },
+      "inputSegments": 0,
+      "spanMedianMs": 1.114112,
+      "slopeMedianMs": 1.048576,
+      "slopeMinMs": 0.6772053333333333,
+      "samples": {
+        "one": [
+          1.114112,
+          0.98304,
+          1.114112,
+          1.114112,
+          1.048576,
+          2.097152,
+          1.245184,
+          1.179648,
+          0.98304
+        ],
+        "four": [
+          4.063232,
+          4.718592,
+          4.456448,
+          4.521984,
+          3.866624,
+          4.128768,
+          4.849664,
+          4.194304,
+          4.128768
+        ]
+      },
+      "passesPerUnit": 1
+    },
+    {
+      "kind": "complete frame",
+      "id": "liquid-transitions",
+      "params": {
+        "strength": 1,
+        "speed": 0.7,
+        "style": "wave",
+        "automatic": true,
+        "progress": 0.4
+      },
+      "inputSegments": 0,
+      "spanMedianMs": 0.131072,
+      "slopeMedianMs": 0.08738133333333335,
+      "slopeMinMs": -0.08738133333333335,
+      "samples": {
+        "one": [
+          0.131072,
+          0.065536,
+          0.065536,
+          0.65536,
+          0.131072,
+          0.131072,
+          0.131072,
+          0.131072,
+          0.131072
+        ],
+        "four": [
+          0.393216,
+          1.31072,
+          0.458752,
+          0.393216,
+          0.32768,
+          0.32768,
+          0.32768,
+          0.393216,
+          0.917504
+        ]
+      },
+      "passesPerUnit": 1
+    },
+    {
+      "kind": "complete frame",
+      "id": "liquid-transitions",
+      "params": {
+        "strength": 1,
+        "speed": 0.7,
+        "style": "dissolve",
+        "automatic": true,
+        "progress": 0.4
+      },
+      "inputSegments": 0,
+      "spanMedianMs": 0.196608,
+      "slopeMedianMs": 0.15291733333333335,
+      "slopeMinMs": -0.043690666666666655,
+      "samples": {
+        "one": [
+          0.131072,
+          0.196608,
+          0.131072,
+          0.32768,
+          0.196608,
+          0.131072,
+          0.196608,
+          0.786432,
+          0.196608
+        ],
+        "four": [
+          0.589824,
+          1.507328,
+          0.65536,
+          0.589824,
+          0.524288,
+          0.589824,
+          0.65536,
+          0.65536,
+          0.589824
+        ]
+      },
+      "passesPerUnit": 1
+    },
+    {
+      "kind": "complete frame",
+      "id": "fill-level",
+      "params": {
+        "strength": 1,
+        "speed": 0.7,
+        "tint": [
+          0.55,
+          0.9,
+          0.82
+        ],
+        "style": "bar",
+        "level": 0.64
+      },
+      "inputSegments": 0,
+      "spanMedianMs": 0.196608,
+      "slopeMedianMs": 0.196608,
+      "slopeMinMs": -0.043690666666666655,
+      "samples": {
+        "one": [
+          0.196608,
+          0.589824,
+          0.196608,
+          0.393216,
+          0.196608,
+          0.196608,
+          0.196608,
+          0.262144,
+          0.917504
+        ],
+        "four": [
+          0.786432,
+          0.851968,
+          0.786432,
+          0.720896,
+          0.917504,
+          0.786432,
+          0.851968,
+          0.98304,
+          0.786432
+        ]
+      },
+      "passesPerUnit": 1
+    },
+    {
+      "kind": "complete frame",
+      "id": "fill-level",
+      "params": {
+        "strength": 1,
+        "speed": 0.7,
+        "tint": [
+          0.55,
+          0.9,
+          0.82
+        ],
+        "style": "loader",
+        "level": 0.64
+      },
+      "inputSegments": 0,
+      "spanMedianMs": 0.262144,
+      "slopeMedianMs": 0.19660799999999998,
+      "slopeMinMs": 0.15291733333333332,
+      "samples": {
+        "one": [
+          0.196608,
+          0.524288,
+          0.262144,
+          0.196608,
+          0.262144,
+          0.196608,
+          0.196608,
+          0.262144,
+          0.262144
+        ],
+        "four": [
+          0.917504,
+          1.572864,
+          0.851968,
+          0.786432,
+          0.786432,
+          0.720896,
+          3.538944,
+          0.786432,
+          0.720896
+        ]
+      },
+      "passesPerUnit": 1
+    },
+    {
+      "kind": "complete frame",
+      "id": "liquid-typography",
+      "params": {
+        "strength": 1,
+        "speed": 0.7,
+        "style": "melt",
+        "level": 0.5
+      },
+      "inputSegments": 0,
+      "spanMedianMs": 0.262144,
+      "slopeMedianMs": 0.2184533333333333,
+      "slopeMinMs": 0.19660799999999998,
+      "samples": {
+        "one": [
+          0.196608,
+          0.262144,
+          0.262144,
+          0.262144,
+          0.262144,
+          0.262144,
+          0.32768,
+          0.196608,
+          0.262144
+        ],
+        "four": [
+          0.786432,
+          0.851968,
+          0.917504,
+          1.114112,
+          0.851968,
+          0.917504,
+          1.31072,
+          0.851968,
+          0.851968
+        ]
+      },
+      "passesPerUnit": 1
+    },
+    {
+      "kind": "complete frame",
+      "id": "liquid-typography",
+      "params": {
+        "strength": 1,
+        "speed": 0.7,
+        "style": "fill",
+        "level": 0.5
+      },
+      "inputSegments": 0,
+      "spanMedianMs": 0.262144,
+      "slopeMedianMs": 0.19660799999999998,
+      "slopeMinMs": -0.065536,
+      "samples": {
+        "one": [
+          0.393216,
+          1.048576,
+          0.262144,
+          0.262144,
+          0.262144,
+          0.720896,
+          0.262144,
+          0.262144,
+          0.262144
+        ],
+        "four": [
+          0.917504,
+          0.851968,
+          0.917504,
+          0.917504,
+          0.98304,
+          1.179648,
+          0.851968,
+          0.851968,
+          1.048576
+        ]
+      },
+      "passesPerUnit": 1
+    },
+    {
+      "kind": "complete frame",
+      "id": "water-cursor",
+      "params": {
+        "strength": 1,
+        "dispersion": 0.009,
+        "radius": 0.027,
+        "spread": 1,
+        "dry": 0.55
+      },
+      "inputSegments": 16,
+      "spanMedianMs": 0.262144,
+      "slopeMedianMs": 0.2184533333333333,
+      "slopeMinMs": 0.08738133333333335,
+      "samples": {
+        "one": [
+          0.262144,
+          0.524288,
+          0.262144,
+          0.262144,
+          0.196608,
+          0.262144,
+          0.262144,
+          0.393216,
+          0.196608
+        ],
+        "four": [
+          1.245184,
+          0.786432,
+          0.851968,
+          1.6384,
+          0.917504,
+          0.786432,
+          0.917504,
+          0.786432,
+          0.851968
+        ]
+      },
+      "passesPerUnit": 2
+    },
+    {
+      "kind": "complete frame",
+      "id": "liquid-image-hover",
+      "params": {
+        "strength": 1,
+        "speed": 0.7,
+        "dispersion": 0.009
+      },
+      "inputSegments": 1,
+      "spanMedianMs": 0.196608,
+      "slopeMedianMs": 0.131072,
+      "slopeMinMs": 0.10922666666666665,
+      "samples": {
+        "one": [
+          0.196608,
+          0.196608,
+          0.131072,
+          0.262144,
+          0.196608,
+          0.196608,
+          0.196608,
+          0.131072,
+          0.262144
+        ],
+        "four": [
+          0.589824,
+          0.720896,
+          0.720896,
+          0.589824,
+          1.769472,
+          0.524288,
+          0.589824,
+          0.65536,
+          0.589824
+        ]
+      },
+      "passesPerUnit": 1
+    },
+    {
+      "kind": "complete frame",
+      "id": "liquid-buttons",
+      "params": {
+        "strength": 1,
+        "speed": 0.7,
+        "tint": [
+          0.55,
+          0.9,
+          0.82
+        ],
+        "frequency": 3.5,
+        "damping": 0.25
+      },
+      "inputSegments": 1,
+      "spanMedianMs": 0.196608,
+      "slopeMedianMs": 0.15291733333333335,
+      "slopeMinMs": 0.131072,
+      "samples": {
+        "one": [
+          0.196608,
+          0.131072,
+          0.196608,
+          0.131072,
+          0.131072,
+          0.262144,
+          0.196608,
+          0.196608,
+          0.131072
+        ],
+        "four": [
+          0.65536,
+          0.589824,
+          0.65536,
+          0.524288,
+          0.851968,
+          1.376256,
+          0.589824,
+          0.589824,
+          0.589824
+        ]
+      },
+      "passesPerUnit": 1
+    },
+    {
+      "kind": "complete frame",
+      "id": "liquid-glass",
+      "params": {
+        "strength": 2,
+        "dispersion": 0.009,
+        "tint": [
+          0.55,
+          0.9,
+          0.82
+        ],
+        "blur": 24,
+        "radius": 0.07
+      },
+      "inputSegments": 0,
+      "spanMedianMs": 0.32768,
+      "slopeMedianMs": 0.262144,
+      "slopeMinMs": 0.24029866666666666,
+      "samples": {
+        "one": [
+          0.458752,
+          0.32768,
+          0.32768,
+          0.32768,
+          0.393216,
+          0.32768,
+          0.393216,
+          0.262144,
+          0.262144
+        ],
+        "four": [
+          1.245184,
+          1.114112,
+          1.114112,
+          1.048576,
+          1.179648,
+          1.245184,
+          1.245184,
+          1.114112,
+          1.31072
+        ]
+      },
+      "passesPerUnit": 1
+    }
+  ]
+}

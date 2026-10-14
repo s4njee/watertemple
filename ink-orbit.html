@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#1d1f29" />
+    <title>Loose orbit · Water Temple DOM ink</title>
+  </head>
+  <!-- Every element marked data-wt-obstacle is solid to the fluid and pulls the ink trails into orbit
+       round it; data-wt-orbit picks the direction (cw, ccw) or opts out (off: it only pushes them
+       away). The body scopes the search. -->
+  <body data-wt-obstacle-root data-state="loading">
+    <div id="stage" aria-hidden="true"></div>
+
+    <header class="site-header">
+      <a class="wordmark solid" data-wt-obstacle data-wt-orbit="ccw" href="./">
+        WATER TEMPLE <span>FIELD STUDIES</span>
+      </a>
+      <nav class="solid" data-wt-obstacle data-wt-orbit="cw" aria-label="Demo navigation">
+        <a href="#experiment">Experiment</a><a href="./aurora.html">Aurora ↗</a
+        ><a href="#how-it-works">How it works ↓</a>
+      </nav>
+    </header>
+
+    <main>
+      <section id="experiment" class="experiment" aria-labelledby="title">
+        <div class="intro">
+          <p class="eyebrow solid" data-wt-obstacle data-wt-orbit="cw">
+            EXPERIMENT 06 / INK IN A STABLE FLUID
+          </p>
+          <h1 id="title">
+            <span class="solid" data-wt-obstacle data-wt-orbit="ccw">Loose</span
+            ><span class="solid" data-wt-obstacle data-wt-orbit="cw">orbit.</span>
+          </h1>
+          <p class="description solid" data-wt-obstacle data-wt-orbit="ccw">
+            Ink that circles what you read.<br />A few restless trails in a real fluid, swung round
+            every heading, card and link on the page.
+          </p>
+          <a class="scroll-link solid" data-wt-obstacle data-wt-orbit="cw" href="#how-it-works"
+            >Scroll to stir the page <span>↓</span></a
+          >
+        </div>
+
+        <aside
+          id="floating-card"
+          class="floating-card solid"
+          data-wt-obstacle
+          data-wt-orbit="cw"
+          aria-label="Movable card"
+        >
+          <button
+            id="drag-handle"
+            class="drag-handle"
+            type="button"
+            aria-label="Move the card: drag or use arrow keys"
+          >
+            <span>⠿</span> A RING OF ITS OWN <span>↗</span>
+          </button>
+          <div class="card-content">
+            <span class="card-symbol" aria-hidden="true">◎</span>
+            <h2>Take it<br />with you.</h2>
+            <p>Grab the handle. Move this card.<br />Watch the trails follow.</p>
+            <span id="card-footnote" class="card-footnote">TURNING CLOCKWISE / DRAG TO MOVE</span>
+          </div>
+        </aside>
+
+        <div class="experiment-caption">
+          <span>EVERY PLATE IS SOLID / EVERY PLATE PULLS</span
+          ><span>01 — THE PAGE AS A FORCE FIELD</span>
+        </div>
+      </section>
+
+      <section id="how-it-works" class="explanation" aria-labelledby="explanation-title">
+        <div class="section-heading">
+          <p class="eyebrow solid" data-wt-obstacle data-wt-orbit="ccw">A LOOSER KIND OF ORBIT</p>
+          <h2 id="explanation-title" class="solid" data-wt-obstacle data-wt-orbit="cw">
+            A little pull.<br />A lot of colour.
+          </h2>
+        </div>
+        <div id="notes" class="notes">
+          <article class="note solid" data-wt-obstacle data-wt-orbit="ccw">
+            <span class="note-number">01 / CONTENT</span>
+            <h3>Room to read.</h3>
+            <p>
+              Headings and cards are walls to the fluid, so the ink flows round them and never under
+              them. The text stays selectable and the links stay clickable.
+            </p>
+          </article>
+          <article class="note solid" data-wt-obstacle data-wt-orbit="cw">
+            <span class="note-number">02 / CHANGE</span>
+            <h3>Follow the layout.</h3>
+            <p>
+              Each element is measured every frame. Move the card, scroll, or rearrange these notes,
+              and the pull moves with them, carrying the water along.
+            </p>
+            <button id="rearrange" type="button">Rearrange the notes ↗</button>
+          </article>
+          <article class="note solid" data-wt-obstacle data-wt-orbit="ccw">
+            <span class="note-number">03 / MOTION</span>
+            <h3>Heads and tails.</h3>
+            <p>
+              Each trail has a head that is drawn to the nearest outline and swung round it, then
+              lets go and is caught somewhere else. The tail is real fluid: it curls, spreads and
+              fades on its own.
+            </p>
+          </article>
+        </div>
+        <footer>
+          <a class="solid" data-wt-obstacle data-wt-orbit="cw" href="./?effect=ink-orbit"
+            >Open the effect with every control ↗</a
+          >
+          <span class="solid" data-wt-obstacle data-wt-orbit="ccw"
+            >Water Temple / WebGPU / 2026</span
+          >
+        </footer>
+      </section>
+    </main>
+
+    <aside class="toolbar solid" data-wt-obstacle data-wt-orbit="off" aria-label="Ink controls">
+      <div class="live-status">
+        <i aria-hidden="true"></i>
+        <div>
+          <span id="status" role="status">Starting the ink…</span>
+          <span id="detail">Measuring the page…</span>
+        </div>
+      </div>
+      <div class="light-controls">
+        <label for="brightness">Light</label>
+        <input id="brightness" type="range" min="1" max="5" step="0.25" value="1.5" disabled />
+        <output id="brightness-value" for="brightness">1.5×</output>
+        <select id="output-mode" aria-label="Output">
+          <option value="auto" selected>Auto HDR</option>
+          <option value="sdr">SDR</option>
+        </select>
+      </div>
+      <div class="toolbar-controls">
+        <label class="select-control" for="variation"
+          >Variation
+          <select id="variation">
+            <option value="ink-orbit" selected>Ink orbit</option>
+            <option value="aurora">Aurora ribbons</option>
+            <option value="neon-calligraphy">Neon calligraphy</option>
+            <option value="dichroic-glass">Dichroic glass</option>
+            <option value="bioluminescent-currents">Bioluminescent currents</option>
+            <option value="liquid-chrome">Liquid chrome</option>
+            <option value="silk-embers">Silk embers</option>
+            <option value="eclipse-halos">Eclipse halos</option>
+          </select>
+        </label>
+        <button id="pause" type="button" disabled>Pause</button>
+        <button id="reset" type="button" disabled>Reset</button>
+        <label class="check-control"><input id="forces" type="checkbox" checked />Forces</label>
+        <button id="show-boxes" type="button" aria-pressed="false">Show boxes</button>
+        <button id="reverse" type="button" aria-pressed="false">Reverse</button>
+        <label class="select-control"
+          >Palette
+          <select id="palette">
+            <option value="rgb cycle" selected>RGB cycle</option>
+            <option value="primary">Primary</option>
+            <option value="rainbow">Rainbow</option>
+            <option value="pastel">Pastel</option>
+            <option value="sunset">Sunset</option>
+            <option value="lagoon">Lagoon</option>
+            <option value="sumi">Sumi</option>
+          </select>
+        </label>
+      </div>
+    </aside>
+
+    <script type="module" src="/src/demos/ink-orbit/main.ts"></script>
+  </body>
+</html>

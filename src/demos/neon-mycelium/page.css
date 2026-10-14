@@ -1,0 +1,59 @@
+:root {
+  --paper: #05070f;
+  --accent: #8de9df;
+  --text: #ebf4f1;
+  --muted: #a6b8c3;
+  --faint: #768996;
+  --hairline: #8de9df26;
+}
+body[data-output='hdr'] .solid:not(.toolbar, .floating-card) {
+  background: var(--paper);
+}
+h1 {
+  font-size: clamp(68px, 9vw, 140px);
+  font-weight: 400;
+  letter-spacing: -0.065em;
+}
+h1 span:nth-child(2) {
+  margin-left: 5vw;
+  color: #adeee4;
+}
+.floating-card {
+  border-color: #8de9df30;
+  box-shadow: 0 24px 80px #00000060;
+}
+.card-symbol {
+  background: linear-gradient(135deg, #8de9df, #a494ff);
+  background-clip: text;
+}
+.growth-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  color: var(--muted);
+}
+.growth-controls input {
+  width: 72px;
+  accent-color: var(--accent);
+}
+.growth-controls output {
+  min-width: 4ch;
+  font:
+    10px ui-monospace,
+    monospace;
+}
+.toolbar button:hover:not(:disabled),
+.toolbar select:hover {
+  border-color: #8de9df80;
+}
+body[data-state='fallback'] {
+  background:
+    radial-gradient(ellipse at 25% 30%, #245ca030, transparent 55%),
+    radial-gradient(ellipse at 75% 65%, #a535a522, transparent 50%), var(--paper);
+}
+@media (max-width: 700px) {
+  h1 {
+    font-size: clamp(52px, 15vw, 100px);
+  }
+}

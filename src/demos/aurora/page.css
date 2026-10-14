@@ -1,0 +1,32 @@
+/* Aurora shares the orbit demo's layout and interaction, with its own midnight palette. */
+:root {
+  --paper: #050917;
+  --text: #e7f8f3;
+  --muted: #9bbfb8;
+  --faint: #718c99;
+  --hairline: #8dd7c526;
+  --control: #79ceb40c;
+  --cw: #57edb3;
+  --ccw: #9581ff;
+  --rainbow: linear-gradient(120deg, #54edaa, #6edce6, #ac8dff);
+}
+body[data-state='fallback'] {
+  background:
+    radial-gradient(ellipse at 75% 25%, #20be8726, transparent 55%),
+    radial-gradient(ellipse at 25% 65%, #554ac426, transparent 55%), var(--paper);
+}
+body[data-effect='aurora'] h1 {
+  font-weight: 400;
+  letter-spacing: -0.065em;
+}
+body[data-effect='aurora'] .floating-card {
+  border-color: #79ceb430;
+  box-shadow: 0 20px 70px #00000040;
+}
+body[data-effect='aurora'] .card-symbol {
+  filter: drop-shadow(0 0 12px #57edb340);
+}
+body[data-effect='aurora'] .toolbar button:hover:not(:disabled),
+body[data-effect='aurora'] .toolbar select:hover {
+  border-color: #8dd7c570;
+}

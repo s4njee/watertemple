@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#140806" />
+    <title>Silk embers · Water Temple</title>
+  </head>
+  <!-- Every element marked data-wt-obstacle is solid to the fluid and pulls the ink trails into orbit
+       round it; data-wt-orbit picks the direction (cw, ccw) or opts out (off: it only pushes them
+       away). The body scopes the search. -->
+  <body data-effect="silk-embers" data-material="5" data-wt-obstacle-root data-state="loading">
+    <div id="stage" aria-hidden="true"></div>
+
+    <header class="site-header">
+      <a class="wordmark solid" data-wt-obstacle data-wt-orbit="ccw" href="./">
+        WATER TEMPLE <span>FIELD STUDIES</span>
+      </a>
+      <nav class="solid" data-wt-obstacle data-wt-orbit="cw" aria-label="Demo navigation">
+        <a href="./ink-orbit.html">Ink orbit ↗</a><a href="#how-it-works">How it flows ↓</a>
+      </nav>
+    </header>
+
+    <main>
+      <section id="experiment" class="experiment" aria-labelledby="title">
+        <div class="intro">
+          <p class="eyebrow solid" data-wt-obstacle data-wt-orbit="cw">
+            EXPERIMENT 06 / SILK EMBERS
+          </p>
+          <h1 id="title">
+            <span class="solid" data-wt-obstacle data-wt-orbit="ccw">Silk</span
+            ><span class="solid" data-wt-obstacle data-wt-orbit="cw">embers.</span>
+          </h1>
+          <p class="description solid" data-wt-obstacle data-wt-orbit="ccw">
+            Copper, crimson and gold filaments weave through the dark. Sparks break free while the
+            trails cool and disappear.
+          </p>
+          <a class="scroll-link solid" data-wt-obstacle data-wt-orbit="cw" href="#how-it-works"
+            >Move the card. Follow the light <span>↓</span></a
+          >
+        </div>
+
+        <aside
+          id="floating-card"
+          class="floating-card solid"
+          data-wt-obstacle
+          data-wt-orbit="cw"
+          aria-label="Movable card"
+        >
+          <button
+            id="drag-handle"
+            class="drag-handle"
+            type="button"
+            aria-label="Move the card: drag or use arrow keys"
+          >
+            <span>⠿</span> A LITTLE GRAVITY <span>↗</span>
+          </button>
+          <div class="card-content">
+            <span class="card-symbol" aria-hidden="true">◎</span>
+            <h2>Carry a little fire.</h2>
+            <p>Drag this small piece of night.<br />Watch the light find its way.</p>
+            <span id="card-footnote" class="card-footnote">TURNING CLOCKWISE / DRAG TO MOVE</span>
+          </div>
+        </aside>
+
+        <div class="experiment-caption">
+          <span>COPPER / CRIMSON / GOLD</span><span>07 — A STUDY OF LIGHT</span>
+        </div>
+      </section>
+
+      <section id="how-it-works" class="explanation" aria-labelledby="explanation-title">
+        <div class="section-heading">
+          <p class="eyebrow solid" data-wt-obstacle data-wt-orbit="ccw">
+            LIGHT WITH ITS OWN CHARACTER
+          </p>
+          <h2 id="explanation-title" class="solid" data-wt-obstacle data-wt-orbit="cw">
+            Silk.<br />embers.
+          </h2>
+        </div>
+        <div id="notes" class="notes">
+          <article class="note solid" data-wt-obstacle data-wt-orbit="ccw">
+            <span class="note-number">01 / CONTENT</span>
+            <h3>Leave room for night.</h3>
+            <p>
+              The light follows the spaces between headings and cards. Dark gaps let the light
+              breathe, while the page stays easy to read.
+            </p>
+          </article>
+          <article class="note solid" data-wt-obstacle data-wt-orbit="cw">
+            <span class="note-number">02 / CHANGE</span>
+            <h3>A gentle pull.</h3>
+            <p>
+              Move the card, scroll slowly, or rearrange these notes. The light bends around the new
+              outlines, finding another path through the page.
+            </p>
+            <button id="rearrange" type="button">Rearrange the notes ↗</button>
+          </article>
+          <article class="note solid" data-wt-obstacle data-wt-orbit="ccw">
+            <span class="note-number">03 / MOTION</span>
+            <h3>Colour that lingers.</h3>
+            <p>
+              Copper, crimson and gold filaments weave through the dark. Sparks break free while the
+              trails cool and disappear.
+            </p>
+          </article>
+        </div>
+        <footer>
+          <a class="solid" data-wt-obstacle data-wt-orbit="cw" href="./?effect=silk-embers"
+            >Open the effect with every control ↗</a
+          >
+          <span class="solid" data-wt-obstacle data-wt-orbit="ccw"
+            >Water Temple / WebGPU / 2026</span
+          >
+        </footer>
+      </section>
+    </main>
+
+    <aside
+      class="toolbar solid"
+      data-wt-obstacle
+      data-wt-orbit="off"
+      aria-label="Silk embers controls"
+    >
+      <div class="live-status">
+        <i aria-hidden="true"></i>
+        <div>
+          <span id="status" role="status">Gathering the light…</span>
+          <span id="detail">Measuring the page…</span>
+        </div>
+      </div>
+      <div class="light-controls">
+        <label for="brightness">Light</label>
+        <input id="brightness" type="range" min="1" max="5" step="0.05" value="1.2" disabled />
+        <output id="brightness-value" for="brightness">1.2×</output>
+        <select id="output-mode" aria-label="Output">
+          <option value="auto" selected>Auto HDR</option>
+          <option value="sdr">SDR</option>
+        </select>
+      </div>
+      <div class="toolbar-controls">
+        <label class="select-control" for="variation"
+          >Variation
+          <select id="variation">
+            <option value="ink-orbit">Ink orbit</option>
+            <option value="aurora">Aurora ribbons</option>
+            <option value="neon-calligraphy">Neon calligraphy</option>
+            <option value="dichroic-glass">Dichroic glass</option>
+            <option value="bioluminescent-currents">Bioluminescent currents</option>
+            <option value="liquid-chrome">Liquid chrome</option>
+            <option value="silk-embers" selected>Silk embers</option>
+            <option value="eclipse-halos">Eclipse halos</option>
+          </select>
+        </label>
+        <button id="pause" type="button" disabled>Pause</button>
+        <button id="reset" type="button" disabled>Reset</button>
+        <label class="check-control"><input id="forces" type="checkbox" checked />Forces</label>
+        <button id="show-boxes" type="button" aria-pressed="false">Show boxes</button>
+        <button id="reverse" type="button" aria-pressed="false">Reverse</button>
+        <label class="select-control"
+          >Palette
+          <select id="palette">
+            <option value="embers" selected>Copper / crimson / gold</option>
+            <option value="sunset">Rose embers</option>
+            <option value="neon">Electric fire</option>
+          </select>
+        </label>
+      </div>
+    </aside>
+
+    <script type="module" src="/src/demos/orbit-variants/main.ts"></script>
+  </body>
+</html>

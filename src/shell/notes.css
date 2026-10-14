@@ -1,0 +1,55 @@
+.wt-notes h2:first-child {
+  margin-top: 0;
+}
+
+.wt-notes ul,
+.wt-notes ol {
+  padding-left: var(--wt-space-5);
+}
+
+.wt-notes li + li {
+  margin-top: var(--wt-space-1);
+}
+
+.wt-notes blockquote {
+  margin-left: 0;
+  padding-left: var(--wt-space-4);
+  border-left: 2px solid var(--wt-border);
+  color: var(--wt-text-muted);
+}
+
+.wt-notes hr {
+  border: 0;
+  border-top: 1px solid var(--wt-border);
+}
+
+.wt-notes table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+  font-size: var(--wt-text-s);
+}
+
+.wt-notes th,
+.wt-notes td {
+  padding: var(--wt-space-2) var(--wt-space-3);
+  border-bottom: 1px solid var(--wt-border);
+  text-align: left;
+}
+
+.wt-notes th {
+  color: var(--wt-text-muted);
+  font-weight: 600;
+}
+
+/* Code blocks keep the full width of the column even though prose is capped. */
+.wt-notes pre.wt-source__code {
+  max-width: 100%;
+}
+
+.wt-notes img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--wt-radius-m);
+}

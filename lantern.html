@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#12130f" />
+    <title>Afterglow — a lantern behind the page</title>
+  </head>
+  <body>
+    <div class="scenery" aria-hidden="true">
+      <div class="lantern-scene" id="lantern-scene">
+        <div class="halo"></div>
+        <div class="particle-stage" id="stage"></div>
+        <div class="still-glow"></div>
+        <img class="lantern" src="%BASE_URL%lantern/lantern.svg" alt="" />
+        <div class="post-extension"></div>
+      </div>
+      <div class="lantern-scene lantern-scene--second" id="lantern-scene-right">
+        <div class="halo"></div>
+        <div class="particle-stage" id="stage-right"></div>
+        <div class="still-glow"></div>
+        <img class="lantern" src="%BASE_URL%lantern/lantern.svg" alt="" />
+        <div class="post-extension"></div>
+      </div>
+    </div>
+
+    <header class="site-header">
+      <a class="wordmark" href="#home"><span class="brand-symbol">✳</span> afterglow</a>
+      <nav aria-label="Main navigation">
+        <a href="#experience">The experience</a>
+        <a href="./?effect=particles&amp;preset=fountain">Original effect ↗</a>
+      </nav>
+    </header>
+
+    <main id="home">
+      <section class="hero" aria-labelledby="title">
+        <p class="eyebrow"><span></span> A LITTLE LIGHT, A LITTLE LONGER</p>
+        <h1 id="title">Stay for<br />the <em>glow.</em></h1>
+        <p class="intro">
+          When the day winds down, let the evening open up. <br />A warm light. A quiet moment.
+          Nowhere else to be.
+        </p>
+        <a class="primary-link" href="#experience">Step into the evening <span>↓</span></a>
+        <div class="hero-caption"><span>01 / THE LANTERN</span><span>Warmth in motion.</span></div>
+      </section>
+
+      <section class="experience" id="experience" aria-labelledby="experience-title">
+        <div class="section-heading">
+          <p class="eyebrow">ROOM TO SLOW DOWN</p>
+          <h2 id="experience-title">A softer kind<br />of evening.</h2>
+        </div>
+        <div class="cards">
+          <article class="card">
+            <span class="card-number">01 / GATHER</span>
+            <h3>Pull up a chair.</h3>
+            <p>The best evenings start with good company and no particular plan.</p>
+            <a href="#home">Back to the light <span>↗</span></a>
+          </article>
+          <article class="card">
+            <span class="card-number">02 / LINGER</span>
+            <h3>Let time drift.</h3>
+            <p>Leave a little space between the last conversation and the next.</p>
+            <button id="move-card" type="button" aria-pressed="false">
+              Move this card <span>↔</span>
+            </button>
+          </article>
+          <article class="card">
+            <span class="card-number">03 / UNWIND</span>
+            <h3>Keep it simple.</h3>
+            <p>Just the glow of a lantern and the feeling that you can stay a while.</p>
+            <a href="#home">Stay a little longer <span>↑</span></a>
+          </article>
+        </div>
+        <footer>
+          <span>AFTERGLOW / WATER TEMPLE</span>
+          <span>Lantern illustration: original artwork for Water Temple</span>
+        </footer>
+      </section>
+    </main>
+
+    <aside class="controls" aria-label="Lantern controls">
+      <span class="live-indicator"></span>
+      <span id="status" role="status">Lighting the lantern…</span>
+      <label for="intensity"
+        >Glow <input id="intensity" type="range" min="0.03" max="0.22" value="0.12" step="0.01"
+      /></label>
+      <label for="headroom"
+        >HDR light <input id="headroom" type="range" min="1" max="6" value="3" step="0.1" /><output
+          id="headroom-value"
+          >3×</output
+        ></label
+      >
+      <select id="output-mode" aria-label="Dynamic range">
+        <option value="auto">Auto HDR</option>
+        <option value="sdr">SDR</option>
+      </select>
+      <button id="pause" type="button" disabled>Pause</button>
+      <button id="reset" type="button" disabled>Relight</button>
+      <button id="layer-toggle" type="button" aria-pressed="false">Show layers</button>
+    </aside>
+    <script type="module" src="/src/demos/lantern/main.ts"></script>
+  </body>
+</html>

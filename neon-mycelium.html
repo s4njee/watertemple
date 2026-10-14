@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#05070f" />
+    <title>Neon mycelium · Water Temple</title>
+  </head>
+  <body data-effect="neon-mycelium" data-wt-obstacle-root data-state="loading">
+    <div id="stage" aria-hidden="true"></div>
+    <header class="site-header">
+      <a class="wordmark solid" data-wt-obstacle href="./"
+        >WATER TEMPLE <span>FIELD STUDIES</span></a
+      >
+      <nav class="solid" data-wt-obstacle aria-label="Demo navigation">
+        <a href="./neon-calligraphy.html">Neon script ↗</a
+        ><a href="#how-it-works">Watch it grow ↓</a>
+      </nav>
+    </header>
+    <main>
+      <section id="experiment" class="experiment" aria-labelledby="title">
+        <div class="intro">
+          <p class="eyebrow solid" data-wt-obstacle>EXPERIMENT 07 / A LIVING NETWORK</p>
+          <h1 id="title" aria-label="Neon mycelium">
+            <span class="solid" data-wt-obstacle>Neon</span
+            ><span class="solid" data-wt-obstacle>mycelium.</span>
+          </h1>
+          <p class="description solid" data-wt-obstacle>
+            A garden of light, finding its own way.<br />Fine roots branch, meet and grow around the
+            things you read.
+          </p>
+          <a class="scroll-link solid" data-wt-obstacle href="#how-it-works"
+            >Plant a little light <span>↓</span></a
+          >
+        </div>
+        <aside
+          id="floating-card"
+          class="floating-card solid"
+          data-wt-obstacle
+          aria-label="Movable card"
+        >
+          <button
+            id="drag-handle"
+            class="drag-handle"
+            type="button"
+            aria-label="Move the card: drag or use arrow keys"
+          >
+            <span>⠿</span> A PLACE TO GROW <span>↗</span>
+          </button>
+          <div class="card-content">
+            <span class="card-symbol" aria-hidden="true">❋</span>
+            <h2>Give the roots<br />another path.</h2>
+            <p>Drag this small piece of night.<br />Watch the network find the edges.</p>
+            <span class="card-footnote">DRAG TO MOVE / ARROW KEYS WORK TOO</span>
+          </div>
+        </aside>
+        <div class="experiment-caption">
+          <span>BRANCH / MERGE / REMEMBER</span><span>09 — THE PAGE AS A GARDEN</span>
+        </div>
+      </section>
+      <section id="how-it-works" class="explanation" aria-labelledby="explanation-title">
+        <div class="section-heading">
+          <p class="eyebrow solid" data-wt-obstacle>A QUIET KIND OF GROWTH</p>
+          <h2 id="explanation-title" class="solid" data-wt-obstacle>
+            Small decisions.<br />Living patterns.
+          </h2>
+        </div>
+        <div id="notes" class="notes">
+          <article class="note solid" data-wt-obstacle>
+            <span class="note-number">01 / ROOTS</span>
+            <h3>Find a way around.</h3>
+            <p>
+              Headings and cards leave clear spaces in the garden. Move the card or scroll, and new
+              paths begin to gather around their outlines.
+            </p>
+          </article>
+          <article class="note solid" data-wt-obstacle>
+            <span class="note-number">02 / CONNECTION</span>
+            <h3>Meet in the dark.</h3>
+            <p>
+              Each growing tip follows the traces left by its neighbours. Quiet paths fade; shared
+              paths strengthen, making branches that join into a network.
+            </p>
+            <button id="rearrange" type="button">Rearrange the garden ↗</button>
+          </article>
+          <article class="note solid" data-wt-obstacle>
+            <span class="note-number">03 / CULTIVATE</span>
+            <h3>Plant something new.</h3>
+            <p>
+              Press on an empty space to leave a little light for the roots to follow. Slow the
+              growth, try a different palette, or regrow the garden from the beginning.
+            </p>
+          </article>
+        </div>
+        <footer>
+          <a class="solid" data-wt-obstacle href="./?effect=neon-mycelium"
+            >Explore every control ↗</a
+          >
+          <span class="solid" data-wt-obstacle>Water Temple / Physarum / 2026</span>
+        </footer>
+      </section>
+    </main>
+    <aside class="toolbar solid" data-wt-obstacle data-wt-root="off" aria-label="Mycelium controls">
+      <div class="live-status">
+        <i aria-hidden="true"></i>
+        <div>
+          <span id="status" role="status">Planting the garden…</span
+          ><span id="detail">Measuring the page…</span>
+        </div>
+      </div>
+      <div class="growth-controls">
+        <label for="growth">Growth</label
+        ><input id="growth" type="range" min="0.25" max="2" step="0.05" value="1" /><output
+          id="growth-value"
+          for="growth"
+          >1×</output
+        >
+      </div>
+      <div class="light-controls">
+        <label for="brightness">Light</label
+        ><input
+          id="brightness"
+          type="range"
+          min="1"
+          max="5"
+          step="0.05"
+          value="1.2"
+          disabled
+        /><output id="brightness-value" for="brightness">1.2×</output>
+        <select id="output-mode" aria-label="Output">
+          <option value="auto">Auto HDR</option>
+          <option value="sdr">SDR</option>
+        </select>
+      </div>
+      <div class="toolbar-controls">
+        <button id="pause" type="button" disabled>Pause</button
+        ><button id="reset" type="button" disabled>Regrow</button>
+        <button id="show-boxes" type="button" aria-pressed="false">Show boundaries</button>
+        <label class="select-control" for="palette"
+          >Palette<select id="palette">
+            <option value="electric">Electric roots</option>
+            <option value="verdant">Verdant</option>
+            <option value="ember">Ember</option>
+          </select></label
+        >
+      </div>
+    </aside>
+    <script type="module" src="/src/demos/neon-mycelium/main.ts"></script>
+  </body>
+</html>

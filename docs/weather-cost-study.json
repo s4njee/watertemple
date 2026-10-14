@@ -1,0 +1,321 @@
+{
+  "measuredAt": "2026-10-11T22:46:08.047Z",
+  "adapter": {
+    "vendor": "apple",
+    "architecture": "metal-3",
+    "device": "apple-m1-max",
+    "description": "Metal driver on macOS Version 26.6.2 (Build 25G83)"
+  },
+  "deviceLabel": "Apple M1 Max (Dawn Metal)",
+  "deviceClass": "Apple Silicon",
+  "metric": "GPU timestamp span and workload slope",
+  "resolution": [1920, 1080],
+  "rounds": 9,
+  "repeats": [1, 4],
+  "warmup": 8,
+  "note": "Only this adapter was measured. Device classes and phone thermal behavior must be tested on those devices. A negative workload slope means the timing floor/noise dominates, not negative cost.",
+  "rows": [
+    {
+      "kind": "complete frame",
+      "id": "rain-streaks",
+      "params": {
+        "strength": 1,
+        "speed": 1,
+        "tint": [0.35, 0.7, 0.8],
+        "count": 320,
+        "wind": 0.3
+      },
+      "inputSegments": 0,
+      "spanMedianMs": 0.196608,
+      "slopeMedianMs": 0.24029866666666666,
+      "slopeMinMs": -0.065536,
+      "samples": {
+        "one": [
+          0.32768, 0.393216, 0.131072, 0.196608, 0.917504, 0.196608, 0.196608, 0.196608, 0.262144
+        ],
+        "four": [
+          1.507328, 0.65536, 2.555904, 0.720896, 0.720896, 2.228224, 3.080192, 0.917504, 0.917504
+        ]
+      },
+      "passesPerUnit": 2
+    },
+    {
+      "kind": "complete frame",
+      "id": "rain-rings",
+      "params": {
+        "strength": 1,
+        "speed": 1,
+        "tint": [0.35, 0.7, 0.8],
+        "density": 0.65,
+        "refraction": 2
+      },
+      "inputSegments": 0,
+      "spanMedianMs": 0.786432,
+      "slopeMedianMs": 0.7645866666666666,
+      "slopeMinMs": 0.6335146666666667,
+      "samples": {
+        "one": [
+          1.114112, 0.917504, 1.114112, 0.65536, 0.786432, 0.786432, 0.720896, 0.851968, 0.786432
+        ],
+        "four": [
+          3.538944, 3.735552, 3.080192, 2.686976, 3.473408, 3.014656, 3.014656, 2.752512, 3.473408
+        ]
+      },
+      "passesPerUnit": 1
+    },
+    {
+      "kind": "complete frame",
+      "id": "bubbles",
+      "params": {
+        "strength": 1,
+        "speed": 1,
+        "tint": [0.35, 0.7, 0.8],
+        "count": 48,
+        "style": "underwater",
+        "film": 420,
+        "refraction": 1.8
+      },
+      "inputSegments": 0,
+      "spanMedianMs": 0.196608,
+      "slopeMedianMs": 0.10922666666666665,
+      "slopeMinMs": -0.043690666666666655,
+      "samples": {
+        "one": [
+          0.131072, 0.131072, 0.196608, 0.196608, 0.720896, 0.196608, 0.262144, 0.131072, 0.131072
+        ],
+        "four": [
+          0.458752, 0.851968, 0.851968, 0.393216, 0.589824, 0.393216, 0.393216, 0.458752, 0.524288
+        ]
+      },
+      "passesPerUnit": 2
+    },
+    {
+      "kind": "complete frame",
+      "id": "splash-burst",
+      "params": {
+        "strength": 1,
+        "speed": 1,
+        "tint": [0.35, 0.7, 0.8],
+        "count": 48,
+        "gravity": 0.55,
+        "automatic": true,
+        "refraction": 2
+      },
+      "inputSegments": 0,
+      "spanMedianMs": 0.196608,
+      "slopeMedianMs": 0.131072,
+      "slopeMinMs": -0.196608,
+      "samples": {
+        "one": [
+          0.131072, 0.262144, 0.131072, 0.458752, 0.131072, 0.196608, 1.114112, 0.131072, 0.196608
+        ],
+        "four": [
+          0.589824, 0.458752, 0.524288, 2.94912, 0.524288, 0.589824, 0.524288, 0.524288, 3.407872
+        ]
+      },
+      "passesPerUnit": 2
+    },
+    {
+      "kind": "complete frame",
+      "id": "fogged-glass",
+      "params": {
+        "strength": 1,
+        "speed": 1,
+        "tint": [0.35, 0.7, 0.8],
+        "density": 0.86,
+        "refog": 0.12,
+        "brush": 0.065
+      },
+      "inputSegments": 0,
+      "spanMedianMs": 0.524288,
+      "slopeMedianMs": 0.3058346666666667,
+      "slopeMinMs": 0.2402986666666667,
+      "samples": {
+        "one": [
+          1.048576, 0.589824, 1.31072, 0.589824, 0.32768, 0.262144, 0.262144, 0.32768, 0.524288
+        ],
+        "four": [
+          1.900544, 1.6384, 2.62144, 1.6384, 1.114112, 1.900544, 1.179648, 1.179648, 1.245184
+        ]
+      },
+      "passesPerUnit": 2
+    },
+    {
+      "kind": "complete frame",
+      "id": "frost-melt",
+      "params": {
+        "strength": 1,
+        "speed": 1,
+        "tint": [0.35, 0.7, 0.8],
+        "growth": 0.5,
+        "brush": 0.065,
+        "cycle": "freeze and thaw",
+        "refraction": 2
+      },
+      "inputSegments": 0,
+      "spanMedianMs": 0.524288,
+      "slopeMedianMs": 0.4805973333333333,
+      "slopeMinMs": 0.262144,
+      "samples": {
+        "one": [
+          0.524288, 0.851968, 0.524288, 0.589824, 0.786432, 0.458752, 0.589824, 0.458752, 0.393216
+        ],
+        "four": [
+          1.96608, 2.883584, 3.93216, 1.96608, 1.703936, 2.752512, 2.162688, 1.245184, 1.835008
+        ]
+      },
+      "passesPerUnit": 2
+    },
+    {
+      "kind": "complete frame",
+      "id": "rain-streaks",
+      "params": {
+        "strength": 1,
+        "speed": 1,
+        "tint": [0.35, 0.7, 0.8],
+        "count": 1000,
+        "wind": 2
+      },
+      "inputSegments": 0,
+      "spanMedianMs": 0.32768,
+      "slopeMedianMs": 0.24029866666666666,
+      "slopeMinMs": -0.043690666666666655,
+      "samples": {
+        "one": [
+          0.196608, 0.196608, 0.458752, 1.048576, 0.196608, 0.32768, 1.114112, 0.32768, 0.262144
+        ],
+        "four": [
+          1.96608, 0.786432, 0.917504, 0.917504, 0.917504, 1.6384, 0.98304, 1.114112, 1.245184
+        ]
+      },
+      "passesPerUnit": 2
+    },
+    {
+      "kind": "complete frame",
+      "id": "bubbles",
+      "params": {
+        "strength": 1,
+        "speed": 1,
+        "tint": [0.35, 0.7, 0.8],
+        "count": 140,
+        "style": "soap",
+        "film": 1000,
+        "refraction": 1.8
+      },
+      "inputSegments": 0,
+      "spanMedianMs": 0.32768,
+      "slopeMedianMs": 0.262144,
+      "slopeMinMs": -0.17476266666666662,
+      "samples": {
+        "one": [
+          0.262144, 0.458752, 1.835008, 0.32768, 0.32768, 0.32768, 0.262144, 0.262144, 1.441792
+        ],
+        "four": [
+          1.048576, 1.179648, 1.31072, 1.31072, 2.686976, 1.048576, 2.62144, 1.048576, 1.048576
+        ]
+      },
+      "passesPerUnit": 2
+    },
+    {
+      "kind": "complete frame",
+      "id": "splash-burst",
+      "params": {
+        "strength": 1,
+        "speed": 1,
+        "tint": [0.35, 0.7, 0.8],
+        "count": 128,
+        "gravity": 0.55,
+        "automatic": true,
+        "refraction": 2
+      },
+      "inputSegments": 1,
+      "spanMedianMs": 0.196608,
+      "slopeMedianMs": 0.10922666666666665,
+      "slopeMinMs": -0.45875200000000005,
+      "samples": {
+        "one": [
+          1.96608, 0.458752, 1.835008, 0.196608, 0.196608, 2.162688, 0.196608, 0.196608, 0.196608
+        ],
+        "four": [
+          0.589824, 0.65536, 0.524288, 1.441792, 0.589824, 0.98304, 4.128768, 0.524288, 0.524288
+        ]
+      },
+      "passesPerUnit": 2
+    },
+    {
+      "kind": "complete frame",
+      "id": "fogged-glass",
+      "params": {
+        "strength": 1,
+        "speed": 1,
+        "tint": [0.35, 0.7, 0.8],
+        "density": 0.86,
+        "refog": 0.12,
+        "brush": 0.065
+      },
+      "inputSegments": 16,
+      "spanMedianMs": 1.441792,
+      "slopeMedianMs": 0.06553600000000004,
+      "slopeMinMs": -0.19660799999999998,
+      "samples": {
+        "one": [
+          1.703936, 1.441792, 1.835008, 0.32768, 1.769472, 0.393216, 1.96608, 0.393216, 0.393216
+        ],
+        "four": [
+          1.900544, 1.048576, 1.245184, 1.572864, 1.572864, 1.703936, 1.572864, 1.835008, 1.507328
+        ]
+      },
+      "passesPerUnit": 2
+    },
+    {
+      "kind": "complete frame",
+      "id": "frost-melt",
+      "params": {
+        "strength": 1,
+        "speed": 1,
+        "tint": [0.35, 0.7, 0.8],
+        "growth": 2,
+        "brush": 0.065,
+        "cycle": "freeze",
+        "refraction": 2
+      },
+      "inputSegments": 0,
+      "spanMedianMs": 0.524288,
+      "slopeMedianMs": 0.39321599999999995,
+      "slopeMinMs": 0.13107200000000005,
+      "samples": {
+        "one": [
+          0.458752, 0.524288, 0.851968, 0.851968, 0.458752, 0.458752, 0.786432, 0.458752, 0.589824
+        ],
+        "four": [
+          2.686976, 1.835008, 1.245184, 1.572864, 1.6384, 1.507328, 1.703936, 2.555904, 1.769472
+        ]
+      },
+      "passesPerUnit": 2
+    },
+    {
+      "kind": "complete frame",
+      "id": "frost-melt",
+      "params": {
+        "strength": 1,
+        "speed": 1,
+        "tint": [0.35, 0.7, 0.8],
+        "growth": 0.5,
+        "brush": 0.065,
+        "cycle": "melt",
+        "refraction": 2
+      },
+      "inputSegments": 0,
+      "spanMedianMs": 0.589824,
+      "slopeMedianMs": 0.41506133333333334,
+      "slopeMinMs": 0,
+      "samples": {
+        "one": [1.703936, 0.65536, 0.589824, 0.32768, 0.393216, 0.98304, 0.32768, 0.65536, 0.32768],
+        "four": [
+          3.866624, 2.031616, 2.228224, 1.900544, 0.98304, 0.98304, 1.114112, 1.048576, 1.572864
+        ]
+      },
+      "passesPerUnit": 2
+    }
+  ]
+}

@@ -1,0 +1,938 @@
+{
+  "measuredAt": "2026-10-11T06:10:22.654Z",
+  "adapter": {
+    "vendor": "apple",
+    "architecture": "metal-3",
+    "device": "apple-m1-max",
+    "description": "Metal driver on macOS Version 26.6.2 (Build 25G83)"
+  },
+  "deviceLabel": "Apple M1 Max (Metal)",
+  "deviceClass": "Apple Silicon",
+  "metric": "GPU timestamp span and workload slope",
+  "resolution": [
+    1920,
+    1080
+  ],
+  "rounds": 9,
+  "repeats": [
+    1,
+    4
+  ],
+  "warmup": 8,
+  "note": "Only this adapter was measured. Device classes and phone thermal behavior must be tested on those devices. A negative workload slope means the timing floor/noise dominates, not negative cost.",
+  "rows": [
+    {
+      "kind": "complete frame",
+      "id": "gerstner-ocean",
+      "params": {
+        "mesh": "projected",
+        "cells": "96",
+        "strength": 1,
+        "chop": 0.85,
+        "foam": 1,
+        "sun": 0.48,
+        "fog": 0.008,
+        "exposure": 1,
+        "scattering": 1,
+        "cameraHeight": 3,
+        "cameraPitch": -7,
+        "speed": 1,
+        "view": "final",
+        "buoyancy": "cpu"
+      },
+      "triangles": 18432,
+      "spanMedianMs": 0.393216,
+      "slopeMedianMs": 0.393216,
+      "slopeMinMs": 0.32767999999999997,
+      "samples": {
+        "one": [
+          1.245184,
+          1.245184,
+          0.458752,
+          0.393216,
+          0.393216,
+          0.393216,
+          0.393216,
+          0.458752,
+          0.393216
+        ],
+        "four": [
+          5.963776,
+          5.111808,
+          1.6384,
+          1.507328,
+          1.507328,
+          1.507328,
+          2.031616,
+          1.441792,
+          1.835008
+        ]
+      },
+      "passesPerUnit": 1
+    },
+    {
+      "kind": "complete frame",
+      "id": "fft-ocean",
+      "params": {
+        "mesh": "projected",
+        "cells": "96",
+        "strength": 0.6,
+        "chop": 0.85,
+        "foam": 1,
+        "sun": 0.48,
+        "fog": 0.008,
+        "exposure": 1,
+        "scattering": 1,
+        "cameraHeight": 4.5,
+        "cameraPitch": -7,
+        "speed": 1,
+        "view": "final",
+        "fftSize": "64",
+        "foamThreshold": 0.75,
+        "foamLifetime": 3
+      },
+      "triangles": 18432,
+      "spanMedianMs": 0.98304,
+      "slopeMedianMs": 0.8301226666666667,
+      "slopeMinMs": 0.4805973333333333,
+      "samples": {
+        "one": [
+          1.703936,
+          0.98304,
+          0.786432,
+          0.786432,
+          0.98304,
+          0.98304,
+          1.179648,
+          0.98304,
+          0.98304
+        ],
+        "four": [
+          4.25984,
+          2.555904,
+          3.342336,
+          3.407872,
+          2.818048,
+          2.424832,
+          4.325376,
+          3.473408,
+          3.407872
+        ]
+      },
+      "passesPerUnit": 15
+    },
+    {
+      "kind": "complete frame",
+      "id": "shoreline",
+      "params": {
+        "mesh": "projected",
+        "cells": "96",
+        "strength": 1,
+        "foam": 1,
+        "sun": 0.48,
+        "fog": 0.008,
+        "exposure": 1,
+        "scattering": 1,
+        "cameraHeight": 3,
+        "cameraPitch": -7,
+        "speed": 1,
+        "view": "final"
+      },
+      "triangles": 18432,
+      "spanMedianMs": 0.65536,
+      "slopeMedianMs": 0.7208960000000001,
+      "slopeMinMs": 0.4805973333333333,
+      "samples": {
+        "one": [
+          0.917504,
+          0.786432,
+          0.851968,
+          0.65536,
+          0.917504,
+          0.589824,
+          0.524288,
+          0.65536,
+          0.524288
+        ],
+        "four": [
+          3.735552,
+          3.145728,
+          3.211264,
+          3.211264,
+          2.883584,
+          2.555904,
+          1.96608,
+          2.818048,
+          2.424832
+        ]
+      },
+      "passesPerUnit": 1
+    },
+    {
+      "kind": "complete frame",
+      "id": "river",
+      "params": {
+        "mesh": "projected",
+        "cells": "96",
+        "strength": 1,
+        "foam": 1,
+        "sun": 0.48,
+        "fog": 0.008,
+        "exposure": 1,
+        "scattering": 1,
+        "cameraHeight": 5,
+        "cameraPitch": -20,
+        "speed": 1,
+        "view": "final"
+      },
+      "triangles": 18432,
+      "spanMedianMs": 0.65536,
+      "slopeMedianMs": 0.5461333333333332,
+      "slopeMinMs": 0.41506133333333334,
+      "samples": {
+        "one": [
+          1.507328,
+          0.720896,
+          0.524288,
+          0.917504,
+          0.65536,
+          0.524288,
+          0.65536,
+          0.524288,
+          0.720896
+        ],
+        "four": [
+          3.60448,
+          2.490368,
+          2.555904,
+          2.162688,
+          2.29376,
+          2.097152,
+          2.228224,
+          2.162688,
+          2.228224
+        ]
+      },
+      "passesPerUnit": 1
+    },
+    {
+      "kind": "complete frame",
+      "id": "waterfall",
+      "params": {
+        "mesh": "projected",
+        "cells": "96",
+        "strength": 1,
+        "foam": 1,
+        "sun": 0.48,
+        "fog": 0.008,
+        "exposure": 1,
+        "scattering": 1,
+        "cameraHeight": 3.5,
+        "cameraPitch": -4,
+        "speed": 1,
+        "view": "final"
+      },
+      "triangles": 18432,
+      "spanMedianMs": 0.851968,
+      "slopeMedianMs": 0.786432,
+      "slopeMinMs": 0.6116693333333334,
+      "samples": {
+        "one": [
+          1.31072,
+          1.245184,
+          0.851968,
+          0.98304,
+          0.65536,
+          0.917504,
+          0.65536,
+          0.65536,
+          0.65536
+        ],
+        "four": [
+          4.849664,
+          4.25984,
+          3.407872,
+          3.145728,
+          3.211264,
+          3.145728,
+          2.883584,
+          3.014656,
+          2.490368
+        ]
+      },
+      "passesPerUnit": 3
+    },
+    {
+      "kind": "complete frame",
+      "id": "waterline",
+      "params": {
+        "mesh": "projected",
+        "cells": "96",
+        "strength": 1,
+        "chop": 0.85,
+        "foam": 1,
+        "sun": 0.48,
+        "fog": 0.008,
+        "exposure": 1,
+        "scattering": 1,
+        "cameraHeight": 0.15,
+        "cameraPitch": 0,
+        "speed": 1,
+        "view": "final"
+      },
+      "triangles": 18432,
+      "spanMedianMs": 1.245184,
+      "slopeMedianMs": 1.2233386666666666,
+      "slopeMinMs": 1.1141120000000002,
+      "samples": {
+        "one": [
+          1.179648,
+          1.179648,
+          1.245184,
+          1.31072,
+          1.245184,
+          1.376256,
+          1.179648,
+          1.179648,
+          1.245184
+        ],
+        "four": [
+          5.046272,
+          5.046272,
+          4.980736,
+          4.784128,
+          4.849664,
+          4.718592,
+          4.9152,
+          4.784128,
+          4.9152
+        ]
+      },
+      "passesPerUnit": 2
+    },
+    {
+      "kind": "complete frame",
+      "id": "calm-lake",
+      "params": {
+        "mesh": "projected",
+        "cells": "96",
+        "strength": 0.6,
+        "sun": 0.14,
+        "fog": 0.008,
+        "exposure": 1,
+        "scattering": 1,
+        "cameraHeight": 3,
+        "cameraPitch": -7,
+        "speed": 1,
+        "view": "final"
+      },
+      "triangles": 18432,
+      "spanMedianMs": 0.524288,
+      "slopeMedianMs": 0.524288,
+      "slopeMinMs": 0.5024426666666667,
+      "samples": {
+        "one": [
+          0.524288,
+          0.524288,
+          0.524288,
+          0.524288,
+          0.589824,
+          0.524288,
+          0.589824,
+          0.524288,
+          0.589824
+        ],
+        "four": [
+          2.29376,
+          2.031616,
+          2.162688,
+          2.031616,
+          2.228224,
+          2.031616,
+          2.162688,
+          2.097152,
+          2.29376
+        ]
+      },
+      "passesPerUnit": 2
+    },
+    {
+      "kind": "complete frame",
+      "id": "gerstner-ocean",
+      "params": {
+        "mesh": "projected",
+        "cells": "48",
+        "strength": 1,
+        "chop": 0.85,
+        "foam": 1,
+        "sun": 0.48,
+        "fog": 0.008,
+        "exposure": 1,
+        "scattering": 1,
+        "cameraHeight": 3,
+        "cameraPitch": -7,
+        "speed": 1,
+        "view": "final",
+        "buoyancy": "cpu"
+      },
+      "triangles": 4608,
+      "spanMedianMs": 0.458752,
+      "slopeMedianMs": 0.393216,
+      "slopeMinMs": 0.32768,
+      "samples": {
+        "one": [
+          0.458752,
+          0.393216,
+          0.524288,
+          0.458752,
+          0.524288,
+          0.393216,
+          0.458752,
+          0.32768,
+          0.524288
+        ],
+        "four": [
+          1.572864,
+          1.96608,
+          1.507328,
+          1.900544,
+          1.572864,
+          1.900544,
+          1.6384,
+          1.96608,
+          1.507328
+        ]
+      },
+      "passesPerUnit": 1
+    },
+    {
+      "kind": "complete frame",
+      "id": "gerstner-ocean",
+      "params": {
+        "mesh": "projected",
+        "cells": "160",
+        "strength": 1,
+        "chop": 0.85,
+        "foam": 1,
+        "sun": 0.48,
+        "fog": 0.008,
+        "exposure": 1,
+        "scattering": 1,
+        "cameraHeight": 3,
+        "cameraPitch": -7,
+        "speed": 1,
+        "view": "final",
+        "buoyancy": "cpu"
+      },
+      "triangles": 51200,
+      "spanMedianMs": 0.786432,
+      "slopeMedianMs": 0.6553599999999999,
+      "slopeMinMs": 0.524288,
+      "samples": {
+        "one": [
+          0.589824,
+          0.524288,
+          1.048576,
+          0.786432,
+          0.720896,
+          1.048576,
+          0.786432,
+          0.786432,
+          1.114112
+        ],
+        "four": [
+          2.424832,
+          2.097152,
+          4.718592,
+          2.686976,
+          2.490368,
+          4.128768,
+          2.752512,
+          3.145728,
+          4.718592
+        ]
+      },
+      "passesPerUnit": 1
+    },
+    {
+      "kind": "complete frame",
+      "id": "gerstner-ocean",
+      "params": {
+        "mesh": "clipmap",
+        "cells": "48",
+        "strength": 1,
+        "chop": 0.85,
+        "foam": 1,
+        "sun": 0.48,
+        "fog": 0.008,
+        "exposure": 1,
+        "scattering": 1,
+        "cameraHeight": 3,
+        "cameraPitch": -7,
+        "speed": 1,
+        "view": "final",
+        "buoyancy": "cpu"
+      },
+      "triangles": 18432,
+      "spanMedianMs": 0.720896,
+      "slopeMedianMs": 0.6335146666666667,
+      "slopeMinMs": 0.41506133333333334,
+      "samples": {
+        "one": [
+          0.917504,
+          0.917504,
+          1.245184,
+          1.31072,
+          0.65536,
+          0.524288,
+          0.720896,
+          0.589824,
+          0.65536
+        ],
+        "four": [
+          4.063232,
+          5.177344,
+          6.160384,
+          3.60448,
+          2.555904,
+          2.424832,
+          1.96608,
+          2.490368,
+          2.031616
+        ]
+      },
+      "passesPerUnit": 1
+    },
+    {
+      "kind": "complete frame",
+      "id": "gerstner-ocean",
+      "params": {
+        "mesh": "clipmap",
+        "cells": "96",
+        "strength": 1,
+        "chop": 0.85,
+        "foam": 1,
+        "sun": 0.48,
+        "fog": 0.008,
+        "exposure": 1,
+        "scattering": 1,
+        "cameraHeight": 3,
+        "cameraPitch": -7,
+        "speed": 1,
+        "view": "final",
+        "buoyancy": "cpu"
+      },
+      "triangles": 73728,
+      "spanMedianMs": 0.720896,
+      "slopeMedianMs": 0.5461333333333332,
+      "slopeMinMs": 0.32768,
+      "samples": {
+        "one": [
+          0.851968,
+          1.376256,
+          0.720896,
+          0.589824,
+          0.720896,
+          0.589824,
+          0.851968,
+          0.589824,
+          0.589824
+        ],
+        "four": [
+          3.93216,
+          6.029312,
+          2.818048,
+          2.62144,
+          2.29376,
+          2.162688,
+          1.835008,
+          2.162688,
+          2.228224
+        ]
+      },
+      "passesPerUnit": 1
+    },
+    {
+      "kind": "complete frame",
+      "id": "gerstner-ocean",
+      "params": {
+        "mesh": "clipmap",
+        "cells": "160",
+        "strength": 1,
+        "chop": 0.85,
+        "foam": 1,
+        "sun": 0.48,
+        "fog": 0.008,
+        "exposure": 1,
+        "scattering": 1,
+        "cameraHeight": 3,
+        "cameraPitch": -7,
+        "speed": 1,
+        "view": "final",
+        "buoyancy": "cpu"
+      },
+      "triangles": 204800,
+      "spanMedianMs": 0.786432,
+      "slopeMedianMs": 0.8301226666666667,
+      "slopeMinMs": 0.4369066666666666,
+      "samples": {
+        "one": [
+          0.786432,
+          1.572864,
+          1.507328,
+          0.786432,
+          0.65536,
+          0.851968,
+          0.786432,
+          0.65536,
+          0.524288
+        ],
+        "four": [
+          3.93216,
+          7.012352,
+          4.25984,
+          3.014656,
+          3.145728,
+          3.342336,
+          3.080192,
+          2.162688,
+          1.835008
+        ]
+      },
+      "passesPerUnit": 1
+    },
+    {
+      "kind": "complete frame",
+      "id": "fft-ocean",
+      "params": {
+        "mesh": "projected",
+        "cells": "96",
+        "strength": 0.6,
+        "chop": 0.85,
+        "foam": 1,
+        "sun": 0.48,
+        "fog": 0.008,
+        "exposure": 1,
+        "scattering": 1,
+        "cameraHeight": 4.5,
+        "cameraPitch": -7,
+        "speed": 1,
+        "view": "final",
+        "fftSize": "128",
+        "foamThreshold": 0.75,
+        "foamLifetime": 3
+      },
+      "triangles": 18432,
+      "spanMedianMs": 1.048576,
+      "slopeMedianMs": 0.9175040000000001,
+      "slopeMinMs": 0.5024426666666667,
+      "samples": {
+        "one": [
+          1.048576,
+          2.031616,
+          1.31072,
+          1.245184,
+          0.98304,
+          0.851968,
+          0.98304,
+          0.851968,
+          1.048576
+        ],
+        "four": [
+          8.388608,
+          5.963776,
+          4.390912,
+          3.538944,
+          3.2768,
+          2.752512,
+          3.735552,
+          3.866624,
+          2.555904
+        ]
+      },
+      "passesPerUnit": 17
+    },
+    {
+      "kind": "complete frame",
+      "id": "fft-ocean",
+      "params": {
+        "mesh": "projected",
+        "cells": "96",
+        "strength": 0.6,
+        "chop": 0.85,
+        "foam": 1,
+        "sun": 0.48,
+        "fog": 0.008,
+        "exposure": 1,
+        "scattering": 1,
+        "cameraHeight": 4.5,
+        "cameraPitch": -7,
+        "speed": 1,
+        "view": "final",
+        "fftSize": "256",
+        "foamThreshold": 0.75,
+        "foamLifetime": 3
+      },
+      "triangles": 18432,
+      "spanMedianMs": 1.376256,
+      "slopeMedianMs": 1.4636373333333335,
+      "slopeMinMs": 1.1359573333333333,
+      "samples": {
+        "one": [
+          1.703936,
+          1.572864,
+          1.507328,
+          1.376256,
+          1.376256,
+          1.441792,
+          1.179648,
+          1.179648,
+          1.114112
+        ],
+        "four": [
+          9.961472,
+          5.963776,
+          5.963776,
+          6.094848,
+          6.22592,
+          4.849664,
+          5.177344,
+          4.9152,
+          5.111808
+        ]
+      },
+      "passesPerUnit": 19
+    },
+    {
+      "kind": "complete frame",
+      "id": "fft-ocean",
+      "params": {
+        "mesh": "clipmap",
+        "cells": "96",
+        "strength": 0.6,
+        "chop": 0.85,
+        "foam": 1,
+        "sun": 0.48,
+        "fog": 0.008,
+        "exposure": 1,
+        "scattering": 1,
+        "cameraHeight": 4.5,
+        "cameraPitch": -7,
+        "speed": 1,
+        "view": "final",
+        "fftSize": "64",
+        "foamThreshold": 0.75,
+        "foamLifetime": 3
+      },
+      "triangles": 73728,
+      "spanMedianMs": 0.851968,
+      "slopeMedianMs": 0.6116693333333334,
+      "slopeMinMs": 0.524288,
+      "samples": {
+        "one": [
+          0.917504,
+          0.851968,
+          0.917504,
+          0.851968,
+          0.917504,
+          0.851968,
+          0.851968,
+          0.917504,
+          0.851968
+        ],
+        "four": [
+          2.883584,
+          2.883584,
+          2.686976,
+          2.62144,
+          2.490368,
+          2.686976,
+          2.686976,
+          2.555904,
+          3.473408
+        ]
+      },
+      "passesPerUnit": 15
+    },
+    {
+      "kind": "buoyancy query comparison",
+      "points": 6,
+      "cpuMedianMs": 0.02209374999999909,
+      "cpuSamples": [
+        0.02209374999999909,
+        0.02283750000000282,
+        0.021431250000000547,
+        0.021435399999995754,
+        0.021460450000006404,
+        0.021699999999998453,
+        0.022537499999998545,
+        0.02296875000000682,
+        0.022247900000002117
+      ],
+      "gpuCompute": {
+        "spanMedianMs": 0,
+        "slopeMedianMs": 0.02184533333333333,
+        "slopeMinMs": 0,
+        "samples": {
+          "one": [
+            0,
+            0,
+            0,
+            0.065536,
+            0,
+            0,
+            0.065536,
+            0,
+            0
+          ],
+          "four": [
+            0.131072,
+            0.065536,
+            0.065536,
+            0.131072,
+            0.065536,
+            0.065536,
+            0.065536,
+            0.065536,
+            0.065536
+          ]
+        },
+        "passesPerUnit": 1
+      },
+      "readbackWallMedianMs": 0.3048750000000382,
+      "latencySamples": [
+        0.2929590000001099,
+        0.311916999999994,
+        1.0202919999999267,
+        0.23029199999996308,
+        0.3048750000000382,
+        0.25862500000016553,
+        0.3293340000000171,
+        0.30462499999998727,
+        0.3863329999999223
+      ],
+      "checksum": 456.0043077507637,
+      "note": "Readback wall time includes command encoding, submission, copy and mapAsync; interactive mode uses old samples while the map is pending, never blocks a frame."
+    },
+    {
+      "kind": "buoyancy query comparison",
+      "points": 96,
+      "cpuMedianMs": 0.3732020499999976,
+      "cpuSamples": [
+        0.36801874999999884,
+        0.4219000000000051,
+        0.3778750000000059,
+        0.39300835000000234,
+        0.3672166500000003,
+        0.39115000000000466,
+        0.369314600000007,
+        0.3690708500000028,
+        0.3732020499999976
+      ],
+      "gpuCompute": {
+        "spanMedianMs": 0,
+        "slopeMedianMs": 0.04369066666666666,
+        "slopeMinMs": 0,
+        "samples": {
+          "one": [
+            0,
+            0,
+            0.065536,
+            0,
+            0,
+            0,
+            0,
+            0.065536,
+            0.065536
+          ],
+          "four": [
+            0.131072,
+            0.131072,
+            0.131072,
+            0.131072,
+            0.065536,
+            0.131072,
+            0.131072,
+            0.458752,
+            0.065536
+          ]
+        },
+        "passesPerUnit": 1
+      },
+      "readbackWallMedianMs": 0.297249999999849,
+      "latencySamples": [
+        0.34483300000010786,
+        0.30775000000016917,
+        0.2989580000000842,
+        0.2645420000001195,
+        0.27233400000000074,
+        0.28112499999997453,
+        0.297249999999849,
+        0.2591660000000502,
+        0.30779099999995196
+      ],
+      "checksum": -102.44621668905853,
+      "note": "Readback wall time includes command encoding, submission, copy and mapAsync; interactive mode uses old samples while the map is pending, never blocks a frame."
+    },
+    {
+      "kind": "buoyancy query comparison",
+      "points": 768,
+      "cpuMedianMs": 3.0299687500000116,
+      "cpuSamples": [
+        3.056654199999991,
+        3.1274520999999935,
+        3.0564750000000003,
+        3.0637833499999942,
+        3.00335,
+        2.995893750000005,
+        3.0299687500000116,
+        2.988354150000009,
+        2.987627099999986
+      ],
+      "gpuCompute": {
+        "spanMedianMs": 0,
+        "slopeMedianMs": 0.04369066666666666,
+        "slopeMinMs": -0.17476266666666665,
+        "samples": {
+          "one": [
+            0,
+            0.065536,
+            0.720896,
+            0.065536,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "four": [
+            0.131072,
+            0.196608,
+            0.196608,
+            0.131072,
+            0.131072,
+            0.131072,
+            0.131072,
+            0.196608,
+            0.131072
+          ]
+        },
+        "passesPerUnit": 1
+      },
+      "readbackWallMedianMs": 0.3018329999999878,
+      "latencySamples": [
+        0.3018329999999878,
+        0.26812500000005457,
+        0.25008299999990413,
+        0.27816699999993943,
+        0.3312500000001819,
+        1.533042000000023,
+        0.6927920000002814,
+        0.325666000000183,
+        0.2797920000002705
+      ],
+      "checksum": -10889.662924176926,
+      "note": "Readback wall time includes command encoding, submission, copy and mapAsync; interactive mode uses old samples while the map is pending, never blocks a frame."
+    }
+  ]
+}

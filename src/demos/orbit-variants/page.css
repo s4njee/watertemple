@@ -1,0 +1,32 @@
+body[data-material] h1 {
+  font-weight: 400;
+  font-size: clamp(62px, 9vw, 140px);
+  letter-spacing: -0.065em;
+}
+body[data-material] .floating-card {
+  border-color: color-mix(in srgb, var(--accent) 22%, transparent);
+  box-shadow: 0 24px 80px #00000060;
+}
+body[data-material] .card-symbol {
+  background: linear-gradient(130deg, var(--accent), #b2c8ff);
+  background-clip: text;
+  filter: drop-shadow(0 0 14px color-mix(in srgb, var(--accent) 25%, transparent));
+}
+body[data-material] .toolbar button:hover:not(:disabled),
+body[data-material] .toolbar select:hover {
+  border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+}
+body[data-material][data-state='fallback'] {
+  background:
+    radial-gradient(
+      ellipse at 75% 25%,
+      color-mix(in srgb, var(--accent) 14%, transparent),
+      transparent 55%
+    ),
+    var(--paper);
+}
+@media (max-width: 700px) {
+  body[data-material] h1 {
+    font-size: clamp(52px, 17vw, 100px);
+  }
+}

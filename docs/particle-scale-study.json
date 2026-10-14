@@ -1,0 +1,1247 @@
+{
+  "measuredAt": "2026-10-11T05:20:17.529Z",
+  "adapter": {
+    "vendor": "apple",
+    "architecture": "metal-3",
+    "device": "apple-m1-max",
+    "description": "Metal driver on macOS Version 26.6.2 (Build 25G83)"
+  },
+  "deviceLabel": "Apple M1 Max",
+  "deviceClass": "apple-silicon",
+  "metric": "GPU timestamp span and workload slope",
+  "resolution": [
+    1920,
+    1080
+  ],
+  "rounds": 9,
+  "repeats": [
+    1,
+    4
+  ],
+  "warmup": 8,
+  "note": "Only this adapter was measured. Device classes and phone thermal behavior must be tested on those devices. A negative workload slope means the timing floor/noise dominates, not negative cost.",
+  "rows": [
+    {
+      "kind": "solver substep",
+      "id": "pbf-2d",
+      "particles": 4096,
+      "iterations": 2,
+      "spanMedianMs": 0.393216,
+      "slopeMedianMs": 0.41506133333333334,
+      "slopeMinMs": 0.021845333333333345,
+      "samples": {
+        "one": [
+          0.32768,
+          0.393216,
+          0.458752,
+          0.32768,
+          0.589824,
+          0.32768,
+          0.32768,
+          1.179648,
+          1.114112
+        ],
+        "four": [
+          1.572864,
+          2.29376,
+          2.752512,
+          1.572864,
+          2.883584,
+          1.245184,
+          1.572864,
+          1.245184,
+          1.376256
+        ]
+      },
+      "passesPerUnit": 10
+    },
+    {
+      "kind": "solver substep",
+      "id": "pbf-2d",
+      "particles": 4096,
+      "iterations": 4,
+      "spanMedianMs": 0.589824,
+      "slopeMedianMs": 0.9393493333333333,
+      "slopeMinMs": 0.28398933333333337,
+      "samples": {
+        "one": [
+          0.589824,
+          0.524288,
+          0.589824,
+          1.048576,
+          0.589824,
+          0.65536,
+          0.589824,
+          0.524288,
+          1.179648
+        ],
+        "four": [
+          1.900544,
+          2.031616,
+          6.291456,
+          6.5536,
+          3.407872,
+          5.89824,
+          3.997696,
+          2.031616,
+          2.031616
+        ]
+      },
+      "passesPerUnit": 14
+    },
+    {
+      "kind": "solver substep",
+      "id": "pbf-2d",
+      "particles": 16384,
+      "iterations": 2,
+      "spanMedianMs": 0.458752,
+      "slopeMedianMs": 0.393216,
+      "slopeMinMs": -0.6990506666666666,
+      "samples": {
+        "one": [
+          0.458752,
+          1.048576,
+          0.458752,
+          0.458752,
+          0.393216,
+          4.128768,
+          0.458752,
+          0.65536,
+          0.393216
+        ],
+        "four": [
+          1.507328,
+          2.424832,
+          3.014656,
+          1.6384,
+          1.703936,
+          2.031616,
+          1.572864,
+          1.703936,
+          2.490368
+        ]
+      },
+      "passesPerUnit": 12
+    },
+    {
+      "kind": "solver substep",
+      "id": "pbf-2d",
+      "particles": 16384,
+      "iterations": 4,
+      "spanMedianMs": 0.786432,
+      "slopeMedianMs": 0.851968,
+      "slopeMinMs": 0.24029866666666674,
+      "samples": {
+        "one": [
+          0.65536,
+          1.507328,
+          0.720896,
+          1.507328,
+          0.786432,
+          1.900544,
+          0.720896,
+          1.376256,
+          0.720896
+        ],
+        "four": [
+          5.177344,
+          3.2768,
+          5.046272,
+          2.62144,
+          6.488064,
+          2.62144,
+          3.538944,
+          2.555904,
+          3.2768
+        ]
+      },
+      "passesPerUnit": 16
+    },
+    {
+      "kind": "solver substep",
+      "id": "pbf-2d",
+      "particles": 65536,
+      "iterations": 2,
+      "spanMedianMs": 1.376256,
+      "slopeMedianMs": 0.851968,
+      "slopeMinMs": 0.6335146666666667,
+      "samples": {
+        "one": [
+          1.245184,
+          1.6384,
+          1.703936,
+          0.917504,
+          2.883584,
+          1.376256,
+          1.6384,
+          0.851968,
+          0.98304
+        ],
+        "four": [
+          3.407872,
+          7.143424,
+          4.063232,
+          3.473408,
+          4.784128,
+          3.93216,
+          5.373952,
+          7.86432,
+          4.063232
+        ]
+      },
+      "passesPerUnit": 12
+    },
+    {
+      "kind": "solver substep",
+      "id": "pbf-2d",
+      "particles": 65536,
+      "iterations": 4,
+      "spanMedianMs": 1.835008,
+      "slopeMedianMs": 2.1626880000000006,
+      "slopeMinMs": 0.9175040000000001,
+      "samples": {
+        "one": [
+          1.441792,
+          1.507328,
+          5.439488,
+          2.097152,
+          2.752512,
+          1.507328,
+          1.835008,
+          1.6384,
+          2.424832
+        ],
+        "four": [
+          10.223616,
+          11.010048,
+          8.192,
+          8.585216,
+          7.274496,
+          11.075584,
+          7.798784,
+          8.716288,
+          7.667712
+        ]
+      },
+      "passesPerUnit": 16
+    },
+    {
+      "kind": "solver substep",
+      "id": "pbf-3d",
+      "particles": 3375,
+      "iterations": 2,
+      "spanMedianMs": 0.720896,
+      "slopeMedianMs": 0.65536,
+      "slopeMinMs": -0.19660800000000003,
+      "samples": {
+        "one": [
+          1.114112,
+          1.245184,
+          0.65536,
+          1.441792,
+          0.65536,
+          0.65536,
+          0.720896,
+          4.718592,
+          0.720896
+        ],
+        "four": [
+          3.145728,
+          2.62144,
+          2.62144,
+          4.25984,
+          3.473408,
+          3.866624,
+          2.686976,
+          4.128768,
+          2.62144
+        ]
+      },
+      "passesPerUnit": 10
+    },
+    {
+      "kind": "solver substep",
+      "id": "pbf-3d",
+      "particles": 3375,
+      "iterations": 4,
+      "spanMedianMs": 1.245184,
+      "slopeMedianMs": 1.4854826666666667,
+      "slopeMinMs": 0.8956586666666665,
+      "samples": {
+        "one": [
+          1.114112,
+          1.441792,
+          1.114112,
+          1.6384,
+          1.114112,
+          1.245184,
+          1.048576,
+          1.507328,
+          1.6384
+        ],
+        "four": [
+          9.109504,
+          4.194304,
+          4.9152,
+          4.718592,
+          10.223616,
+          6.356992,
+          5.505024,
+          4.194304,
+          6.422528
+        ]
+      },
+      "passesPerUnit": 14
+    },
+    {
+      "kind": "solver substep",
+      "id": "pbf-3d",
+      "particles": 15625,
+      "iterations": 2,
+      "spanMedianMs": 1.114112,
+      "slopeMedianMs": 0.9393493333333334,
+      "slopeMinMs": -0.589824,
+      "samples": {
+        "one": [
+          1.114112,
+          4.784128,
+          0.851968,
+          4.849664,
+          1.507328,
+          0.851968,
+          1.507328,
+          0.851968,
+          0.851968
+        ],
+        "four": [
+          3.014656,
+          4.9152,
+          3.670016,
+          3.080192,
+          3.801088,
+          4.063232,
+          7.471104,
+          4.653056,
+          7.340032
+        ]
+      },
+      "passesPerUnit": 12
+    },
+    {
+      "kind": "solver substep",
+      "id": "pbf-3d",
+      "particles": 15625,
+      "iterations": 4,
+      "spanMedianMs": 2.031616,
+      "slopeMedianMs": 1.572864,
+      "slopeMinMs": 1.2233386666666666,
+      "samples": {
+        "one": [
+          6.22592,
+          2.031616,
+          1.376256,
+          1.441792,
+          2.162688,
+          1.703936,
+          2.162688,
+          1.572864,
+          2.162688
+        ],
+        "four": [
+          10.354688,
+          7.405568,
+          10.48576,
+          6.356992,
+          6.684672,
+          6.422528,
+          6.5536,
+          8.781824,
+          5.832704
+        ]
+      },
+      "passesPerUnit": 16
+    },
+    {
+      "kind": "solver substep",
+      "id": "pbf-3d",
+      "particles": 64000,
+      "iterations": 2,
+      "spanMedianMs": 2.424832,
+      "slopeMedianMs": 2.184533333333333,
+      "slopeMinMs": 1.179648,
+      "samples": {
+        "one": [
+          3.473408,
+          6.356992,
+          1.769472,
+          1.769472,
+          2.62144,
+          1.703936,
+          2.359296,
+          5.767168,
+          2.424832
+        ],
+        "four": [
+          7.012352,
+          11.337728,
+          7.995392,
+          12.648448,
+          11.403264,
+          8.323072,
+          8.912896,
+          12.45184,
+          7.602176
+        ]
+      },
+      "passesPerUnit": 12
+    },
+    {
+      "kind": "solver substep",
+      "id": "pbf-3d",
+      "particles": 64000,
+      "iterations": 4,
+      "spanMedianMs": 3.801088,
+      "slopeMedianMs": 4.390912,
+      "slopeMinMs": 2.4685226666666664,
+      "samples": {
+        "one": [
+          4.194304,
+          3.342336,
+          8.257536,
+          3.670016,
+          3.080192,
+          3.93216,
+          4.456448,
+          3.801088,
+          3.211264
+        ],
+        "four": [
+          11.599872,
+          15.794176,
+          16.580608,
+          19.529728,
+          19.464192,
+          17.104896,
+          18.0224,
+          18.481152,
+          14.942208
+        ]
+      },
+      "passesPerUnit": 16
+    },
+    {
+      "kind": "complete frame",
+      "id": "particles",
+      "requestedParticles": 250000,
+      "params": {
+        "glowEnergy": 1,
+        "bloomIntensity": 0.6,
+        "headroom": 3,
+        "pageColor": [
+          0.00605,
+          0.00651,
+          0.00478
+        ],
+        "presentation": "gallery",
+        "palette": "ocean",
+        "background": true,
+        "scene": "fountain 3D",
+        "count": 250000,
+        "flow": 1.5,
+        "size": 1,
+        "brightness": 0.15,
+        "render": "additive",
+        "view": "speed",
+        "radius": 0.07,
+        "heatScale": 64,
+        "reorder": true,
+        "alwaysBuild": false,
+        "autoRotate": false
+      },
+      "spanMedianMs": 2.031616,
+      "slopeMedianMs": 1.3762559999999997,
+      "slopeMinMs": 0.9611946666666666,
+      "samples": {
+        "one": [
+          2.228224,
+          2.031616,
+          2.031616,
+          1.441792,
+          1.6384,
+          1.835008,
+          2.031616,
+          1.572864,
+          2.031616
+        ],
+        "four": [
+          5.111808,
+          6.5536,
+          7.143424,
+          6.88128,
+          5.24288,
+          5.24288,
+          6.160384,
+          7.471104,
+          5.373952
+        ]
+      },
+      "passesPerUnit": 3
+    },
+    {
+      "kind": "complete frame",
+      "id": "sph-2d",
+      "requestedParticles": 3000,
+      "params": {
+        "scene": "dam break",
+        "restart": false,
+        "count": 3000,
+        "view": "liquid",
+        "gravity": 9.81,
+        "tilt": 0,
+        "stiffness": 4,
+        "viscosity": 0.05,
+        "surfaceTension": 0,
+        "subSteps": 0,
+        "pointerMode": "push",
+        "pointerSize": 0.16,
+        "pointerStrength": 30,
+        "captureTouch": false,
+        "blob": 2.6,
+        "threshold": 0.5,
+        "water": "clear tropical",
+        "refraction": 1,
+        "depth": 3,
+        "foam": 0.6
+      },
+      "spanMedianMs": 1.6384,
+      "slopeMedianMs": 2.0753066666666666,
+      "slopeMinMs": 1.419946666666667,
+      "samples": {
+        "one": [
+          3.145728,
+          2.555904,
+          1.6384,
+          1.507328,
+          1.6384,
+          1.507328,
+          1.703936,
+          1.507328,
+          3.211264
+        ],
+        "four": [
+          9.306112,
+          7.274496,
+          7.86432,
+          8.51968,
+          10.48576,
+          9.109504,
+          8.912896,
+          7.733248,
+          7.471104
+        ]
+      },
+      "passesPerUnit": 14
+    },
+    {
+      "kind": "complete frame",
+      "id": "pbf-2d",
+      "requestedParticles": null,
+      "params": {
+        "scene": "dam break",
+        "restart": false,
+        "resolution": "12 mm",
+        "iterations": 0,
+        "substeps": 0,
+        "viscosity": 0.01,
+        "vorticity": 0,
+        "artificialPressure": 0.02,
+        "gravity": 9.81,
+        "tilt": 0,
+        "waveAmplitude": 0.15,
+        "waveFrequency": 0.85,
+        "pointerSize": 0.13,
+        "pointerStrength": 0.6,
+        "captureTouch": true,
+        "ambient": true,
+        "loop": true,
+        "view": "water",
+        "render": "opaque",
+        "size": 1
+      },
+      "spanMedianMs": 1.703936,
+      "slopeMedianMs": 1.703936,
+      "slopeMinMs": 1.048576,
+      "samples": {
+        "one": [
+          1.769472,
+          1.6384,
+          1.703936,
+          1.703936,
+          1.572864,
+          1.245184,
+          2.62144,
+          2.031616,
+          1.245184
+        ],
+        "four": [
+          9.568256,
+          6.029312,
+          5.046272,
+          6.422528,
+          6.88128,
+          6.356992,
+          5.767168,
+          9.8304,
+          9.50272
+        ]
+      },
+      "passesPerUnit": 22
+    },
+    {
+      "kind": "complete frame",
+      "id": "pbf-3d",
+      "requestedParticles": 10000,
+      "params": {
+        "scene": "dam break",
+        "restart": false,
+        "particles": 10000,
+        "view": "liquid",
+        "iterations": 2,
+        "substeps": 3,
+        "viscosity": 0.01,
+        "vorticity": 0,
+        "artificialPressure": 0.06,
+        "gravity": 9.81,
+        "waveHeight": 0.1,
+        "waveFrequency": 0.9,
+        "water": "clear",
+        "tint": [
+          0.25,
+          0.6,
+          0.85
+        ],
+        "density": 12,
+        "refraction": 1,
+        "foam": 0.5,
+        "renderScale": "1/2",
+        "filterRadius": 2.5,
+        "filterIterations": 3,
+        "thicknessStride": 1,
+        "exposure": 1,
+        "speed": 1,
+        "ambient": true,
+        "interaction": "stir",
+        "shake": 0,
+        "deviceTilt": false,
+        "whitewater": true,
+        "autoRotate": false
+      },
+      "spanMedianMs": 3.473408,
+      "slopeMedianMs": 4.325376,
+      "slopeMinMs": 3.4515626666666663,
+      "samples": {
+        "one": [
+          3.735552,
+          3.080192,
+          3.407872,
+          3.014656,
+          3.60448,
+          4.521984,
+          3.2768,
+          4.784128,
+          3.473408
+        ],
+        "four": [
+          18.874368,
+          13.43488,
+          17.36704,
+          14.614528,
+          16.580608,
+          17.563648,
+          13.697024,
+          17.432576,
+          17.170432
+        ]
+      },
+      "passesPerUnit": 39
+    },
+    {
+      "kind": "complete frame",
+      "id": "pbf-3d",
+      "requestedParticles": 40000,
+      "params": {
+        "scene": "dam break",
+        "restart": false,
+        "particles": 40000,
+        "view": "liquid",
+        "iterations": 2,
+        "substeps": 3,
+        "viscosity": 0.01,
+        "vorticity": 0,
+        "artificialPressure": 0.06,
+        "gravity": 9.81,
+        "waveHeight": 0.1,
+        "waveFrequency": 0.9,
+        "water": "clear",
+        "tint": [
+          0.25,
+          0.6,
+          0.85
+        ],
+        "density": 12,
+        "refraction": 1,
+        "foam": 0.5,
+        "renderScale": "1/2",
+        "filterRadius": 2.5,
+        "filterIterations": 3,
+        "thicknessStride": 1,
+        "exposure": 1,
+        "speed": 1,
+        "ambient": true,
+        "interaction": "stir",
+        "shake": 0,
+        "deviceTilt": false,
+        "whitewater": true,
+        "autoRotate": false
+      },
+      "spanMedianMs": 6.488064,
+      "slopeMedianMs": 7.86432,
+      "slopeMinMs": 6.684671999999999,
+      "samples": {
+        "one": [
+          6.88128,
+          6.684672,
+          5.57056,
+          8.257536,
+          6.488064,
+          5.308416,
+          6.488064,
+          8.978432,
+          5.111808
+        ],
+        "four": [
+          32.702464,
+          33.161216,
+          28.573696,
+          31.1296,
+          30.80192,
+          30.736384,
+          26.54208,
+          29.753344,
+          28.704768
+        ]
+      },
+      "passesPerUnit": 39
+    },
+    {
+      "kind": "complete frame",
+      "id": "pbf-3d",
+      "requestedParticles": 100000,
+      "params": {
+        "scene": "dam break",
+        "restart": false,
+        "particles": 100000,
+        "view": "liquid",
+        "iterations": 2,
+        "substeps": 3,
+        "viscosity": 0.01,
+        "vorticity": 0,
+        "artificialPressure": 0.06,
+        "gravity": 9.81,
+        "waveHeight": 0.1,
+        "waveFrequency": 0.9,
+        "water": "clear",
+        "tint": [
+          0.25,
+          0.6,
+          0.85
+        ],
+        "density": 12,
+        "refraction": 1,
+        "foam": 0.5,
+        "renderScale": "1/2",
+        "filterRadius": 2.5,
+        "filterIterations": 3,
+        "thicknessStride": 1,
+        "exposure": 1,
+        "speed": 1,
+        "ambient": true,
+        "interaction": "stir",
+        "shake": 0,
+        "deviceTilt": false,
+        "whitewater": true,
+        "autoRotate": false
+      },
+      "spanMedianMs": 13.43488,
+      "slopeMedianMs": 13.478570666666664,
+      "slopeMinMs": 11.228501333333334,
+      "samples": {
+        "one": [
+          16.777216,
+          17.235968,
+          11.862016,
+          15.138816,
+          11.599872,
+          12.12416,
+          13.500416,
+          12.320768,
+          13.43488
+        ],
+        "four": [
+          64.421888,
+          54.39488,
+          52.297728,
+          53.936128,
+          54.919168,
+          54.853632,
+          47.18592,
+          58.392576,
+          53.673984
+        ]
+      },
+      "passesPerUnit": 39
+    },
+    {
+      "kind": "complete frame",
+      "id": "mpm-3d",
+      "requestedParticles": 10000,
+      "params": {
+        "scene": "wave tank",
+        "restart": false,
+        "autoRestart": true,
+        "view": "liquid",
+        "count": 10000,
+        "grid": "48",
+        "stiffness": 10,
+        "substeps": 0,
+        "viscosity": 0,
+        "damping": 0.5,
+        "gravity": 9.8,
+        "waveMaker": 1,
+        "wavePeriod": 1.9,
+        "sorted": true,
+        "particleRadius": 0.75,
+        "distance": 5.2,
+        "smoothScale": "1/2",
+        "thicknessScale": "1/4",
+        "thicknessStride": 1,
+        "filter": "narrow-range",
+        "filterRadius": 2.2,
+        "iterations": 3,
+        "water": "coastal",
+        "tint": [
+          0.25,
+          0.62,
+          0.85
+        ],
+        "murk": 0.1,
+        "density": 3,
+        "refraction": 1,
+        "foam": 0.75,
+        "exposure": 1,
+        "autoRotate": false
+      },
+      "spanMedianMs": 2.359296,
+      "slopeMedianMs": 2.009770666666667,
+      "slopeMinMs": 1.6820906666666666,
+      "samples": {
+        "one": [
+          3.473408,
+          2.359296,
+          3.735552,
+          2.490368,
+          2.818048,
+          2.228224,
+          2.097152,
+          2.097152,
+          2.097152
+        ],
+        "four": [
+          9.109504,
+          7.471104,
+          8.781824,
+          12.255232,
+          13.1072,
+          8.257536,
+          8.126464,
+          8.650752,
+          9.371648
+        ]
+      },
+      "passesPerUnit": 31.5
+    },
+    {
+      "kind": "complete frame",
+      "id": "mpm-3d",
+      "requestedParticles": 40000,
+      "params": {
+        "scene": "wave tank",
+        "restart": false,
+        "autoRestart": true,
+        "view": "liquid",
+        "count": 40000,
+        "grid": "48",
+        "stiffness": 10,
+        "substeps": 0,
+        "viscosity": 0,
+        "damping": 0.5,
+        "gravity": 9.8,
+        "waveMaker": 1,
+        "wavePeriod": 1.9,
+        "sorted": true,
+        "particleRadius": 0.75,
+        "distance": 5.2,
+        "smoothScale": "1/2",
+        "thicknessScale": "1/4",
+        "thicknessStride": 1,
+        "filter": "narrow-range",
+        "filterRadius": 2.2,
+        "iterations": 3,
+        "water": "coastal",
+        "tint": [
+          0.25,
+          0.62,
+          0.85
+        ],
+        "murk": 0.1,
+        "density": 3,
+        "refraction": 1,
+        "foam": 0.75,
+        "exposure": 1,
+        "autoRotate": false
+      },
+      "spanMedianMs": 3.145728,
+      "slopeMedianMs": 3.298645333333333,
+      "slopeMinMs": 0.8301226666666667,
+      "samples": {
+        "one": [
+          3.473408,
+          3.866624,
+          2.818048,
+          2.94912,
+          3.014656,
+          3.342336,
+          3.145728,
+          3.080192,
+          7.012352
+        ],
+        "four": [
+          11.730944,
+          16.187392,
+          12.713984,
+          14.811136,
+          13.369344,
+          15.466496,
+          12.713984,
+          11.272192,
+          9.50272
+        ]
+      },
+      "passesPerUnit": 31.5
+    },
+    {
+      "kind": "complete frame",
+      "id": "mpm-3d",
+      "requestedParticles": 100000,
+      "params": {
+        "scene": "wave tank",
+        "restart": false,
+        "autoRestart": true,
+        "view": "liquid",
+        "count": 100000,
+        "grid": "48",
+        "stiffness": 10,
+        "substeps": 0,
+        "viscosity": 0,
+        "damping": 0.5,
+        "gravity": 9.8,
+        "waveMaker": 1,
+        "wavePeriod": 1.9,
+        "sorted": true,
+        "particleRadius": 0.75,
+        "distance": 5.2,
+        "smoothScale": "1/2",
+        "thicknessScale": "1/4",
+        "thicknessStride": 1,
+        "filter": "narrow-range",
+        "filterRadius": 2.2,
+        "iterations": 3,
+        "water": "coastal",
+        "tint": [
+          0.25,
+          0.62,
+          0.85
+        ],
+        "murk": 0.1,
+        "density": 3,
+        "refraction": 1,
+        "foam": 0.75,
+        "exposure": 1,
+        "autoRotate": false
+      },
+      "spanMedianMs": 4.58752,
+      "slopeMedianMs": 4.805973333333333,
+      "slopeMinMs": 3.6481706666666667,
+      "samples": {
+        "one": [
+          5.308416,
+          4.58752,
+          3.93216,
+          3.801088,
+          4.063232,
+          5.177344,
+          4.653056,
+          4.58752,
+          4.653056
+        ],
+        "four": [
+          20.185088,
+          21.430272,
+          18.35008,
+          19.791872,
+          15.007744,
+          18.939904,
+          18.874368,
+          18.874368,
+          19.202048
+        ]
+      },
+      "passesPerUnit": 31.5
+    },
+    {
+      "kind": "complete frame",
+      "id": "fluid-surface",
+      "requestedParticles": 60000,
+      "params": {
+        "source": "ball",
+        "view": "final",
+        "count": 60000,
+        "particleRadius": 1,
+        "distance": 6.5,
+        "filter": "narrow-range",
+        "compare": false,
+        "filterRadius": 2.5,
+        "iterations": 3,
+        "smoothScale": "1/2",
+        "thicknessScale": "1/4",
+        "thicknessStride": 1,
+        "water": "clear",
+        "tint": [
+          0.25,
+          0.6,
+          0.85
+        ],
+        "murk": 0.1,
+        "density": 4,
+        "refraction": 1,
+        "ior": 1.333,
+        "roughness": 0.04,
+        "foam": 0.6,
+        "exposure": 1,
+        "speed": 1,
+        "autoRotate": false
+      },
+      "spanMedianMs": 2.62144,
+      "slopeMedianMs": 2.7306666666666666,
+      "slopeMinMs": 2.2937600000000002,
+      "samples": {
+        "one": [
+          2.29376,
+          2.752512,
+          2.686976,
+          2.883584,
+          2.29376,
+          2.29376,
+          2.62144,
+          3.2768,
+          2.228224
+        ],
+        "four": [
+          11.075584,
+          10.944512,
+          10.616832,
+          10.092544,
+          12.910592,
+          13.43488,
+          11.927552,
+          10.15808,
+          9.568256
+        ]
+      },
+      "passesPerUnit": 15
+    }
+  ],
+  "priorRunSummary": {
+    "note": "Earlier shared-desktop run, same stationary solver setup and current shipping defaults; summary retained from the report. Raw one/four samples in rows are from the latest run. No other device was measured.",
+    "rows": [
+      {
+        "kind": "solver substep",
+        "id": "pbf-2d",
+        "particles": 4096,
+        "iterations": 2,
+        "slopeMedianMs": 0.79,
+        "spanMedianMs": 0.46
+      },
+      {
+        "kind": "solver substep",
+        "id": "pbf-2d",
+        "particles": 4096,
+        "iterations": 4,
+        "slopeMedianMs": 1.51,
+        "spanMedianMs": 0.79
+      },
+      {
+        "kind": "solver substep",
+        "id": "pbf-2d",
+        "particles": 16384,
+        "iterations": 2,
+        "slopeMedianMs": 0.96,
+        "spanMedianMs": 1.51
+      },
+      {
+        "kind": "solver substep",
+        "id": "pbf-2d",
+        "particles": 16384,
+        "iterations": 4,
+        "slopeMedianMs": 0.72,
+        "spanMedianMs": 1.84
+      },
+      {
+        "kind": "solver substep",
+        "id": "pbf-2d",
+        "particles": 65536,
+        "iterations": 2,
+        "slopeMedianMs": 1.99,
+        "spanMedianMs": 2.75
+      },
+      {
+        "kind": "solver substep",
+        "id": "pbf-2d",
+        "particles": 65536,
+        "iterations": 4,
+        "slopeMedianMs": 3.25,
+        "spanMedianMs": 4.92
+      },
+      {
+        "kind": "solver substep",
+        "id": "pbf-3d",
+        "particles": 3375,
+        "iterations": 2,
+        "slopeMedianMs": 1.29,
+        "spanMedianMs": 1.84
+      },
+      {
+        "kind": "solver substep",
+        "id": "pbf-3d",
+        "particles": 3375,
+        "iterations": 4,
+        "slopeMedianMs": 3.47,
+        "spanMedianMs": 2.75
+      },
+      {
+        "kind": "solver substep",
+        "id": "pbf-3d",
+        "particles": 15625,
+        "iterations": 2,
+        "slopeMedianMs": 2.36,
+        "spanMedianMs": 2.62
+      },
+      {
+        "kind": "solver substep",
+        "id": "pbf-3d",
+        "particles": 15625,
+        "iterations": 4,
+        "slopeMedianMs": 3.69,
+        "spanMedianMs": 5.37
+      },
+      {
+        "kind": "solver substep",
+        "id": "pbf-3d",
+        "particles": 64000,
+        "iterations": 2,
+        "slopeMedianMs": 6.42,
+        "spanMedianMs": 4.46
+      },
+      {
+        "kind": "solver substep",
+        "id": "pbf-3d",
+        "particles": 64000,
+        "iterations": 4,
+        "slopeMedianMs": 11.67,
+        "spanMedianMs": 10.42
+      },
+      {
+        "kind": "complete frame",
+        "id": "particles",
+        "requestedParticles": 250000,
+        "spacing": null,
+        "slopeMedianMs": 3.95,
+        "spanMedianMs": 5.05
+      },
+      {
+        "kind": "complete frame",
+        "id": "sph-2d",
+        "requestedParticles": 3000,
+        "spacing": null,
+        "slopeMedianMs": 3.76,
+        "spanMedianMs": 9.83
+      },
+      {
+        "kind": "complete frame",
+        "id": "pbf-2d",
+        "requestedParticles": null,
+        "spacing": "12 mm",
+        "slopeMedianMs": 5.61,
+        "spanMedianMs": 3.28
+      },
+      {
+        "kind": "complete frame",
+        "id": "pbf-3d",
+        "requestedParticles": 10000,
+        "spacing": null,
+        "slopeMedianMs": 11.71,
+        "spanMedianMs": 9.18
+      },
+      {
+        "kind": "complete frame",
+        "id": "pbf-3d",
+        "requestedParticles": 40000,
+        "spacing": null,
+        "slopeMedianMs": 17.24,
+        "spanMedianMs": 21.76
+      },
+      {
+        "kind": "complete frame",
+        "id": "pbf-3d",
+        "requestedParticles": 100000,
+        "spacing": null,
+        "slopeMedianMs": 31.78,
+        "spanMedianMs": 40.11
+      },
+      {
+        "kind": "complete frame",
+        "id": "mpm-3d",
+        "requestedParticles": 10000,
+        "spacing": null,
+        "slopeMedianMs": 5.64,
+        "spanMedianMs": 10.29
+      },
+      {
+        "kind": "complete frame",
+        "id": "mpm-3d",
+        "requestedParticles": 40000,
+        "spacing": null,
+        "slopeMedianMs": 6.64,
+        "spanMedianMs": 10.16
+      },
+      {
+        "kind": "complete frame",
+        "id": "mpm-3d",
+        "requestedParticles": 100000,
+        "spacing": null,
+        "slopeMedianMs": 8.89,
+        "spanMedianMs": 16.06
+      }
+    ]
+  }
+}

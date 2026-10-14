@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Backdrop capture study · Water Temple</title>
+  </head>
+  <body>
+    <main>
+      <a href="./">Water Temple</a>
+      <h1>Backdrop capture study</h1>
+      <p>
+        Compare the stable upload path with SVG rasterisation and the experimental HTML-in-Canvas
+        API. Each result reports what this browser actually supports.
+      </p>
+      <button id="run" type="button">Run capture probes</button>
+      <p id="status" role="status">Ready</p>
+      <div class="grid">
+        <section>
+          <h2>Canvas → GPU texture</h2>
+          <canvas id="upload" width="480" height="240" aria-label="Uploaded canvas result"></canvas>
+          <p id="upload-result">Waiting</p>
+        </section>
+        <section>
+          <h2>SVG foreignObject → bitmap</h2>
+          <canvas
+            id="foreign"
+            width="480"
+            height="240"
+            aria-label="SVG rasterisation result"
+          ></canvas>
+          <p id="foreign-result">Waiting</p>
+        </section>
+        <section>
+          <h2>HTML-in-Canvas</h2>
+          <p id="html-result">Waiting</p>
+          <p>
+            Capability detection is separate from capture: drawable descendants need a paint
+            snapshot and aligned hit-test geometry.
+          </p>
+        </section>
+      </div>
+      <p>
+        The gallery uses a designed backdrop re-rendered into a linear GPU texture. It can refract
+        its own content consistently across browsers.
+        <a href="./?effect=liquid-glass">Open liquid glass</a>
+      </p>
+    </main>
+    <script type="module" src="/src/demos/capture-spike/main.ts"></script>
+  </body>
+</html>
