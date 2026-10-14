@@ -7,7 +7,7 @@ import {
   type Head,
   type HeadBox,
   type HeadField,
-} from '../src/effects/ink-orbit/heads.ts';
+} from '../src/effects/_shared/orbit/heads.ts';
 
 /** mulberry32, as the effect uses. */
 function createRandom(seed: number): () => number {

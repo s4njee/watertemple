@@ -15,7 +15,7 @@ import { createUniformBuffer, defineUniformStruct, uniformArray } from '../../gp
 import { defineEffect } from '../types.ts';
 import { meta } from './meta.ts';
 import shader from './media-distortion.wgsl?raw';
-import sceneShader from './scene.wgsl?raw';
+import sceneShader from '../_shared/media-scene.wgsl?raw';
 import { createLiveVideo, createStillCanvas, type LiveVideo } from './sources.ts';
 
 const Params = defineUniformStruct('DistortionParams', {

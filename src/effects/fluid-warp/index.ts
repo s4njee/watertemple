@@ -25,7 +25,7 @@ import { createUniformBuffer, defineUniformStruct } from '../../gpu/uniforms.ts'
 import { defineEffect } from '../types.ts';
 // Read-only reuse of the Epic 4 effect's helpers: the harbour still, the animated canvas behind the
 // live <video> (both DOM-only) and the shared test card that stands in for them without a DOM.
-import sceneShader from '../media-distortion/scene.wgsl?raw';
+import sceneShader from '../_shared/media-scene.wgsl?raw';
 import { createLiveVideo, createStillCanvas, type LiveVideo } from '../media-distortion/sources.ts';
 import { HEADLINES, renderHeadline } from './headline.ts';
 import { meta } from './meta.ts';

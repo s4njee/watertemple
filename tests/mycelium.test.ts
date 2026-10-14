@@ -1,7 +1,7 @@
 import { expect, it } from 'vitest';
 import { createMyceliumSimulation } from '../src/effects/neon-mycelium/simulation.ts';
 import { halfToFloat } from '../src/gpu/sim/fluid.ts';
-import { boxDistance } from '../src/effects/ink-orbit/heads.ts';
+import { boxDistance } from '../src/effects/_shared/orbit/heads.ts';
 import { expectValid, getTestDevice, readTexture } from './gpu.ts';
 
 async function readAgents(device: GPUDevice, source: GPUBuffer) {
