@@ -1,0 +1,2344 @@
+{
+  "project": "watertemple",
+  "effects": [
+    {
+      "id": "hello",
+      "title": "Hello, water",
+      "summary": "Domain-warped noise. Exists to exercise the foundation end to end.",
+      "epic": "1",
+      "tier": "A",
+      "tags": [
+        "foundation"
+      ],
+      "status": "ready",
+      "poster": null,
+      "scorecard": {
+        "compute": false,
+        "mobile": "untested",
+        "features": {
+          "required": []
+        },
+        "fallback": "A static image in the same palette, or a plain CSS background colour.",
+        "useCases": [
+          "Smoke test for the shader pipeline, shell and shared WGSL library",
+          "A quiet abstract backdrop; nothing about it reads as water yet"
+        ]
+      }
+    },
+    {
+      "id": "crest-sss",
+      "title": "Wave-crest subsurface scattering",
+      "summary": "Big, backlit waves where the tall, thin crests glow green-blue as the sun shines through them. One view- and light-dependent term; proves sss.wgsl.",
+      "epic": "3",
+      "tier": "A",
+      "tags": [
+        "building-block",
+        "optics",
+        "subsurface",
+        "ocean"
+      ],
+      "status": "ready",
+      "poster": null,
+      "scorecard": {
+        "compute": false,
+        "mobile": "untested",
+        "features": {
+          "required": []
+        },
+        "fallback": "A still render of backlit swell with the glow baked in; the term is view dependent but a single frame reads fine as a poster.",
+        "useCases": [
+          "The translucent glow on wave crests in an ocean shader (feeds the ocean shading story)",
+          "Backlit water, waterfalls and sheets of liquid that need a cheap \"light through it\" cue",
+          "A drop-in term for any thin translucent surface with a height or thickness estimate"
+        ]
+      }
+    },
+    {
+      "id": "depth-absorption",
+      "title": "Depth absorption",
+      "summary": "Beer-Lambert tint and scattering fog by water depth: a sloping basin with a drop-off and submerged objects, shown through colour alone.",
+      "epic": "3",
+      "tier": "A",
+      "tags": [
+        "building-block",
+        "absorption",
+        "beer-lambert",
+        "depth",
+        "color"
+      ],
+      "status": "ready",
+      "poster": null,
+      "scorecard": {
+        "compute": false,
+        "mobile": "untested",
+        "features": {
+          "required": []
+        },
+        "fallback": "A static render of the basin, or a CSS gradient from the shallow colour to the deep colour behind the content.",
+        "useCases": [
+          "Depth-dependent water colour for pool floors, lakes, shorelines and underwater scenes",
+          "A designer-facing way to set water colour: pick the colour at a depth, get coefficients",
+          "The absorption building block that later 3D effects feed with real depth-buffer values"
+        ]
+      }
+    },
+    {
+      "id": "detail-normals",
+      "title": "Detail normals",
+      "summary": "Two or three scrolling layers of a baked, tileable ripple normal map, blended five ways so the classic flattening is visible.",
+      "epic": "3",
+      "tier": "A",
+      "tags": [
+        "building-block",
+        "normals",
+        "shading",
+        "water"
+      ],
+      "status": "ready",
+      "poster": null,
+      "scorecard": {
+        "compute": false,
+        "mobile": "untested",
+        "features": {
+          "required": []
+        },
+        "fallback": "A still frame of the lit surface; the ripples are decoration, not content.",
+        "useCases": [
+          "Small-scale ripple detail on any water surface, from a calm lake to a pool floor",
+          "The reference for how to layer normal maps without washing the detail out",
+          "A cheap stand-in for per-pixel noise wherever a texture fetch is affordable"
+        ]
+      }
+    },
+    {
+      "id": "flow-map",
+      "title": "Flow maps",
+      "summary": "A top-down river: a baked flow field steers two cross-faded phases of a ripple normal map around the rocks.",
+      "epic": "3",
+      "tier": "A",
+      "tags": [
+        "building-block",
+        "flow",
+        "river",
+        "water"
+      ],
+      "status": "ready",
+      "poster": null,
+      "scorecard": {
+        "compute": false,
+        "mobile": "untested",
+        "features": {
+          "required": []
+        },
+        "fallback": "A still frame of the river; or a short looping video of it, since the flow is periodic.",
+        "useCases": [
+          "Rivers, streams, canals and spillways seen from above or at an angle",
+          "Any directed current on a surface: drains, tidal inlets, waterfall pools",
+          "Foam, oil or leaves carried along a baked flow (swap the normal map for any texture)"
+        ]
+      }
+    },
+    {
+      "id": "fresnel-sky",
+      "title": "Fresnel and sky reflection",
+      "summary": "Open water reflecting a procedural sky, weighted by Schlick Fresnel over a deep-water body colour. Proves fresnel.wgsl, sky.wgsl and the cubemap helper.",
+      "epic": "3",
+      "tier": "A",
+      "tags": [
+        "building-block",
+        "optics",
+        "reflection",
+        "ocean"
+      ],
+      "status": "ready",
+      "poster": null,
+      "scorecard": {
+        "compute": false,
+        "mobile": "untested",
+        "features": {
+          "required": []
+        },
+        "fallback": "A static image of a horizon: a sky-to-water gradient in the same palette, or a plain CSS gradient.",
+        "useCases": [
+          "The reflection model for any larger water scene (lake, sea, pool) that wants a sky",
+          "A calm, cheap water backdrop with no geometry and no textures",
+          "Reference for choosing between a procedural sky and a baked cubemap"
+        ]
+      }
+    },
+    {
+      "id": "hdr-bloom",
+      "title": "HDR bloom and tonemapping",
+      "summary": "Dark water with sun glints, lantern reflections and caustic lines whose radiance runs far above 1, rendered into rgba16float, bloomed and tonemapped. Proves the post chain and the opt-in HDR canvas.",
+      "epic": "3",
+      "tier": "B",
+      "tags": [
+        "building-block",
+        "hdr",
+        "bloom",
+        "tonemapping",
+        "post-process"
+      ],
+      "status": "demo",
+      "poster": null,
+      "scorecard": {
+        "compute": false,
+        "mobile": "untested",
+        "features": {
+          "required": []
+        },
+        "fallback": "A still frame of the same scene with the bloom baked in, or a CSS gradient in the same palette. The effect needs rgba16float render targets, which every WebGPU device has, so there is no reduced-quality path to fall back to inside WebGPU other than turning bloom off.",
+        "useCases": [
+          "Any water scene with highlights above white (sun glints, lanterns, lava, neon) that should glow instead of clipping",
+          "The shared final pass for the ocean and showpiece effects: exposure, tonemapping and dithering in one place",
+          "Hero sections on HDR displays, as an opt-in extra over the same SDR picture"
+        ]
+      }
+    },
+    {
+      "id": "reflections",
+      "title": "Reflection strategies",
+      "summary": "Planar reflection against screen-space reflection on a calm pool, side by side: what each costs and where each one breaks.",
+      "epic": "3",
+      "tier": "B",
+      "tags": [
+        "optics",
+        "3d",
+        "reflection",
+        "multi-pass",
+        "comparison"
+      ],
+      "status": "demo",
+      "poster": null,
+      "scorecard": {
+        "compute": false,
+        "mobile": "untested",
+        "features": {
+          "required": [],
+          "optional": [
+            "timestamp-query"
+          ]
+        },
+        "fallback": "A poster of the scene with a pre-rendered reflection, or the sky-only strategy, which is a single cheap pass.",
+        "useCases": [
+          "A pool, pond or puddle in a 3D hero scene where a flat mirror is enough: planar, at half or quarter resolution",
+          "A scene with many water surfaces or an unknown layout of them: screen-space reflection, with a sky fallback",
+          "Ambient water behind UI: the sky-only strategy and a light normal wobble"
+        ]
+      }
+    },
+    {
+      "id": "refraction",
+      "title": "Screen-space refraction",
+      "summary": "Looks through animated water at a backdrop texture: a normal-driven uv offset (Snell or the cheap form), chromatic dispersion, mip blur and safe edges.",
+      "epic": "3",
+      "tier": "A",
+      "tags": [
+        "building-block",
+        "refraction",
+        "dispersion",
+        "texture",
+        "pointer"
+      ],
+      "status": "ready",
+      "poster": null,
+      "scorecard": {
+        "compute": false,
+        "mobile": "untested",
+        "features": {
+          "required": []
+        },
+        "fallback": "A static image of the backdrop (or the backdrop itself) with a CSS blur or SVG feDisplacementMap filter for a rough imitation.",
+        "useCases": [
+          "Water or glass distortion over an image, video or any texture you already have",
+          "The refraction building block for pool floors, liquid glass and heightfield ripples",
+          "Judging a refraction model: the tile lines must bend coherently, not wobble"
+        ]
+      }
+    },
+    {
+      "id": "shore-foam",
+      "title": "Shore foam and edge fade",
+      "summary": "Top-down beach: waves lap in and out, foam dissolves along the waterline and around rocks, and the water fades in softly where it meets the sand.",
+      "epic": "3",
+      "tier": "A",
+      "tags": [
+        "building-block",
+        "foam",
+        "shoreline",
+        "depth",
+        "soft-edge"
+      ],
+      "status": "ready",
+      "poster": null,
+      "scorecard": {
+        "compute": false,
+        "mobile": "untested",
+        "features": {
+          "required": []
+        },
+        "fallback": "A looping video or a static render of the beach, or a CSS gradient with an SVG turbulence mask for the foam line.",
+        "useCases": [
+          "Shoreline, pond-edge and river-bank water in a hero or a section background",
+          "The foam and soft-edge building block for the 3D shoreline (8.7) and river (8.8)",
+          "Any water surface that meets geometry and needs the hard contact line hidden"
+        ]
+      }
+    },
+    {
+      "id": "sun-glint",
+      "title": "Sun glint and sparkle",
+      "summary": "A low sun over open water: a tight GGX sun lobe plus hashed-cell glitter that twinkles with the waves and stays stable under camera motion. Proves specular.wgsl.",
+      "epic": "3",
+      "tier": "A",
+      "tags": [
+        "building-block",
+        "optics",
+        "specular",
+        "ocean"
+      ],
+      "status": "ready",
+      "poster": null,
+      "scorecard": {
+        "compute": false,
+        "mobile": "untested",
+        "features": {
+          "required": []
+        },
+        "fallback": "A still photo or render of a sunlit water surface; the glitter does not survive being frozen, so a short looped video is the better fallback where it matters.",
+        "useCases": [
+          "The sun reflection for a sea or lake scene (feeds the ocean shading story)",
+          "Sparkle on any water-like surface in a hero image, where flat specular alone looks dead",
+          "Reference for stable, non-aliasing glitter on any rough reflective surface"
+        ]
+      }
+    },
+    {
+      "id": "caustics",
+      "title": "Procedural caustics",
+      "summary": "The light pattern at the bottom of a pool as a transparent, tileable overlay. Two procedural constructions (warped Voronoi and iterated sine) and a baked one- or two-tap version, compared on cost and look.",
+      "epic": "4",
+      "tier": "A",
+      "tags": [
+        "overlay",
+        "background",
+        "caustics",
+        "building-block",
+        "tileable",
+        "comparison"
+      ],
+      "status": "ready",
+      "poster": null,
+      "scorecard": {
+        "compute": false,
+        "mobile": "untested",
+        "features": {
+          "required": []
+        },
+        "fallback": "A looping WebP or MP4 of the baked caustic map as a CSS background with mix-blend-mode: screen (or a static tileable PNG), which is also what the baked method amounts to.",
+        "useCases": [
+          "A shimmering light layer over a hero image, a card or a pool-coloured section",
+          "The light source for pool floors, underwater scenes and seabeds (the other 4.x demos)",
+          "Choosing between a per-pixel and a baked caustic for your own scene"
+        ]
+      }
+    },
+    {
+      "id": "ink-wash",
+      "title": "Ink wash background",
+      "summary": "A very slow watercolour field: soft blooms of pigment with darker pooled edges, granulation and paper fibres, rendered at a quarter of the resolution and upsampled.",
+      "epic": "4",
+      "tier": "A",
+      "tags": [
+        "background",
+        "watercolour",
+        "ink",
+        "fbm",
+        "low-contrast",
+        "paper",
+        "transparent"
+      ],
+      "status": "ready",
+      "poster": null,
+      "scorecard": {
+        "compute": false,
+        "mobile": "untested",
+        "features": {
+          "required": []
+        },
+        "fallback": "A tiled, pre-rendered WebP or SVG feTurbulence texture in the same palette on a CSS background; or two or three large blurred radial gradients if you do not need the paper grain.",
+        "useCases": [
+          "A calm, low-contrast background behind long-form text, documentation or a portfolio",
+          "A hero background that reads as paper and pigment rather than as a gradient",
+          "Transparent paper mode: an ink layer over a page colour or an image, so the section keeps its own background"
+        ]
+      }
+    },
+    {
+      "id": "media-distortion",
+      "title": "Water over image or video",
+      "summary": "Looks at a picture or a video through moving water: baked-normal refraction, a light highlight, optional colour fringing, safe edges and a ripple under the pointer. Drop your own file on it.",
+      "epic": "4",
+      "tier": "A",
+      "tags": [
+        "image",
+        "video",
+        "refraction",
+        "dispersion",
+        "pointer",
+        "hero",
+        "texture"
+      ],
+      "status": "ready",
+      "poster": null,
+      "scorecard": {
+        "compute": false,
+        "mobile": "untested",
+        "features": {
+          "required": []
+        },
+        "fallback": "The plain <img> or <video> underneath the canvas. Nothing is lost but the motion; an SVG feDisplacementMap filter is a rough but heavier substitute.",
+        "useCases": [
+          "A hero image that ripples gently, or wobbles when the pointer crosses it",
+          "A product shot that reacts on hover",
+          "Water or heat shimmer over a looping background video"
+        ]
+      }
+    },
+    {
+      "id": "mist",
+      "title": "Mist and steam layer",
+      "summary": "A translucent overlay of drifting mist or rising steam in three depth layers that shift at different rates as the page scrolls, with a hard cap on its opacity.",
+      "epic": "4",
+      "tier": "A",
+      "tags": [
+        "overlay",
+        "mist",
+        "steam",
+        "fog",
+        "scroll",
+        "parallax",
+        "fbm",
+        "transparent"
+      ],
+      "status": "ready",
+      "poster": null,
+      "scorecard": {
+        "compute": false,
+        "mobile": "untested",
+        "features": {
+          "required": []
+        },
+        "fallback": "Two or three stacked, pre-rendered transparent WebP or PNG wisps with a slow CSS translate animation and a mask-image gradient; or a plain CSS linear-gradient fade to the page colour.",
+        "useCases": [
+          "Fog hugging the bottom of a hero image, or steam over a photograph of a hot spring",
+          "A soft veil that thins toward one edge, laid over imagery to calm it before text",
+          "Depth for a long page: layers that move at their own rates as the visitor scrolls"
+        ]
+      }
+    },
+    {
+      "id": "pool-floor",
+      "title": "Pool floor",
+      "summary": "A swimming pool seen from above: tiles refracted through moving water, lit by caustics, tinted by depth. Every optics chunk in one cheap pass.",
+      "epic": "4",
+      "tier": "A",
+      "tags": [
+        "background",
+        "hero",
+        "pointer",
+        "caustics",
+        "refraction",
+        "absorption",
+        "composition"
+      ],
+      "status": "ready",
+      "poster": null,
+      "scorecard": {
+        "compute": false,
+        "mobile": "untested",
+        "features": {
+          "required": []
+        },
+        "fallback": "A looping video or animated WebP of the same pool (it loops cleanly: the ripple and caustic phases are periodic), or a still photo of tiles with the baked caustic map as a CSS overlay.",
+        "useCases": [
+          "A hero or section background for a pool, spa, travel, swimwear or hydration brand",
+          "The ambient pointer-reactive water surface over any tiled or photographic floor",
+          "A reference for how refraction, absorption and caustics compose in one pass"
+        ]
+      }
+    },
+    {
+      "id": "puddles",
+      "title": "Puddles and wet surfaces",
+      "summary": "Rain-soaked ground seen at an angle: puddles fill the low spots and mirror a dusk city through rain ripple rings, and the damp stone around them is darker and glossier.",
+      "epic": "4",
+      "tier": "A",
+      "tags": [
+        "background",
+        "weather",
+        "rain",
+        "reflection",
+        "ripples",
+        "wetness",
+        "ground"
+      ],
+      "status": "ready",
+      "poster": null,
+      "scorecard": {
+        "compute": false,
+        "mobile": "untested",
+        "features": {
+          "required": []
+        },
+        "fallback": "A still photograph or render of the wet street, or a looping video of the rain with the reflections baked in.",
+        "useCases": [
+          "A wet-street or courtyard backdrop for a hero, a game menu or a weather app",
+          "The wet-material model (darker, glossier, mirror in the hollows) for any ground you already render",
+          "The rain ripple rings that story 10.2 turns into a standalone effect"
+        ]
+      }
+    },
+    {
+      "id": "rain-glass",
+      "title": "Rain on glass",
+      "summary": "A rainy window at night: every drop is a tiny lens showing a sharp, flipped piece of the street while the misted glass around it is out of focus, and running drops wipe clean trails.",
+      "epic": "4",
+      "tier": "A",
+      "tags": [
+        "background",
+        "weather",
+        "rain",
+        "glass",
+        "droplets",
+        "refraction",
+        "blur"
+      ],
+      "status": "ready",
+      "poster": null,
+      "scorecard": {
+        "compute": false,
+        "mobile": "untested",
+        "features": {
+          "required": []
+        },
+        "fallback": "A short looping video of the rainy window, or a blurred still of the scene with a CSS blur and a few SVG-masked drops.",
+        "useCases": [
+          "Mood background for a hero, a login page or a weather or music app",
+          "A window or windscreen overlay on top of a photo or video you already have (swap the procedural scene for a texture)",
+          "The droplet field for rain on a camera lens or visor (story 10.5 builds on it)"
+        ]
+      }
+    },
+    {
+      "id": "toon-water",
+      "title": "Toon water",
+      "summary": "Cel-shaded water in one cheap pass: flat depth bands, crisp animated cell-noise foam, a breathing shore ring, ink outlines and hard-edged glints around a little island.",
+      "epic": "4",
+      "tier": "A",
+      "tags": [
+        "stylised",
+        "foam",
+        "voronoi",
+        "illustrative",
+        "cheap"
+      ],
+      "status": "ready",
+      "poster": null,
+      "scorecard": {
+        "compute": false,
+        "mobile": "untested",
+        "features": {
+          "required": []
+        },
+        "fallback": "A static illustration or an SVG/CSS-animated wave pattern in the same palette: flat colours and hard edges survive being a still image better than any realistic water does.",
+        "useCases": [
+          "Playful or illustrative sites, games, kids and education products",
+          "A hero or footer background that is meant to look drawn, not photographed",
+          "Anywhere a cheap, resolution-independent look is wanted over a photoreal one"
+        ]
+      }
+    },
+    {
+      "id": "underwater",
+      "title": "Underwater ambience",
+      "summary": "Looking up from below the surface: slow light shafts, drifting marine snow in two layers, depth fog and a gentle wobble, with an optional caustic seabed. Calm enough to put text over.",
+      "epic": "4",
+      "tier": "A",
+      "tags": [
+        "background",
+        "hero",
+        "ambient",
+        "caustics",
+        "depth-fog",
+        "particles"
+      ],
+      "status": "ready",
+      "poster": null,
+      "scorecard": {
+        "compute": false,
+        "mobile": "untested",
+        "features": {
+          "required": []
+        },
+        "fallback": "A CSS gradient in the fog colour with a blurred, slowly panning image of the shafts, or a looping muted video of the same scene.",
+        "useCases": [
+          "A hero or section background for ocean, diving, aquarium, wellness or water-tech pages",
+          "A calm full-bleed layer behind headings and body text",
+          "The seabed caustic lighting from the baked map, in a scene instead of an overlay"
+        ]
+      }
+    },
+    {
+      "id": "wave-divider",
+      "title": "Layered wave divider",
+      "summary": "Two to five layers of wave silhouettes with scroll parallax and a foam line, transparent above and filled with the next section’s colour below.",
+      "epic": "4",
+      "tier": "A",
+      "tags": [
+        "divider",
+        "overlay",
+        "scroll",
+        "parallax",
+        "sdf",
+        "section-break",
+        "transparent"
+      ],
+      "status": "ready",
+      "poster": null,
+      "scorecard": {
+        "compute": false,
+        "mobile": "untested",
+        "features": {
+          "required": []
+        },
+        "fallback": "An inline SVG with the same layered paths (a few hundred bytes each, animated with SMIL or CSS transforms if motion is wanted), or a single static SVG on a CSS background.",
+        "useCases": [
+          "The break between a hero and the next section, or the top edge of a footer",
+          "Capping the bottom of a coloured section (flip) so it ends in water rather than a ruler line",
+          "Anywhere an SVG wave would do but you want per-pixel foam, five or more layers, or a response to scroll speed"
+        ]
+      }
+    },
+    {
+      "id": "pool-3d",
+      "title": "3D pool",
+      "summary": "A pool in perspective with an orbiting camera, a ball you can drag through the water, ripples that make real caustics on the floor and walls, and refraction and reflection ray-traced against the pool box and the ball.",
+      "epic": "5",
+      "tier": "B",
+      "tags": [
+        "interactive",
+        "simulation",
+        "caustics",
+        "3d",
+        "heightfield",
+        "ray-tracing",
+        "showpiece"
+      ],
+      "status": "demo",
+      "poster": null,
+      "scorecard": {
+        "compute": false,
+        "mobile": "untested",
+        "features": {
+          "required": []
+        },
+        "fallback": "A looping video of the pool with the ball bobbing (orbit and drag are lost), or the ripple-caustics floor effect, which needs no 3D scene.",
+        "useCases": [
+          "A dedicated landing page, product configurator or game-like hero where the water is the subject",
+          "A desktop showpiece that proves what the site can do; not a background behind text",
+          "Reference for ray-tracing a few analytic shapes through a refracting surface inside a rasterised scene"
+        ]
+      }
+    },
+    {
+      "id": "ripple-caustics",
+      "title": "Ripple caustics",
+      "summary": "Real caustics computed from the live ripple surface: a drop sends a ring of focused light sweeping across a tiled pool floor. Two methods (a projected light mesh and a per-pixel Jacobian estimate) and a side-by-side against the procedural fake.",
+      "epic": "5",
+      "tier": "B",
+      "tags": [
+        "interactive",
+        "simulation",
+        "caustics",
+        "heightfield",
+        "refraction",
+        "comparison"
+      ],
+      "status": "demo",
+      "poster": null,
+      "scorecard": {
+        "compute": false,
+        "mobile": "untested",
+        "features": {
+          "required": []
+        },
+        "fallback": "The procedural pool floor effect (baked caustic map, no simulation), or a looping video of the same pool under rain.",
+        "useCases": [
+          "A hero or pool-themed section where light should visibly respond to the cursor and to rain",
+          "The reference for how much a simulated caustic differs from the baked or procedural fake",
+          "Any shallow-water floor (pond, fountain basin, aquarium) lit by the sun through a stirred surface"
+        ]
+      }
+    },
+    {
+      "id": "ripple-dom",
+      "title": "Ripples around page elements",
+      "summary": "Water behind a real page where the page itself is solid: elements marked data-wt-obstacle are measured every frame and become walls of the wave solver, so ripples bend around a card, bounce off a headline and are pushed by a card that moves.",
+      "epic": "5",
+      "tier": "A",
+      "tags": [
+        "interactive",
+        "simulation",
+        "dom",
+        "pointer",
+        "heightfield",
+        "refraction",
+        "background"
+      ],
+      "status": "ready",
+      "poster": null,
+      "scorecard": {
+        "compute": false,
+        "mobile": "untested",
+        "features": {
+          "required": []
+        },
+        "fallback": "The static backdrop image behind the content with a CSS ripple on click. Nothing about the layout depends on the water: the page works unchanged, because the elements are only measured.",
+        "useCases": [
+          "A hero or section background whose water respects the cards and headings laid over it",
+          "A pool behind a sticky article column that laps at the text plate and is pushed by it as it scrolls",
+          "Any backdrop where a draggable or animated element should visibly disturb the water"
+        ]
+      }
+    },
+    {
+      "id": "ripple-reactive",
+      "title": "Ripples driven by scroll and sound",
+      "summary": "A heightfield surface that answers the page instead of the pointer: scrolling feeds waves in from the leading edge and sloshes on a hard stop, and a built-in synthesised beat (or a dropped audio or video file) turns bass into broad swells, mids and highs into fine rain and onsets into drops. Silent and calm until the first click.",
+      "epic": "5",
+      "tier": "A",
+      "tags": [
+        "interactive",
+        "simulation",
+        "scroll",
+        "audio",
+        "heightfield",
+        "refraction",
+        "background"
+      ],
+      "status": "ready",
+      "poster": null,
+      "scorecard": {
+        "compute": false,
+        "mobile": "untested",
+        "features": {
+          "required": []
+        },
+        "fallback": "The still backdrop image, or a looping video of the pond; scroll response can be a CSS parallax on that image. The audio input has no static equivalent: without Web Audio the surface just runs on scroll and its idle swell.",
+        "useCases": [
+          "A background that reacts to scrolling the page, subtle at reading speed",
+          "A music or podcast page where the surface follows the track that is playing",
+          "A visualiser for a dropped audio or video file that never leaves the browser"
+        ]
+      }
+    },
+    {
+      "id": "ripples",
+      "title": "Interactive ripples",
+      "summary": "The classic touch-the-water surface: a 2D wave equation on the GPU, stirred by mouse, pen and fingers, falling rain and a faint idle swell, refracting a backdrop. Runs as render passes or compute passes, same maths.",
+      "epic": "5",
+      "tier": "A",
+      "tags": [
+        "interactive",
+        "simulation",
+        "pointer",
+        "heightfield",
+        "refraction",
+        "background"
+      ],
+      "status": "ready",
+      "poster": null,
+      "scorecard": {
+        "compute": false,
+        "mobile": "untested",
+        "features": {
+          "required": []
+        },
+        "fallback": "A looping video or animated WebP of the same pond under rain (the ambient rain makes a convincing loop), or the still backdrop with a CSS ripple on click.",
+        "useCases": [
+          "A hero or full-page background that answers the cursor and settles when left alone",
+          "Tap-to-ripple feedback on an image, a pool photograph or a brand surface",
+          "The reference surface for the caustics, pool and obstacle effects built on the same solver"
+        ]
+      }
+    },
+    {
+      "id": "aurora",
+      "title": "Aurora ribbons",
+      "summary": "Slow emerald, cyan and violet ribbons flowing around page elements, with fine luminous folds and soft rising curtains. A separate variation of ink orbit using the same obstacle-aware fluid simulation.",
+      "epic": "6",
+      "tier": "B",
+      "tags": [
+        "interactive",
+        "simulation",
+        "compute",
+        "fluid",
+        "dom",
+        "aurora",
+        "background"
+      ],
+      "status": "demo",
+      "poster": null,
+      "scorecard": {
+        "compute": true,
+        "mobile": "untested",
+        "features": {
+          "required": []
+        },
+        "fallback": "A still gradient of emerald, cyan and violet over a midnight background.",
+        "useCases": [
+          "An atmospheric hero or reading page",
+          "A calm interactive background with luminous ribbons"
+        ]
+      }
+    },
+    {
+      "id": "bioluminescent-currents",
+      "title": "Bioluminescent currents",
+      "summary": "Cyan and green organisms flash on sharp turns or pointer proximity, leaving delicate wakes.",
+      "epic": "6",
+      "tier": "B",
+      "tags": [
+        "interactive",
+        "simulation",
+        "compute",
+        "fluid",
+        "dom",
+        "background"
+      ],
+      "status": "demo",
+      "poster": null,
+      "scorecard": {
+        "compute": true,
+        "mobile": "untested",
+        "features": {
+          "required": []
+        },
+        "fallback": "A still gradient matching the material over a dark background.",
+        "useCases": [
+          "An interactive hero or atmospheric reading page"
+        ]
+      }
+    },
+    {
+      "id": "dichroic-glass",
+      "title": "Dichroic glass",
+      "summary": "Refractive teal and magenta ribbons with thin-film colour, crisp highlights and overlapping depth.",
+      "epic": "6",
+      "tier": "B",
+      "tags": [
+        "interactive",
+        "simulation",
+        "compute",
+        "fluid",
+        "dom",
+        "background"
+      ],
+      "status": "demo",
+      "poster": null,
+      "scorecard": {
+        "compute": true,
+        "mobile": "untested",
+        "features": {
+          "required": []
+        },
+        "fallback": "A still gradient matching the material over a dark background.",
+        "useCases": [
+          "An interactive hero or atmospheric reading page"
+        ]
+      }
+    },
+    {
+      "id": "eclipse-halos",
+      "title": "Eclipse halos",
+      "summary": "Narrow moving rings around page outlines, with quiet fluid arcs escaping into the dark.",
+      "epic": "6",
+      "tier": "B",
+      "tags": [
+        "interactive",
+        "simulation",
+        "compute",
+        "fluid",
+        "dom",
+        "background"
+      ],
+      "status": "demo",
+      "poster": null,
+      "scorecard": {
+        "compute": true,
+        "mobile": "untested",
+        "features": {
+          "required": []
+        },
+        "fallback": "A still gradient matching the material over a dark background.",
+        "useCases": [
+          "An interactive hero or atmospheric reading page"
+        ]
+      }
+    },
+    {
+      "id": "fluid-3d",
+      "title": "Ink in a tank (3D fluid)",
+      "summary": "A drop of ink released in a glass tank of water sinks, rolls up into a vortex ring and breaks into tendrils. A volumetric stable-fluids solve (48 to 96 cells, multigrid pressure, vorticity confinement, MacCormack ink) in compute shaders, drawn by a ray march with coloured absorption and a precomputed light volume. Tap to release a drop, drag to push the water, drag the background to orbit.",
+      "epic": "6",
+      "tier": "C",
+      "tags": [
+        "interactive",
+        "simulation",
+        "compute",
+        "fluid",
+        "3d",
+        "volumetric",
+        "showpiece",
+        "ink"
+      ],
+      "status": "demo",
+      "poster": null,
+      "scorecard": {
+        "compute": true,
+        "mobile": "untested",
+        "features": {
+          "required": []
+        },
+        "fallback": "Without WebGPU or compute, show a looping video or animated WebP of the tank (a drop sinking, rolling into a ring and branching) with the orbit and the drops lost, or the 2D fluid-dye effect, which keeps the ink and the interaction on a flat canvas for a thirtieth of the work.",
+        "useCases": [
+          "A dedicated landing page or full-screen experience for a drink, a dye, a paint or a water brand where the ink in water is the subject",
+          "A desktop showpiece that proves what the site can do; not a background behind text and not for phones",
+          "The reference for a 3D grid solver, a multigrid pressure solve and a ray-marched volume on this site"
+        ]
+      }
+    },
+    {
+      "id": "fluid-dye",
+      "title": "Ink in a stable fluid",
+      "summary": "Drag to push a real incompressible fluid and paint dye that curls into vortices and fades. A stable-fluids solver in compute shaders (advection, pressure projection, vorticity confinement, MacCormack or BFECC), a coarse velocity grid carrying a fine dye grid.",
+      "epic": "6",
+      "tier": "B",
+      "tags": [
+        "interactive",
+        "simulation",
+        "compute",
+        "fluid",
+        "pointer",
+        "ink",
+        "background"
+      ],
+      "status": "demo",
+      "poster": null,
+      "scorecard": {
+        "compute": true,
+        "mobile": "untested",
+        "features": {
+          "required": []
+        },
+        "fallback": "Without WebGPU, or without compute shaders, show a looping video or animated WebP of the same ink in water on a CSS background (the idle autonomous strokes loop well), with a plain CSS gradient behind it; the interaction is the part that does not survive, so keep the page working without it.",
+        "useCases": [
+          "An interactive hero or set piece where the visitor stirs coloured ink with the cursor",
+          "A slow ambient background of drifting smoke or lava-lamp blobs that never repeats",
+          "The reference for fluid-driven page distortion, obstacles and ink-in-water built on the same solver"
+        ]
+      }
+    },
+    {
+      "id": "fluid-obstacles",
+      "title": "Wind tunnel: flow round obstacles",
+      "summary": "A steady wind carries rows of dye past solid shapes drawn from signed distance fields, or past the real cards and headline of the page. The stable-fluids solver makes the flow go round them: a bluff body sheds an alternating vortex street. Drag a shape to push the water, stir where there is none.",
+      "epic": "6",
+      "tier": "B",
+      "tags": [
+        "interactive",
+        "simulation",
+        "compute",
+        "fluid",
+        "pointer",
+        "dom",
+        "background",
+        "ink"
+      ],
+      "status": "demo",
+      "poster": null,
+      "scorecard": {
+        "compute": true,
+        "mobile": "untested",
+        "features": {
+          "required": []
+        },
+        "fallback": "A looping video or animated WebP of the same flow as a background, with the cards laid over it in plain CSS. The flow cannot react to the layout without the solver, so the fallback is a picture that happens to fit the page it was made for.",
+        "useCases": [
+          "A hero where ink or smoke streams round the real cards and headline instead of through them",
+          "A data-viz or product explainer showing flow past a shape (a wing, a pipe, a bottle)",
+          "A playful page where visitors drag objects through a current"
+        ]
+      }
+    },
+    {
+      "id": "fluid-warp",
+      "title": "Fluid-pushed image and type",
+      "summary": "Drag across a picture, a video or a headline and the content is pushed around by a real incompressible fluid: it smears and swirls like wet paint, then springs back at a rate you choose. A displacement field is carried by the flow of the stable-fluids solver and the content is sampled through it.",
+      "epic": "6",
+      "tier": "B",
+      "tags": [
+        "interactive",
+        "simulation",
+        "compute",
+        "fluid",
+        "pointer",
+        "image",
+        "video",
+        "text",
+        "hero",
+        "texture"
+      ],
+      "status": "demo",
+      "poster": null,
+      "scorecard": {
+        "compute": true,
+        "mobile": "untested",
+        "features": {
+          "required": []
+        },
+        "fallback": "The plain <img>, <video> or live headline underneath the canvas, with a CSS filter: blur() or a short transform on hover for a hint of response. Nothing is lost but the smear; for a headline, per-letter CSS transforms on pointer movement are a cheap substitute that keeps the text selectable.",
+        "useCases": [
+          "A hero image that smears and settles like wet paint when the visitor drags across it",
+          "A playful headline whose letters are dragged along and reassemble, drawn into the canvas from a 2D canvas",
+          "A page-transition or hover smear over an image or a looping video"
+        ]
+      }
+    },
+    {
+      "id": "game-of-life",
+      "title": "Game of Life",
+      "summary": "Conway’s B3/S23 automaton, with luminous cells and fading echoes behind a real page.",
+      "epic": "6",
+      "tier": "A",
+      "tags": [
+        "cellular automata",
+        "compute",
+        "background",
+        "interactive"
+      ],
+      "status": "demo",
+      "poster": null,
+      "scorecard": {
+        "compute": true,
+        "mobile": "untested",
+        "fallback": "A still cellular pattern.",
+        "useCases": [
+          "Interactive backgrounds and playful editorial pages"
+        ]
+      }
+    },
+    {
+      "id": "ink-orbit",
+      "title": "Ink orbiting page elements",
+      "summary": "Luminous RGB trails in a stable fluid on a dark background, with heads smoothly cycling through red, green and blue together while their tails keep the colours they were laid with. Drawn into loose orbits round the page: elements marked data-wt-obstacle are measured every frame and become solid, and the heads of the trails are pulled to each outline and swung round it, never quite settling. Drag a card and the trails follow. On an HDR display the glow is brighter than SDR white.",
+      "epic": "6",
+      "tier": "B",
+      "tags": [
+        "interactive",
+        "simulation",
+        "compute",
+        "fluid",
+        "dom",
+        "pointer",
+        "ink",
+        "background"
+      ],
+      "status": "demo",
+      "poster": null,
+      "scorecard": {
+        "compute": true,
+        "mobile": "untested",
+        "features": {
+          "required": []
+        },
+        "fallback": "Without WebGPU the page is unchanged, because the elements are only measured: show the plain paper colour, or a few soft radial gradients of the same colours behind the content for a hint of the look.",
+        "useCases": [
+          "A landing page whose headline, cards and buttons are circled by a few broad trails of coloured ink",
+          "A draggable or animated card that visibly stirs the page behind it",
+          "A light, paper-coloured background that stays readable because the ink keeps to the gaps between the content"
+        ]
+      }
+    },
+    {
+      "id": "ink-water",
+      "title": "Ink in water and on paper",
+      "summary": "Paint pigment into a stable-fluids solver and watch it bloom, feather along the paper fibres, pool darker at the edge of a wash and dry. Diffusion, a deposited layer that stays when the water stops, wetness, granulation and subtractive colour on top of the dye solver.",
+      "epic": "6",
+      "tier": "B",
+      "tags": [
+        "interactive",
+        "simulation",
+        "compute",
+        "fluid",
+        "ink",
+        "watercolour",
+        "paper"
+      ],
+      "status": "demo",
+      "poster": null,
+      "scorecard": {
+        "compute": true,
+        "mobile": "untested",
+        "features": {
+          "required": []
+        },
+        "fallback": "Without WebGPU, or without compute shaders, show the non-simulated `ink-wash` background (a fragment-only effect with a WebP or SVG fallback of its own), or a looping video of the idle drops blooming on a CSS paper colour; the painting is the part that does not survive, so keep the page working without it.",
+        "useCases": [
+          "An interactive hero or set piece where the visitor paints pigment that blooms, feathers and dries on paper",
+          "A slow ambient background of ink drops landing in water that never repeats, with a pointer that stirs it",
+          "The reference for pigment-on-paper behaviour (diffusion, absorption, edge darkening, back-runs) built as a layer on the fluid solver"
+        ]
+      }
+    },
+    {
+      "id": "liquid-chrome",
+      "title": "Liquid chrome",
+      "summary": "Black and silver fluid ribbons reflecting moving studio lights with tiny spectral glints.",
+      "epic": "6",
+      "tier": "B",
+      "tags": [
+        "interactive",
+        "simulation",
+        "compute",
+        "fluid",
+        "dom",
+        "background"
+      ],
+      "status": "demo",
+      "poster": null,
+      "scorecard": {
+        "compute": true,
+        "mobile": "untested",
+        "features": {
+          "required": []
+        },
+        "fallback": "A still gradient matching the material over a dark background.",
+        "useCases": [
+          "An interactive hero or atmospheric reading page"
+        ]
+      }
+    },
+    {
+      "id": "neon-calligraphy",
+      "title": "Neon calligraphy",
+      "summary": "Glowing ink blots, tapering luminous lines and faint afterimages.",
+      "epic": "6",
+      "tier": "B",
+      "tags": [
+        "interactive",
+        "simulation",
+        "compute",
+        "fluid",
+        "dom",
+        "background"
+      ],
+      "status": "demo",
+      "poster": null,
+      "scorecard": {
+        "compute": true,
+        "mobile": "untested",
+        "features": {
+          "required": []
+        },
+        "fallback": "A still gradient matching the material over a dark background.",
+        "useCases": [
+          "An interactive hero or atmospheric reading page"
+        ]
+      }
+    },
+    {
+      "id": "neon-mycelium",
+      "title": "Neon mycelium",
+      "summary": "Self-organizing neon networks grow around the page’s headings and cards.",
+      "epic": "6",
+      "tier": "B",
+      "tags": [
+        "physarum",
+        "agents",
+        "compute",
+        "dom",
+        "background"
+      ],
+      "status": "demo",
+      "poster": null,
+      "scorecard": {
+        "compute": true,
+        "mobile": "untested",
+        "fallback": "A still neon gradient over a dark page.",
+        "useCases": [
+          "An atmospheric landing page or interactive reading surface"
+        ]
+      }
+    },
+    {
+      "id": "shallow-water",
+      "title": "Shallow water: dam break and flow",
+      "summary": "Water that actually flows: a shallow-water solver on the GPU moves a depth and a velocity over terrain. A dam breaks and the surge rushes around pillars, a spring runs down a hillside into a lake, a tide fills and drains rock pools. Pour water, push it, dig channels.",
+      "epic": "6",
+      "tier": "B",
+      "tags": [
+        "interactive",
+        "simulation",
+        "fluid",
+        "terrain",
+        "3d",
+        "compute",
+        "showpiece"
+      ],
+      "status": "demo",
+      "poster": null,
+      "scorecard": {
+        "compute": true,
+        "mobile": "untested",
+        "features": {
+          "required": []
+        },
+        "fallback": "A looping video of the dam break (the surge, the pillars, the settling pond) or a still of the terrain with a CSS-animated water level; the picking and sculpting are lost. The `solver: render` variant has no WebGL2 port yet but needs no compute shaders.",
+        "useCases": [
+          "A feature page where flowing water is the subject: a landing hero for a water utility, a flood-risk explainer, a game or toy about rivers and dams",
+          "An interactive explainer of why a flood spreads the way it does: pour, dig, build a dam, watch where the water goes",
+          "Reference for a conservative, well-balanced shallow-water solver: wet/dry fronts, lakes at rest, mass bookkeeping"
+        ]
+      }
+    },
+    {
+      "id": "silk-embers",
+      "title": "Silk embers",
+      "summary": "Copper, crimson and gold filaments that cool as detached sparks drift upward.",
+      "epic": "6",
+      "tier": "B",
+      "tags": [
+        "interactive",
+        "simulation",
+        "compute",
+        "fluid",
+        "dom",
+        "background"
+      ],
+      "status": "demo",
+      "poster": null,
+      "scorecard": {
+        "compute": true,
+        "mobile": "untested",
+        "features": {
+          "required": []
+        },
+        "fallback": "A still gradient matching the material over a dark background.",
+        "useCases": [
+          "An interactive hero or atmospheric reading page"
+        ]
+      }
+    },
+    {
+      "id": "fluid-surface",
+      "title": "Screen-space fluid surface",
+      "summary": "A cloud of particles turned into a continuous, refracting liquid: sphere impostors, depth smoothing (bilateral against narrow-range), thickness, normals and a composite with absorption, reflection and a sun highlight. Three synthetic sources (a ball that splits and merges, a wave, a pouring stream) stand in for a solver; one control swaps between the finished surface, the bag of marbles it replaces and each intermediate image.",
+      "epic": "7",
+      "tier": "C",
+      "tags": [
+        "particles",
+        "rendering",
+        "3d",
+        "refraction",
+        "showpiece"
+      ],
+      "status": "demo",
+      "poster": "src/effects/fluid-surface/poster.webp",
+      "scorecard": {
+        "bundleKb": 3.94,
+        "gpuMs": [
+          {
+            "device": "Apple M1 Max · Dawn/Metal (workload slope)",
+            "ms": 2.73,
+            "resolution": "1920 × 1080"
+          }
+        ],
+        "compute": true,
+        "mobile": "untested",
+        "features": {
+          "required": [],
+          "optional": [
+            "timestamp-query"
+          ]
+        },
+        "fallback": "A looping video or poster of the liquid. There is no useful cut-down without WebGPU: the particles come from a compute solver, so a WebGL2 version would be a different effect (a metaball SDF blob, see Epic 9).",
+        "useCases": [
+          "A dedicated showpiece page where a pouring, sloshing or splashing liquid is the product (a drink, a pool toy, a tank game)",
+          "The renderer behind any particle solver in Epic 7: SPH, position-based fluids or MLS-MPM hand over positions and get a liquid",
+          "Not a background or a card: on a laptop it needs the whole GPU budget of a Tier C page"
+        ]
+      }
+    },
+    {
+      "id": "mpm-3d",
+      "title": "MLS-MPM water tank",
+      "summary": "A tank of water simulated with the moving-least-squares material point method: 100 000 particles carry the fluid, a background grid does the physics, and there is no neighbour search. A wall pushes in and out and sends waves down the tank to break on a beach; or let a dam burst around pillars, or pour a stream into a pool. Drag through the water to push it, tap to drop a blob, drag empty space to orbit. Drawn as a refracting liquid by the screen-space fluid surface, or as the spheres, speed or density it is made of.",
+      "epic": "7",
+      "tier": "C",
+      "tags": [
+        "particles",
+        "simulation",
+        "compute",
+        "fluid",
+        "interactive",
+        "3d",
+        "showpiece"
+      ],
+      "status": "demo",
+      "poster": "src/effects/mpm-3d/poster.webp",
+      "scorecard": {
+        "gpuMs": [
+          {
+            "device": "Apple M1 Max · Dawn/Metal (workload slope)",
+            "ms": 4.81,
+            "resolution": "1920 × 1080"
+          }
+        ],
+        "bundleKb": 20.06,
+        "compute": true,
+        "mobile": "untested",
+        "features": {
+          "required": [],
+          "optional": [
+            "timestamp-query"
+          ]
+        },
+        "fallback": "A looping video or poster of the tank. Nothing cheaper reproduces it: the fluid needs compute shaders and atomics, so a WebGL2 version would be a different effect (a shallow-water heightfield, see the shallow-water effect, or a ray-marched blob, Epic 9).",
+        "useCases": [
+          "A dedicated showpiece page where a body of water sloshing, breaking and splashing is the product: a tank game, a drink, a water toy, a landing experience",
+          "The reference for a particle fluid with no neighbour search, at counts the neighbour-search solvers (SPH, position-based fluids) cannot reach",
+          "Not a background or a card, and not for phones: it needs a discrete or Apple Silicon GPU and most of a Tier C frame budget"
+        ]
+      }
+    },
+    {
+      "id": "particles",
+      "title": "Particle field and neighbour grid",
+      "summary": "A fountain of up to a million spray particles carried by a curl-noise flow, drawn as instanced billboards. The foundation of the particle fluids: a GPU particle system, a fixed-step integrator, and a uniform-grid neighbour search built by a counting sort and prefix sum every frame. Colour the cloud by its neighbour counts, or light up the neighbours of the particle under the pointer, to see the search at work. Move the pointer to aim the nozzle, drag to orbit.",
+      "epic": "7",
+      "tier": "B",
+      "tags": [
+        "particles",
+        "compute",
+        "simulation",
+        "interactive",
+        "3d",
+        "spray"
+      ],
+      "status": "demo",
+      "poster": "src/effects/particles/poster.webp",
+      "scorecard": {
+        "gpuMs": [
+          {
+            "device": "Apple M1 Max · Dawn/Metal (workload slope)",
+            "ms": 1.38,
+            "resolution": "1920 × 1080"
+          }
+        ],
+        "bundleKb": 4.46,
+        "compute": true,
+        "mobile": "untested",
+        "features": {
+          "required": [],
+          "optional": [
+            "timestamp-query"
+          ]
+        },
+        "fallback": "Without WebGPU or compute, show a looping video of the fountain, or a WebGL2 version that moves a few tens of thousands of particles with transform feedback or a vertex-shader flow; the neighbour views have no fallback and are a research tool, not a feature.",
+        "useCases": [
+          "Mist, spray, snow, embers and dust that need hundreds of thousands of GPU-simulated sprites: the cheapest honest particle effect, and the framework the fluid solvers build on",
+          "A hero or landing-page set piece where the particles are the subject, on desktop-class GPUs",
+          "The reference for a GPU neighbour search (cell ids, counting sort, prefix sum, reorder) that SPH, position-based fluids and collisions reuse"
+        ]
+      }
+    },
+    {
+      "id": "pbf-2d",
+      "title": "2D position-based fluids",
+      "summary": "A tank of water as particles solved with position-based fluids (Macklin and Mueller): incompressibility is a constraint on positions, relaxed by a few parallel iterations per sub-step, so a big time step cannot blow the water up. A dam break that collapses and sloshes, a stream pouring onto a shelf, a wave-maker, drops falling into a calm pool. Drag to push the water, tap to drop a blob. Colour the particles by speed, by density error (how well the constraint holds) or by neighbour count; change the particle spacing and the same parameters give the same water.",
+      "epic": "7",
+      "tier": "B",
+      "tags": [
+        "particles",
+        "simulation",
+        "compute",
+        "fluid",
+        "interactive",
+        "2d"
+      ],
+      "status": "demo",
+      "poster": "src/effects/pbf-2d/poster.webp",
+      "scorecard": {
+        "gpuMs": [
+          {
+            "device": "Apple M1 Max · Dawn/Metal (workload slope)",
+            "ms": 1.7,
+            "resolution": "1920 × 1080"
+          }
+        ],
+        "bundleKb": 4.7,
+        "compute": true,
+        "mobile": "untested",
+        "features": {
+          "required": [],
+          "optional": [
+            "timestamp-query"
+          ]
+        },
+        "fallback": "Without WebGPU or compute, show a looping video of the same scene (the dam break and the pour loop cleanly), or a heightfield water surface (Epic 4) if the point is only a sloshing top surface; the particle solver has no fragment-shader equivalent.",
+        "useCases": [
+          "A hero or set piece where a body of water sloshes, splashes and can be pushed around, on desktop-class GPUs at around ten thousand particles",
+          "A loading or empty-state illustration: a stream filling a vessel, or drops falling into a pool",
+          "The 2D stepping stone to the 3D position-based fluids: the same solver, the same parameters, a quarter of the particles per unit of detail"
+        ]
+      }
+    },
+    {
+      "id": "pbf-3d",
+      "title": "Position-based fluid tank (3D)",
+      "summary": "Water as ten thousand particles by default in a glass tank, solved with position-based fluids (Macklin and Mueller 2013) on the GPU and drawn as a refracting liquid surface. Three restartable scenes: a dam break with two pillars, a pour that fills the tank, and a wave tank with an oscillating wall. Drag empty space to orbit, drag through the water to push it, tap to drop a blob. Secondary spray, foam and bubbles follow the live water. Choose container mode to drag or shake the vessel, or enable device tilt. The particle count, solver iterations and sub-steps, viscosity, vorticity and the renderer quality are live.",
+      "epic": "7",
+      "tier": "C",
+      "tags": [
+        "particles",
+        "simulation",
+        "compute",
+        "fluid",
+        "interactive",
+        "3d",
+        "showpiece"
+      ],
+      "status": "demo",
+      "poster": "src/effects/pbf-3d/poster.webp",
+      "scorecard": {
+        "gpuMs": [
+          {
+            "device": "Apple M1 Max · Dawn/Metal (workload slope)",
+            "ms": 4.33,
+            "resolution": "1920 × 1080"
+          }
+        ],
+        "bundleKb": 6.67,
+        "compute": true,
+        "mobile": "untested",
+        "features": {
+          "required": [],
+          "optional": [
+            "timestamp-query"
+          ]
+        },
+        "fallback": "A captured poster of the tank (orbit, push and tilt are lost). There is no cheaper live version: a heightfield water surface (the 3D pool effect) loses the splashes, and a WebGL2 particle solver would need transform feedback and no neighbour search.",
+        "useCases": [
+          "A dedicated landing page or product experience where pouring, sloshing and splashing water is the subject, on a desktop-class GPU",
+          "A game or toy where the player pushes real water around inside a container (drag, tilt, shake and wave-maker)",
+          "The reference for the stable, large-time-step particle fluid: the solver, the neighbour grid and the screen-space renderer working together"
+        ]
+      }
+    },
+    {
+      "id": "sph-2d",
+      "title": "2D SPH liquid",
+      "summary": "A tank of water as thousands of particles: weakly compressible smoothed-particle hydrodynamics in compute shaders, drawn as one liquid body (soft blobs, a threshold, a rim, a highlight, refraction) instead of discs. A dam break that collapses and sloshes back, a stream pouring onto a shelf and an obstacle, two zero-gravity blobs that merge under surface tension. Drag to push the water, tap to drop a block of it.",
+      "epic": "7",
+      "tier": "B",
+      "tags": [
+        "particles",
+        "simulation",
+        "compute",
+        "fluid",
+        "interactive",
+        "2d"
+      ],
+      "status": "demo",
+      "poster": "src/effects/sph-2d/poster.webp",
+      "scorecard": {
+        "gpuMs": [
+          {
+            "device": "Apple M1 Max · Dawn/Metal (workload slope)",
+            "ms": 2.08,
+            "resolution": "1920 × 1080"
+          }
+        ],
+        "bundleKb": 18.76,
+        "compute": true,
+        "mobile": "untested",
+        "features": {
+          "required": [],
+          "optional": [
+            "timestamp-query"
+          ]
+        },
+        "fallback": "Without WebGPU or compute, show a looping video of the same scene (the dam break and the pour loop cleanly), or a WebGL2 version of the drawing over a few thousand particles stepped on the CPU; the simulation has no fragment-shader equivalent.",
+        "useCases": [
+          "A hero or set piece where a body of water sloshes, splashes and can be pushed around, on desktop-class GPUs at around ten thousand particles",
+          "A loading or empty-state illustration: a stream filling a vessel, or a droplet that merges with another",
+          "The reference for particle-based liquid in 2D: the same solver and renderer serve the position-based-fluids comparison"
+        ]
+      }
+    },
+    {
+      "id": "calm-lake",
+      "title": "Calm lake",
+      "summary": "A mirrored camera pass reflects distant ridges and trees through light wind ripples.",
+      "epic": "8",
+      "tier": "B",
+      "tags": [
+        "3d",
+        "open-water",
+        "shader"
+      ],
+      "status": "demo",
+      "poster": "src/effects/calm-lake/poster.webp",
+      "scorecard": {
+        "compute": false,
+        "mobile": "untested",
+        "bundleKb": 13.28,
+        "gpuMs": [
+          {
+            "device": "Apple M1 Max (Metal)",
+            "ms": 0.524,
+            "resolution": "1920 × 1080"
+          }
+        ],
+        "features": {
+          "optional": [
+            "timestamp-query"
+          ]
+        },
+        "fallback": "A static poster of this scene with a matching sky and water palette.",
+        "useCases": [
+          "Immersive water hero scenes",
+          "Water rendering and performance research"
+        ]
+      }
+    },
+    {
+      "id": "fft-ocean",
+      "title": "Spectral ocean",
+      "summary": "Three band-limited Phillips cascades, compute inverse FFT and persistent folding foam.",
+      "epic": "8",
+      "tier": "C",
+      "tags": [
+        "3d",
+        "open-water",
+        "compute"
+      ],
+      "status": "demo",
+      "poster": "src/effects/fft-ocean/poster.webp",
+      "scorecard": {
+        "compute": true,
+        "mobile": "untested",
+        "bundleKb": 13.28,
+        "gpuMs": [
+          {
+            "device": "Apple M1 Max (Metal)",
+            "ms": 0.83,
+            "resolution": "1920 × 1080"
+          }
+        ],
+        "features": {
+          "optional": [
+            "timestamp-query"
+          ]
+        },
+        "fallback": "A static poster of this scene with a matching sky and water palette.",
+        "useCases": [
+          "Immersive water hero scenes",
+          "Water rendering and performance research"
+        ]
+      }
+    },
+    {
+      "id": "gerstner-ocean",
+      "title": "Gerstner ocean",
+      "summary": "Six analytic waves, projected and clipmap meshes, and floating buoys with CPU or GPU sampling.",
+      "epic": "8",
+      "tier": "B",
+      "tags": [
+        "3d",
+        "open-water",
+        "shader"
+      ],
+      "status": "demo",
+      "poster": "src/effects/gerstner-ocean/poster.webp",
+      "scorecard": {
+        "compute": false,
+        "mobile": "untested",
+        "bundleKb": 13.3,
+        "gpuMs": [
+          {
+            "device": "Apple M1 Max (Metal)",
+            "ms": 0.393,
+            "resolution": "1920 × 1080"
+          }
+        ],
+        "features": {
+          "optional": [
+            "timestamp-query"
+          ]
+        },
+        "fallback": "A static poster of this scene with a matching sky and water palette.",
+        "useCases": [
+          "Immersive water hero scenes",
+          "Water rendering and performance research"
+        ]
+      }
+    },
+    {
+      "id": "river",
+      "title": "River current",
+      "summary": "A signed flow map diverts two-phase water detail around rocks and trails foam downstream.",
+      "epic": "8",
+      "tier": "B",
+      "tags": [
+        "3d",
+        "open-water",
+        "shader"
+      ],
+      "status": "demo",
+      "poster": "src/effects/river/poster.webp",
+      "scorecard": {
+        "compute": false,
+        "mobile": "untested",
+        "bundleKb": 13.29,
+        "gpuMs": [
+          {
+            "device": "Apple M1 Max (Metal)",
+            "ms": 0.546,
+            "resolution": "1920 × 1080"
+          }
+        ],
+        "features": {
+          "optional": [
+            "timestamp-query"
+          ]
+        },
+        "fallback": "A static poster of this scene with a matching sky and water palette.",
+        "useCases": [
+          "Immersive water hero scenes",
+          "Water rendering and performance research"
+        ]
+      }
+    },
+    {
+      "id": "shoreline",
+      "title": "Breaking shoreline",
+      "summary": "Shoaling wave crests wash across a sloping beach with depth foam and reflective wet sand.",
+      "epic": "8",
+      "tier": "B",
+      "tags": [
+        "3d",
+        "open-water",
+        "shader"
+      ],
+      "status": "demo",
+      "poster": "src/effects/shoreline/poster.webp",
+      "scorecard": {
+        "compute": false,
+        "mobile": "untested",
+        "bundleKb": 13.29,
+        "gpuMs": [
+          {
+            "device": "Apple M1 Max (Metal)",
+            "ms": 0.721,
+            "resolution": "1920 × 1080"
+          }
+        ],
+        "features": {
+          "optional": [
+            "timestamp-query"
+          ]
+        },
+        "fallback": "A static poster of this scene with a matching sky and water palette.",
+        "useCases": [
+          "Immersive water hero scenes",
+          "Water rendering and performance research"
+        ]
+      }
+    },
+    {
+      "id": "waterfall",
+      "title": "Waterfall and mist",
+      "summary": "Scrolling water sheets, a foamy plunge pool and bounded GPU particle spray.",
+      "epic": "8",
+      "tier": "B",
+      "tags": [
+        "3d",
+        "open-water",
+        "compute"
+      ],
+      "status": "demo",
+      "poster": "src/effects/waterfall/poster.webp",
+      "scorecard": {
+        "compute": true,
+        "mobile": "untested",
+        "bundleKb": 13.28,
+        "gpuMs": [
+          {
+            "device": "Apple M1 Max (Metal)",
+            "ms": 0.786,
+            "resolution": "1920 × 1080"
+          }
+        ],
+        "features": {
+          "optional": [
+            "timestamp-query"
+          ]
+        },
+        "fallback": "A static poster of this scene with a matching sky and water palette.",
+        "useCases": [
+          "Immersive water hero scenes",
+          "Water rendering and performance research"
+        ]
+      }
+    },
+    {
+      "id": "waterline",
+      "title": "Across the waterline",
+      "summary": "A moving wave meniscus separates air and water with underwater tint and attenuation.",
+      "epic": "8",
+      "tier": "B",
+      "tags": [
+        "3d",
+        "open-water",
+        "shader"
+      ],
+      "status": "demo",
+      "poster": "src/effects/waterline/poster.webp",
+      "scorecard": {
+        "compute": false,
+        "mobile": "untested",
+        "bundleKb": 13.27,
+        "gpuMs": [
+          {
+            "device": "Apple M1 Max (Metal)",
+            "ms": 1.223,
+            "resolution": "1920 × 1080"
+          }
+        ],
+        "features": {
+          "optional": [
+            "timestamp-query"
+          ]
+        },
+        "fallback": "A static poster of this scene with a matching sky and water palette.",
+        "useCases": [
+          "Immersive water hero scenes",
+          "Water rendering and performance research"
+        ]
+      }
+    },
+    {
+      "id": "fill-level",
+      "title": "Fill-level components",
+      "summary": "A tank, progress bar and round loader share a sloshing liquid level.",
+      "epic": "9",
+      "tier": "A",
+      "tags": [
+        "ui",
+        "web-native",
+        "interactive"
+      ],
+      "status": "ready",
+      "poster": "src/effects/fill-level/poster.webp",
+      "scorecard": {
+        "compute": false,
+        "mobile": "untested",
+        "bundleKb": 54,
+        "gpuMs": [
+          {
+            "device": "Apple M1 Max (Metal)",
+            "ms": 0.175,
+            "resolution": "1920 × 1080"
+          }
+        ],
+        "features": {
+          "optional": [
+            "timestamp-query"
+          ]
+        },
+        "fallback": "A static poster with semantic HTML for the component and its content.",
+        "useCases": [
+          "Website components",
+          "Liquid interface research"
+        ]
+      }
+    },
+    {
+      "id": "gooey-metaballs",
+      "title": "Gooey metaballs",
+      "summary": "Smooth SDF unions join navigation pills to an animated or pointer-driven liquid follower.",
+      "epic": "9",
+      "tier": "A",
+      "tags": [
+        "ui",
+        "web-native",
+        "interactive"
+      ],
+      "status": "ready",
+      "poster": "src/effects/gooey-metaballs/poster.webp",
+      "scorecard": {
+        "compute": false,
+        "mobile": "untested",
+        "bundleKb": 54,
+        "gpuMs": [
+          {
+            "device": "Apple M1 Max (Metal)",
+            "ms": 0.175,
+            "resolution": "1920 × 1080"
+          }
+        ],
+        "features": {
+          "optional": [
+            "timestamp-query"
+          ]
+        },
+        "fallback": "A static poster with semantic HTML for the component and its content.",
+        "useCases": [
+          "Website components",
+          "Liquid interface research"
+        ]
+      }
+    },
+    {
+      "id": "liquid-blob",
+      "title": "Ray-marched liquid blob",
+      "summary": "A three-dimensional smooth metaball lens refracts the environment through an exit surface.",
+      "epic": "9",
+      "tier": "B",
+      "tags": [
+        "ui",
+        "web-native",
+        "interactive"
+      ],
+      "status": "demo",
+      "poster": "src/effects/liquid-blob/poster.webp",
+      "scorecard": {
+        "compute": false,
+        "mobile": "untested",
+        "bundleKb": 54,
+        "gpuMs": [
+          {
+            "device": "Apple M1 Max (Metal)",
+            "ms": 0.437,
+            "resolution": "1920 × 1080"
+          }
+        ],
+        "features": {
+          "optional": [
+            "timestamp-query"
+          ]
+        },
+        "fallback": "A static poster with semantic HTML for the component and its content.",
+        "useCases": [
+          "Website components",
+          "Liquid interface research"
+        ]
+      }
+    },
+    {
+      "id": "liquid-buttons",
+      "title": "Liquid buttons",
+      "summary": "Hover or focus to stretch a spring-driven button; press it to launch a surface ripple.",
+      "epic": "9",
+      "tier": "A",
+      "tags": [
+        "ui",
+        "web-native",
+        "interactive"
+      ],
+      "status": "ready",
+      "poster": "src/effects/liquid-buttons/poster.webp",
+      "scorecard": {
+        "compute": false,
+        "mobile": "untested",
+        "bundleKb": 54,
+        "gpuMs": [
+          {
+            "device": "Apple M1 Max (Metal)",
+            "ms": 0.153,
+            "resolution": "1920 × 1080"
+          }
+        ],
+        "features": {
+          "optional": [
+            "timestamp-query"
+          ]
+        },
+        "fallback": "A static poster with semantic HTML for the component and its content.",
+        "useCases": [
+          "Website components",
+          "Liquid interface research"
+        ]
+      }
+    },
+    {
+      "id": "liquid-glass",
+      "title": "Liquid glass panels",
+      "summary": "Rounded glass lenses refract a designed backdrop with blur, colour dispersion and a specular rim.",
+      "epic": "9",
+      "tier": "A",
+      "tags": [
+        "ui",
+        "web-native",
+        "interactive"
+      ],
+      "status": "ready",
+      "poster": "src/effects/liquid-glass/poster.webp",
+      "scorecard": {
+        "compute": false,
+        "mobile": "untested",
+        "bundleKb": 54,
+        "gpuMs": [
+          {
+            "device": "Apple M1 Max (Metal)",
+            "ms": 0.306,
+            "resolution": "1920 × 1080"
+          }
+        ],
+        "features": {
+          "optional": [
+            "timestamp-query"
+          ]
+        },
+        "fallback": "A static poster with semantic HTML for the component and its content.",
+        "useCases": [
+          "Website components",
+          "Liquid interface research"
+        ]
+      }
+    },
+    {
+      "id": "liquid-image-hover",
+      "title": "Liquid image hover",
+      "summary": "Move across a coastal image to bend it with ripples and a subtle colour split.",
+      "epic": "9",
+      "tier": "A",
+      "tags": [
+        "ui",
+        "web-native",
+        "interactive"
+      ],
+      "status": "ready",
+      "poster": "src/effects/liquid-image-hover/poster.webp",
+      "scorecard": {
+        "compute": false,
+        "mobile": "untested",
+        "bundleKb": 54,
+        "gpuMs": [
+          {
+            "device": "Apple M1 Max (Metal)",
+            "ms": 0.175,
+            "resolution": "1920 × 1080"
+          }
+        ],
+        "features": {
+          "optional": [
+            "timestamp-query"
+          ]
+        },
+        "fallback": "A static poster with semantic HTML for the component and its content.",
+        "useCases": [
+          "Website components",
+          "Liquid interface research"
+        ]
+      }
+    },
+    {
+      "id": "liquid-transitions",
+      "title": "Liquid transitions",
+      "summary": "Drip wipes, wave reveals and displacement dissolves switch between two designed sections.",
+      "epic": "9",
+      "tier": "A",
+      "tags": [
+        "ui",
+        "web-native",
+        "interactive"
+      ],
+      "status": "ready",
+      "poster": "src/effects/liquid-transitions/poster.webp",
+      "scorecard": {
+        "compute": false,
+        "mobile": "untested",
+        "bundleKb": 54,
+        "gpuMs": [
+          {
+            "device": "Apple M1 Max (Metal)",
+            "ms": 0.109,
+            "resolution": "1920 × 1080"
+          }
+        ],
+        "features": {
+          "optional": [
+            "timestamp-query"
+          ]
+        },
+        "fallback": "A static poster with semantic HTML for the component and its content.",
+        "useCases": [
+          "Website components",
+          "Liquid interface research"
+        ]
+      }
+    },
+    {
+      "id": "liquid-typography",
+      "title": "Liquid typography",
+      "summary": "An Anton MSDF atlas keeps liquid lettering sharp as it ripples, melts and fills with water.",
+      "epic": "9",
+      "tier": "B",
+      "tags": [
+        "ui",
+        "web-native",
+        "interactive"
+      ],
+      "status": "demo",
+      "poster": "src/effects/liquid-typography/poster.webp",
+      "scorecard": {
+        "compute": false,
+        "mobile": "untested",
+        "bundleKb": 54,
+        "gpuMs": [
+          {
+            "device": "Apple M1 Max (Metal)",
+            "ms": 0.262,
+            "resolution": "1920 × 1080"
+          }
+        ],
+        "features": {
+          "optional": [
+            "timestamp-query"
+          ]
+        },
+        "fallback": "A static poster with semantic HTML for the component and its content.",
+        "useCases": [
+          "Website components",
+          "Liquid interface research"
+        ]
+      }
+    },
+    {
+      "id": "scroll-water",
+      "title": "Scroll-linked water level",
+      "summary": "The backdrop submerges with page or nested-container scrolling.",
+      "epic": "9",
+      "tier": "B",
+      "tags": [
+        "ui",
+        "web-native",
+        "interactive"
+      ],
+      "status": "demo",
+      "poster": "src/effects/scroll-water/poster.webp",
+      "scorecard": {
+        "compute": false,
+        "mobile": "untested",
+        "bundleKb": 54,
+        "gpuMs": [
+          {
+            "device": "Apple M1 Max (Metal)",
+            "ms": 0.153,
+            "resolution": "1920 × 1080"
+          }
+        ],
+        "features": {
+          "optional": [
+            "timestamp-query"
+          ]
+        },
+        "fallback": "A static poster with semantic HTML for the component and its content.",
+        "useCases": [
+          "Website components",
+          "Liquid interface research"
+        ]
+      }
+    },
+    {
+      "id": "ui-droplets",
+      "title": "Droplets on UI",
+      "summary": "Condensation droplets grow, coalesce with conserved volume, and slide down a card under gravity.",
+      "epic": "9",
+      "tier": "B",
+      "tags": [
+        "ui",
+        "web-native",
+        "interactive"
+      ],
+      "status": "demo",
+      "poster": "src/effects/ui-droplets/poster.webp",
+      "scorecard": {
+        "compute": false,
+        "mobile": "untested",
+        "bundleKb": 54,
+        "gpuMs": [
+          {
+            "device": "Apple M1 Max (Metal)",
+            "ms": 1.049,
+            "resolution": "1920 × 1080"
+          }
+        ],
+        "features": {
+          "optional": [
+            "timestamp-query"
+          ]
+        },
+        "fallback": "A static poster with semantic HTML for the component and its content.",
+        "useCases": [
+          "Website components",
+          "Liquid interface research"
+        ]
+      }
+    },
+    {
+      "id": "water-cursor",
+      "title": "Water cursor trail",
+      "summary": "Pointer movement leaves a persistent wet streak that spreads and dries.",
+      "epic": "9",
+      "tier": "A",
+      "tags": [
+        "ui",
+        "web-native",
+        "interactive"
+      ],
+      "status": "ready",
+      "poster": "src/effects/water-cursor/poster.webp",
+      "scorecard": {
+        "compute": false,
+        "mobile": "untested",
+        "bundleKb": 54,
+        "gpuMs": [
+          {
+            "device": "Apple M1 Max (Metal)",
+            "ms": 0.175,
+            "resolution": "1920 × 1080"
+          }
+        ],
+        "features": {
+          "optional": [
+            "timestamp-query"
+          ]
+        },
+        "fallback": "A static poster with semantic HTML for the component and its content.",
+        "useCases": [
+          "Website components",
+          "Liquid interface research"
+        ]
+      }
+    },
+    {
+      "id": "bubbles",
+      "title": "Bubbles",
+      "summary": "Rising, wobbling underwater lenses and iridescent soap-film bubbles.",
+      "epic": "10",
+      "tier": "A",
+      "tags": [
+        "weather",
+        "water",
+        "ambient",
+        "particles"
+      ],
+      "status": "ready",
+      "poster": "src/effects/bubbles/poster.webp",
+      "scorecard": {
+        "compute": false,
+        "bundleKb": 9.85,
+        "gpuMs": [
+          {
+            "device": "Apple M1 Max (Dawn Metal)",
+            "ms": 0.328,
+            "resolution": "1920×1080, conservative measured configurations"
+          }
+        ],
+        "mobile": "untested",
+        "features": {
+          "required": []
+        },
+        "fallback": "The captured still poster; pause the animation under reduced motion.",
+        "useCases": [
+          "Weather backdrops, hero decoration and interactive feedback"
+        ]
+      }
+    },
+    {
+      "id": "fogged-glass",
+      "title": "Fogged glass",
+      "summary": "Persistent condensation can be wiped with a pointer and slowly refogs.",
+      "epic": "10",
+      "tier": "B",
+      "tags": [
+        "weather",
+        "water",
+        "interactive",
+        "glass"
+      ],
+      "status": "demo",
+      "poster": "src/effects/fogged-glass/poster.webp",
+      "scorecard": {
+        "compute": false,
+        "bundleKb": 9.85,
+        "gpuMs": [
+          {
+            "device": "Apple M1 Max (Dawn Metal)",
+            "ms": 1.442,
+            "resolution": "1920×1080, conservative measured configurations"
+          }
+        ],
+        "mobile": "untested",
+        "features": {
+          "required": []
+        },
+        "fallback": "The captured still poster; pause the animation under reduced motion.",
+        "useCases": [
+          "Hero windows, cards and interactive glass panels"
+        ]
+      }
+    },
+    {
+      "id": "frost-melt",
+      "title": "Frost and melt",
+      "summary": "Dendritic ice spreads over glass, thaws into refracting beads and drains downward.",
+      "epic": "10",
+      "tier": "B",
+      "tags": [
+        "weather",
+        "water",
+        "interactive",
+        "glass"
+      ],
+      "status": "demo",
+      "poster": "src/effects/frost-melt/poster.webp",
+      "scorecard": {
+        "compute": false,
+        "bundleKb": 9.85,
+        "gpuMs": [
+          {
+            "device": "Apple M1 Max (Dawn Metal)",
+            "ms": 0.59,
+            "resolution": "1920×1080, conservative measured configurations"
+          }
+        ],
+        "mobile": "untested",
+        "features": {
+          "required": []
+        },
+        "fallback": "The captured still poster; pause the animation under reduced motion.",
+        "useCases": [
+          "Hero windows, cards and interactive glass panels"
+        ]
+      }
+    },
+    {
+      "id": "rain-rings",
+      "title": "Rain ripple rings",
+      "summary": "Expanding wave rings refract a tiled water surface after procedural rain impacts.",
+      "epic": "10",
+      "tier": "A",
+      "tags": [
+        "weather",
+        "water",
+        "ambient",
+        "ripples"
+      ],
+      "status": "ready",
+      "poster": "src/effects/rain-rings/poster.webp",
+      "scorecard": {
+        "compute": false,
+        "bundleKb": 9.86,
+        "gpuMs": [
+          {
+            "device": "Apple M1 Max (Dawn Metal)",
+            "ms": 0.786,
+            "resolution": "1920×1080, conservative measured configurations"
+          }
+        ],
+        "mobile": "untested",
+        "features": {
+          "required": []
+        },
+        "fallback": "The captured still poster; pause the animation under reduced motion.",
+        "useCases": [
+          "Weather backdrops, hero decoration and interactive feedback"
+        ]
+      }
+    },
+    {
+      "id": "rain-streaks",
+      "title": "Rain streaks and splashes",
+      "summary": "Depth-layered instanced rain, wind, ground rings and ballistic splash droplets.",
+      "epic": "10",
+      "tier": "A",
+      "tags": [
+        "weather",
+        "water",
+        "ambient",
+        "particles"
+      ],
+      "status": "ready",
+      "poster": "src/effects/rain-streaks/poster.webp",
+      "scorecard": {
+        "compute": false,
+        "bundleKb": 9.86,
+        "gpuMs": [
+          {
+            "device": "Apple M1 Max (Dawn Metal)",
+            "ms": 0.328,
+            "resolution": "1920×1080, conservative measured configurations"
+          }
+        ],
+        "mobile": "untested",
+        "features": {
+          "required": []
+        },
+        "fallback": "The captured still poster; pause the animation under reduced motion.",
+        "useCases": [
+          "Weather backdrops, hero decoration and interactive feedback"
+        ]
+      }
+    },
+    {
+      "id": "splash-burst",
+      "title": "Splash burst",
+      "summary": "Bounded ballistic droplet bursts on click or tap, with optional ambient fountains.",
+      "epic": "10",
+      "tier": "A",
+      "tags": [
+        "weather",
+        "water",
+        "interactive",
+        "particles"
+      ],
+      "status": "ready",
+      "poster": "src/effects/splash-burst/poster.webp",
+      "scorecard": {
+        "compute": false,
+        "bundleKb": 9.86,
+        "gpuMs": [
+          {
+            "device": "Apple M1 Max (Dawn Metal)",
+            "ms": 0.197,
+            "resolution": "1920×1080, conservative measured configurations"
+          }
+        ],
+        "mobile": "untested",
+        "features": {
+          "required": []
+        },
+        "fallback": "The captured still poster; pause the animation under reduced motion.",
+        "useCases": [
+          "Weather backdrops, hero decoration and interactive feedback"
+        ]
+      }
+    }
+  ]
+}

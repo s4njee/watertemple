@@ -20,7 +20,8 @@
     "study:weather": "WEATHER_STUDY=docs/weather-cost-study.json vitest run tests/weather-study.test.ts --maxWorkers=1",
     "report:weather": "node scripts/weather-report.mjs",
     "prebuild": "npm run registry",
-    "registry": "node scripts/registry.mjs"
+    "registry": "node scripts/registry.mjs",
+    "catalogue": "node scripts/catalogue.mjs"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
